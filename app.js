@@ -527,7 +527,7 @@ function viewNotFound(){
    6. Chrome : nav, switch de langue, pied de page
    ========================================================= */
 const NAVITEMS = [
-  ['home','#/','home'],['projects','#/projets','layers'],['articles','#/articles','articles-text'],
+  ['home','#/','home'],['projects','#/projets','layers'],['articles','#/articles','notebook-text'],
   ['problems','#/problemes','sigma'],['contact','#/contact','at-sign']
 ];
 function renderChrome(){
