@@ -1,12 +1,140 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website</title>
-    <link rel="stylesheet" href="style.css">
+<!-- skill:chrome -->
+<style>
+/* Credit line — bottom-right */
+.design-ui-credit {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  font: 11px/1 system-ui, sans-serif;
+  color: rgba(128,128,128,0.5);
+  pointer-events: none;
+  z-index: 2147483647;
+  transition: opacity 0.4s ease;
+  user-select: none;
+  letter-spacing: 0.02em;
+}
+
+/* Hide chrome on touch devices */
+@media (hover: none) {
+  .design-ui-credit { display: none; }
+}
+
+/* Print fixes */
+@media print {
+  * {
+    transition: none !important;
+    animation: none !important;
+    box-shadow: none !important;
+  }
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .design-ui-credit { display: none !important; }
+}
+
+</style>
+<script>
+(function () {
+    // Design-ui pages are single compositions, so the whole body is editable.
+    function markEditable() {
+        document.body.classList.add('artifact-editable');
+    }
+
+    // Credit badge with idle-fade. Hover devices only.
+    function initChromeUI() {
+        if (!matchMedia('(hover: hover)').matches) return;
+
+        var credit = document.createElement('div');
+        credit.className = 'design-ui-credit';
+        credit.setAttribute('aria-hidden', 'true');
+        credit.innerHTML = '\u{1F49C} by ClickUp Brain';
+        document.body.appendChild(credit);
+
+        var timer = null;
+        var fade = function (out) { credit.style.opacity = out ? '0' : ''; };
+        fade(true);
+        var show = function () {
+            fade(false);
+            clearTimeout(timer);
+            timer = setTimeout(function () { fade(true); }, 3000);
+        };
+        document.addEventListener('mousemove', show);
+        show();
+    }
+
+    function init() {
+        markEditable();
+        initChromeUI();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+
+</script>
+<!-- /skill:chrome -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Antoine C. — Mathématiques, informatique, écrits</title>
+<meta name="description" content="Site personnel d'Antoine C. : profil, projets, carnet d'articles et problèmes rédigés. Personal site: profile, projects, notebook, problems.">
+<meta name="color-scheme" content="light">
+
+<!-- Typographie -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- LaTeX : KaTeX rend réellement les formules -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+
+<!-- Feuille de style du site -->
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Antoine TR</h1>
+
+<a class="skip" href="#main">Aller au contenu · Skip to content</a>
+
+<header class="topbar">
+  <div class="wrap topbar__in">
+    <a class="wordmark" href="#/"><b>Antoine C.</b><i>·</i></a>
+    <div class="topbar__right">
+      <nav class="navlinks" id="nav" aria-label="Navigation"></nav>
+      <div class="langtoggle" id="lang" role="group" aria-label="Langue / Language"></div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <noscript>
+    <div class="wrap noscript">
+      <p><strong>Ce site a besoin de JavaScript</strong> pour afficher les articles et les formules mathématiques.<br>
+      <em>This site needs JavaScript to render the articles and the mathematics.</em></p>
+    </div>
+  </noscript>
+</main>
+
+<footer><div class="wrap foot" id="foot"></div></footer>
+
+<nav class="tabbar" id="tabbar" aria-label="Navigation"></nav>
+
+<!-- KaTeX signale sa disponibilité ; app.js redessine la vue si besoin -->
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
+        crossorigin="anonymous"
+        onload="document.dispatchEvent(new Event('katex:ready'))"></script>
+
+<!-- Icônes -->
+<script defer src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+
+<!-- Contenu, puis application (l'ordre compte) -->
+<script defer src="content.js"></script>
+<script defer src="app.js"></script>
+
 </body>
 </html>
