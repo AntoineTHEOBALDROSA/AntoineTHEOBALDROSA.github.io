@@ -582,7 +582,7 @@ function route(keepScroll){
     [...g.children].forEach((c,i) => c.style.setProperty('--i', Math.min(i,10))));
 
   const h1 = main.querySelector('h1');
-  document.title = (h1 ? plain(h1.textContent) + ' — ' : '') + 'Antoine THEOBALD--ROSA';
+  document.title = 'Antoine THEOBALD--ROSA';
   document.querySelectorAll('#nav a, #tabbar a').forEach(a =>
     a.dataset.k === key ? a.setAttribute('aria-current','page') : a.removeAttribute('aria-current'));
 

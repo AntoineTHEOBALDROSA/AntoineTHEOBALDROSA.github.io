@@ -906,80 +906,86 @@ La régression quantile a réduit le biais sur les aires d’un facteur cinq, po
    ========================================================= */
 problems:[
 
-{id:'P-021',slug:'marche-tetraedre',date:'2026-07-12',level:2,tags:['math','probability'],
- fr:{title:'Marche aléatoire sur un tétraèdre',
-  blurb:'Une fourmi se promène sur les arêtes. Combien de temps met-elle à revenir chez elle ?',
+// P-001
+{id:'P-001',slug:'gros-facteur-premier',date:'2026-07-29',level:2,tags:['math','numbertheory'],
+ fr:{title:'Facteurs premiers de gros nombres',
+  blurb:'Comment exhiber des facteurs premiers de nombres gigantesques ?',
   statement:String.raw`
-Une fourmi part d’un sommet $A$ d’un tétraèdre régulier $ABCD$. À chaque étape, elle choisit uniformément au hasard l’une des trois arêtes partant de son sommet actuel et l’emprunte.
+Le premier exercice est le A2 du Putnam de 2015. Le deuxième exercice concerne les nombres de Fermat.
 
-1. Calculer l’espérance du nombre d’étapes nécessaires pour revenir en $A$ pour la première fois.
-2. Calculer la probabilité $p_n$ que la fourmi se trouve en $A$ après $n$ étapes, et en donner la limite.
-3. Généraliser au graphe complet $K_k$ et commenter le comportement lorsque $k \to \infty$.
+1. Soit $a_0=1, a_1 = 2$ et $a_n = 4a_{n-1} - a_{n-2}$ pour $n\geq 2$. Donner un facteur premier impair de $a_{2015}$.  
+2. Donner un facteur premier de $F_5 = 2^{2^5} + 1$.
 `,
   hint:String.raw`
-Les trois sommets autres que $A$ jouent exactement le même rôle. Le processus se réduit donc à une chaîne de Markov à deux états, « en $A$ » et « ailleurs », de matrice de transition
-
-$$P = \begin{pmatrix} 0 & 1 \\ 1/3 & 2/3 \end{pmatrix}$$
+1. Si $k$ est impair, démontrer que $a_n$ divise $a_{kn}$.
+2. Si $p$ divise $F_n=2^{2^n} + 1$, quel est l'ordre de $2$ dans $(\Z/p\Z)^\times$ ? Qu'en déduire sur $p$ ? 
 `,
   solution:String.raw`
-**1.** Notons $e$ l’espérance du temps d’atteinte de $A$ depuis un sommet différent de $A$. Depuis $A$, la fourmi arrive nécessairement sur un autre sommet en une étape, donc le temps de retour vaut $1 + e$. Depuis un sommet $\neq A$, elle atteint $A$ avec probabilité $1/3$, sinon elle se retrouve dans un état équivalent :
+**1.** Avec $\alpha = 2+\sqrt3$ et $\beta = 2-\sqrt3$ tels que $\alpha\beta = 1$, on a pour $n\geq 2$ :
+$$a_n=\frac12 \left(\alpha^n +\beta^n\right)$$
+Ainsi, si $k$ est impair, $a_{kn} = \frac{\left(\alpha^n +\beta^n\right)}{2} \cdot \sum_{i = 0}^{k-1}(-1)^i\alpha ^{ni}\beta^{n(k-1-i)}$ et la somme est entière car on peut grouper les termes par deux $(-1)^{k-1}\alpha^{n(k-1)} + \beta^{n(k-1)}$, $(-1)^{k-2}\alpha^{n(k-2)}\beta + \alpha\beta^{n(k-1)} = (-1)^k\alpha^{k-3} - \beta^{k-3}, \ldots$ et comme $k$ est impair ces termes valent respectivement $2a_{n(k-1)}, -2a_{n(k-3)}, \ldots$ et sont donc entiers, et leur somme aussi. $\\$ 
+On a donc montré que $a_n$ divise $a_{kn}$. 
 
-$$e = 1 + \tfrac{2}{3}\,e \quad \Longrightarrow \quad e = 3$$
+Comme $2015 = 5\cdot 403$, $a_5$ divise $a_{2015}$. Or $a_5 = 362 = 2\cdot 181$ et $181$ est premier. $\\$
+Donc $181$ est un facteur premier impair de $a_{2015}$.
 
-Le temps de retour attendu vaut donc $\mathbb{E}[T_A] = 4$ étapes. C’est cohérent avec le résultat général sur les chaînes irréductibles : $\mathbb{E}[T_A] = 1/\pi_A$, ici $\pi_A = 1/4$ par symétrie.
+**2.** On raisonne sur $F_n=2^{2^n}+1$ pour trouver une condition sur $p$ dans le cas général.
 
-**2.** La relation de récurrence est
+Si $p$ est un facteur premier de $F_n = 2^{2^n}+1$, alors $2^{2^n}\equiv -1\pmod p$ ce qui montre que l'ordre de $2$ dans $(\Z/p\Z)^\times$ est $2^{n+1}$.
+$\\ \emph{En effet}, \ 2^{2^{n+1}}\equiv1\pmod p$, donc l'ordre de $2$ est un diviseur de $2^{n+1}$ c'est à dire un $2^k$ et $2^{2^k} \neq 1 \pmod p$ pour $k \lt 2^{n+1}$ car on aurait $2^{2^n}\equiv 1 \pmod p$.
 
-$$p_{n+1} = \frac{1 - p_n}{3}, \qquad p_0 = 1$$
+Comme l'ordre d'un élément divise le cardinal du groupe, $2^{n+1}$ divise $p-1$, c'est à dire 
+$$p = k2^{n+1} + 1\quad \text{pour un } k\in \N$$
+Pour $n=5$, un diviseur premier de $F_5$ est de la forme $p=64k +1$.
+On essaye $p = 65, 129, 193, 257, 321, 385, 449, 513, 577, 641$ (en évitant $65, 129, 321, 385, 513$ qui ne sont pas premiers) pour finalement trouver que $641$ divise $F_5$.
 
-Suite arithmético-géométrique de point fixe $1/4$, d’où
-
-$$p_n = \frac{1}{4} + \frac{3}{4}\left(-\frac{1}{3}\right)^{n} \xrightarrow[n\to\infty]{} \frac{1}{4}$$
-
-La convergence est géométrique de raison $1/3$, en oscillant autour de la limite.
-
-**3.** Sur $K_k$, le même raisonnement donne $\mathbb{E}[T_A] = k$ et
-
-$$p_n = \frac{1}{k} + \left(1 - \frac{1}{k}\right)\left(\frac{-1}{k-1}\right)^{n}$$
-
-Quand $k$ grandit, la convergence vers l’équilibre s’accélère (raison $1/(k-1)$) alors que le temps de retour croît linéairement : le marcheur oublie vite d’où il vient, mais met longtemps à y retourner.
+$\underline{Bonus:}$ On peut faire mieux comme critère de divisibilité si on sait le fait suivant : 
+$$\text{Si } 8 \mid p-1, \quad\text{ alors } 2 \text{ est un carré modulo }p$$ 
+Supposons $n\geq 2$, de sorte que $2^{n+1}\geq 8$. Comme $p=k2^{n+1}+1$, alors $8 \mid p-1$ et donc $2$ est un carré modulo $p$, donc $2^{\frac{p-1}{2}}\equiv 1 \pmod p$ par le petit théorème de Fermat donc l'ordre de $2$, qui est $2^{n+1}$, divise $\frac{p-1}{2}$, donc $p$ est de la forme
+$$p = k2^{n+2} + 1$$
+Pour $n=5$, il faut tester $p=128k + 1$, soit en retirant les $p$ composés, il suffit de tester $p=257$ et $p=641$ seulement!
 `},
- en:{title:'Random walk on a tetrahedron',
-  blurb:'An ant wanders along the edges. How long until it gets back home?',
+ en:{title:'Prime factors of large numbers',
+  blurb:'How can one exhibit prime factors of gigantic numbers?',
   statement:String.raw`
-An ant starts at a vertex $A$ of a regular tetrahedron $ABCD$. At each step it picks one of the three edges leaving its current vertex uniformly at random and walks along it.
+The first exercise is Putnam 2015 A2. The second exercise concerns Fermat numbers.
 
-1. Compute the expected number of steps needed to return to $A$ for the first time.
-2. Compute the probability $p_n$ of being at $A$ after $n$ steps, and give its limit.
-3. Generalise to the complete graph $K_k$ and comment on the behaviour as $k \to \infty$.
+1. Let $a_0=1, a_1 = 2$ and $a_n = 4a_{n-1} - a_{n-2}$ for $n\geq 2$. Give an odd prime factor of $a_{2015}$.  
+2. Give a prime factor of $F_5 = 2^{2^5} + 1$.
 `,
   hint:String.raw`
-The three vertices other than $A$ play exactly the same role. The process therefore reduces to a two-state Markov chain, "at $A$" and "elsewhere", with transition matrix
-
-$$P = \begin{pmatrix} 0 & 1 \\ 1/3 & 2/3 \end{pmatrix}$$
+1. If $k$ is odd, prove that $a_n$ divides $a_{kn}$.
+2. If $p$ divides $F_n=2^{2^n} + 1$, what is the order of $2$ in $(\Z/p\Z)^\times$? What can you deduce about $p$? 
 `,
   solution:String.raw`
-**1.** Let $e$ be the expected hitting time of $A$ from any vertex other than $A$. From $A$ the ant necessarily lands on another vertex in one step, so the return time is $1 + e$. From a vertex $\neq A$ it reaches $A$ with probability $1/3$, otherwise it lands in an equivalent state:
+**1.** With $\alpha = 2+\sqrt3$ and $\beta = 2-\sqrt3$ such that $\alpha\beta = 1$, for $n\geq 2$ we have:
+$$a_n=\frac12 \left(\alpha^n +\beta^n\right)$$
+Thus, if $k$ is odd, 
+$a_{kn} = \frac{\left(\alpha^n +\beta^n\right)}{2} \cdot \sum_{i = 0}^{k-1}(-1)^i\alpha ^{ni}\beta^{n(k-1-i)}$ 
+and the sum is an integer because we can group the terms in pairs 
+$(-1)^{k-1}\alpha^{n(k-1)} + \beta^{n(k-1)}$, 
+$(-1)^{k-2}\alpha^{n(k-2)}\beta + \alpha\beta^{n(k-1)} = (-1)^k\alpha^{k-3} - \beta^{k-3}, \ldots$ 
+and since $k$ is odd these terms are respectively $2a_{n(k-1)}, -2a_{n(k-3)}, \ldots$ and are therefore integers, and so is their sum. $\\$ 
+We have thus shown that $a_n$ divides $a_{kn}$. 
 
-$$e = 1 + \tfrac{2}{3}\,e \quad \Longrightarrow \quad e = 3$$
+Since $2015 = 5\cdot 403$, $a_5$ divides $a_{2015}$. But $a_5 = 362 = 2\cdot 181$ and $181$ is prime. $\\$
+Therefore $181$ is an odd prime factor of $a_{2015}$.
 
-Hence $\mathbb{E}[T_A] = 4$ steps, consistent with the general result for irreducible chains, $\mathbb{E}[T_A] = 1/\pi_A$, with $\pi_A = 1/4$ by symmetry.
+**2.** We reason on $F_n=2^{2^n}+1$ to find a condition on $p$ in the general case.
 
-**2.** The recursion is
+If $p$ is a prime factor of $F_n = 2^{2^n}+1$, then $2^{2^n}\equiv -1\pmod p$, which shows that the order of $2$ in $(\Z/p\Z)^\times$ is $2^{n+1}$.
+$\\ \emph{Indeed}, \ 2^{2^{n+1}}\equiv1\pmod p$, so the order of $2$ is a divisor of $2^{n+1}$, i.e. of the form $2^k$, and $2^{2^k} \neq 1 \pmod p$ for $k \lt 2^{n+1}$, since otherwise we would have $2^{2^n}\equiv 1 \pmod p$.
 
-$$p_{n+1} = \frac{1 - p_n}{3}, \qquad p_0 = 1$$
+Since the order of an element divides the cardinality of the group, $2^{n+1}$ divides $p-1$, that is,
+$$p = k2^{n+1} + 1\quad \text{for some } k\in \N$$
+For $n=5$, a prime divisor of $F_5$ is of the form $p=64k +1$.
+We try $p = 65, 129, 193, 257, 321, 385, 449, 513, 577, 641$ (excluding $65, 129, 321, 385, 513$ which are not prime) and finally find that $641$ divides $F_5$.
 
-an affine recursion with fixed point $1/4$, so
-
-$$p_n = \frac{1}{4} + \frac{3}{4}\left(-\frac{1}{3}\right)^{n} \xrightarrow[n\to\infty]{} \frac{1}{4}$$
-
-Convergence is geometric with ratio $1/3$, oscillating around the limit.
-
-**3.** On $K_k$ the same argument gives $\mathbb{E}[T_A] = k$ and
-
-$$p_n = \frac{1}{k} + \left(1 - \frac{1}{k}\right)\left(\frac{-1}{k-1}\right)^{n}$$
-
-As $k$ grows, convergence to equilibrium accelerates (ratio $1/(k-1)$) while the return time grows linearly: the walker forgets where it came from quickly, but takes a long time to go back.
+$\underline{Bonus:}$ One can do better as a divisibility criterion using the following fact:
+$$\text{If } 8 \mid p-1, \quad\text{ then } 2 \text{ is a quadratic residue modulo }p$$ 
+Assume $n\geq 2$, so that $2^{n+1}\geq 8$. Since $p=k2^{n+1}+1$, then $8 \mid p-1$ and hence $2$ is a square modulo $p$, so $2^{\frac{p-1}{2}}\equiv 1 \pmod p$ by Fermat's little theorem. Thus the order of $2$, which is $2^{n+1}$, divides $\frac{p-1}{2}$, so $p$ is of the form
+$$p = k2^{n+2} + 1$$
+For $n=5$, one must test $p=128k + 1$, so excluding composite $p$, it suffices to test $p=257$ and $p=641$ only! 
 `}},
 
 {id:'P-020',slug:'tri-qui-nen-est-pas-un',date:'2026-06-30',level:1,tags:['cs','algorithms'],
@@ -1044,38 +1050,6 @@ $$h \;\geq\; \log_2(n!) \;=\; n\log_2 n - \frac{n}{\ln 2} + O(\log n) \;=\; \The
 by Stirling's formula. No comparison sort can be linear in the worst case, which says nothing against sorts exploiting key structure, such as radix sort.
 `}},
 
-{id:'P-019',slug:'deux-cordes-une-poulie',date:'2026-06-05',level:2,tags:['physics','mechanics'],
- fr:{title:'Deux cordes et une poulie',
-  blurb:'Un problème de statique où l’intuition se trompe d’un facteur deux, et une question d’énergie pour trancher.',
-  statement:String.raw`
-Une poulie idéale, de masse négligeable, est suspendue au plafond. Une corde inextensible passe dessus ; à ses extrémités pendent deux masses $m_1 = 3\ \mathrm{kg}$ et $m_2 = 5\ \mathrm{kg}$. On lâche le système sans vitesse initiale.
-
-1. Calculer l’accélération des masses et la tension de la corde.
-2. Calculer la force exercée par la poulie sur le plafond. Est-elle égale au poids total ?
-3. Vérifier le résultat par un bilan d’énergie après une chute de hauteur $h$.
-`,
-  hint:String.raw`
-Pour la question 2, écrivez l’équilibre de la poulie seule : elle est de masse négligeable, donc la somme des forces qu’elle subit est nulle. Combien de brins de corde tirent vers le bas ?
-`,
-  solution:String.raw`
-**1.** Avec l’axe orienté dans le sens du mouvement, les deux équations du mouvement donnent
-
-$$a = g\,\frac{m_2 - m_1}{m_1 + m_2} = 2{,}45\ \mathrm{m\cdot s^{-2}}, \qquad T = \frac{2 m_1 m_2 g}{m_1 + m_2} = 36{,}8\ \mathrm{N}$$
-
-**2.** La poulie subit deux brins tendus, chacun à la tension $T$, et la force du plafond. Sa masse étant négligeable,
-
-$$F = 2T = 73{,}5\ \mathrm{N} \quad < \quad (m_1 + m_2)g = 78{,}5\ \mathrm{N}$$
-
-La force sur le plafond est donc **inférieure** au poids total, d’environ $5\ \mathrm{N}$, parce que le centre de masse du système accélère vers le bas : la masse qui descend est la plus lourde. La différence vaut exactement $(m_2 - m_1)a$.
-
-**3.** Après une chute de hauteur $h$, l’énergie potentielle perdue est $(m_2 - m_1)gh$ et l’énergie cinétique gagnée $\tfrac{1}{2}(m_1+m_2)v^2$. L’égalité donne
-
-$$v^2 = \frac{2gh\,(m_2-m_1)}{m_1+m_2} = 2ah$$
-
-ce qui est bien la relation du mouvement uniformément accéléré et confirme la valeur de $a$.
-`},
- en:{title:'Two ropes and a pulley',
-  blurb:'A statics problem where intuition is off by a factor of two, and an energy argument to settle it.'}},
 
 {id:'P-018',slug:'somme-inverses-carres',date:'2026-05-19',level:3,tags:['math','analysis'],
  fr:{title:'Somme des inverses des carrés, sans Fourier',
@@ -1114,211 +1088,7 @@ Les deux bornes tendent vers $\dfrac{2\pi^2 n^2}{12 n^2} = \dfrac{\pi^2}{6}$, le
 **3.** L’imparité de $N$ garantit que les $n$ valeurs $\cot^2(k\pi/N)$, pour $k = 1,\dots,n$, sont exactement les $n$ racines distinctes du polynôme obtenu en développant $\sin(Nx)$ : aucun des $x_k$ ne vaut $\pi/2$, où la cotangente s’annulerait et ferait chuter le degré. C’est ce qui permet d’identifier la somme des racines à $n(2n-1)/3$ par les relations coefficients-racines.
 `},
  en:{title:'Sum of reciprocal squares, without Fourier',
-  blurb:'Proving $\zeta(2) = \pi^2/6$ with nothing but a trigonometric inequality and the squeeze theorem.'}},
+  blurb:'Proving $\zeta(2) = \pi^2/6$ with nothing but a trigonometric inequality and the squeeze theorem.'}
+},
 
-{id:'P-017',slug:'compter-arbres-binaires',date:'2026-04-24',level:2,tags:['cs','combinatorics'],
- fr:{title:'Compter les arbres binaires',
-  blurb:'Une récurrence, une série génératrice, et une borne asymptotique qui explique pourquoi l’énumération exhaustive est sans espoir.',
-  statement:String.raw`
-Soit $C_n$ le nombre d’arbres binaires à $n$ nœuds internes, les sous-arbres gauche et droit étant distingués.
-
-1. Établir une relation de récurrence sur $C_n$ et calculer les six premiers termes.
-2. En déduire l’équation vérifiée par la série génératrice $C(x) = \sum_{n\geq 0} C_n x^n$, puis une formule fermée pour $C_n$.
-3. Donner l’équivalent asymptotique et estimer $C_{30}$. Que conclure sur une recherche exhaustive d’arbres de décision à 30 tests ?
-`,
-  hint:String.raw`
-Décomposez selon la taille du sous-arbre gauche. Si celui-ci a $k$ nœuds, combien en a le droit ? La récurrence obtenue est une convolution, ce qui suggère un produit de séries.
-`,
-  solution:String.raw`
-**1.** Un arbre à $n \geq 1$ nœuds internes possède une racine, un sous-arbre gauche à $k$ nœuds et un sous-arbre droit à $n-1-k$ nœuds :
-
-$$C_n = \sum_{k=0}^{n-1} C_k\, C_{n-1-k}, \qquad C_0 = 1$$
-
-On obtient $1, 1, 2, 5, 14, 42$.
-
-**2.** La convolution se traduit par $C(x) = 1 + x\,C(x)^2$, équation du second degré dont la racine analytique en $0$ est
-
-$$C(x) = \frac{1 - \sqrt{1-4x}}{2x}$$
-
-Le développement du binôme donne les nombres de Catalan :
-
-$$C_n = \frac{1}{n+1}\binom{2n}{n}$$
-
-**3.** Par la formule de Stirling,
-
-$$C_n \sim \frac{4^n}{n^{3/2}\sqrt{\pi}}$$
-
-Le facteur $4^n$ domine tout : $C_{30} \approx 3{,}8 \times 10^{15}$. Énumérer tous les arbres de décision à 30 tests est donc hors de portée, même à un milliard d’arbres par seconde (plus de six semaines de calcul, et chaque test supplémentaire multiplie le coût par près de quatre). C’est exactement la raison pour laquelle l’apprentissage d’arbres de décision se fait par heuristique gloutonne, et pourquoi trouver l’arbre optimal est NP-difficile.
-`},
- en:{title:'Counting binary trees',
-  blurb:'A recursion, a generating function, and an asymptotic bound explaining why exhaustive enumeration is hopeless.'}},
-
-{id:'P-016',slug:'ciel-pas-violet',date:'2026-03-30',level:2,tags:['physics'],
- fr:{title:'Pourquoi le ciel n’est pas violet',
-  blurb:'La diffusion de Rayleigh varie comme $\lambda^{-4}$, donc le violet devrait gagner. Il ne gagne pas. Trouver les deux raisons.',
-  statement:String.raw`
-L’intensité diffusée par les molécules de l’atmosphère varie comme $\lambda^{-4}$ (diffusion de Rayleigh).
-
-1. Calculer le rapport d’intensité diffusée entre le violet ($400\ \mathrm{nm}$) et le bleu ($470\ \mathrm{nm}$), puis entre le violet et le rouge ($700\ \mathrm{nm}$).
-2. Le violet étant plus diffusé que le bleu, expliquer quantitativement pourquoi le ciel apparaît bleu.
-3. Prédire la couleur du ciel au zénith sur une planète dont l’atmosphère aurait la même loi de diffusion, mais dont l’étoile émettrait son maximum dans l’infrarouge.
-`,
-  hint:String.raw`
-Deux facteurs multiplient le spectre diffusé avant qu’il n’arrive au cerveau : le spectre incident de l’étoile, et la sensibilité des cônes de l’œil. Regardez où se situent leurs maxima respectifs.
-`,
-  solution:String.raw`
-**1.** Le rapport vaut
-
-$$\frac{I_{400}}{I_{470}} = \left(\frac{470}{400}\right)^{4} \approx 1{,}9, \qquad \frac{I_{400}}{I_{700}} = \left(\frac{700}{400}\right)^{4} \approx 9{,}4$$
-
-**2.** Deux effets s’opposent à ce facteur $1{,}9$. D’abord le spectre solaire : le rayonnement du Soleil atteint son maximum vers $500\ \mathrm{nm}$ et décroît nettement en dessous de $420\ \mathrm{nm}$, si bien qu’il y a moins de violet disponible à diffuser. Ensuite la réponse de l’œil : les trois types de cônes ont une sensibilité faible vers $400\ \mathrm{nm}$. La couleur perçue résulte du produit des trois courbes,
-
-$$C \;=\; \int I_\odot(\lambda)\, \lambda^{-4}\, \bar{s}(\lambda)\, \mathrm{d}\lambda$$
-
-et ce produit culmine dans le bleu. Le ciel n’est pas bleu parce que le bleu est le plus diffusé, mais parce que le bleu est le plus diffusé *parmi ce que l’on reçoit et que l’on peut voir*.
-
-**3.** Avec une étoile émettant surtout dans l’infrarouge, la partie visible du spectre incident serait fortement déséquilibrée vers le rouge. La loi en $\lambda^{-4}$ favoriserait toujours les courtes longueurs d’onde, mais il y en aurait très peu à diffuser : le ciel apparaîtrait terne, grisâtre à rougeâtre, et surtout beaucoup plus sombre au zénith. On retrouve, en version permanente, ce que produit chez nous un coucher de soleil, où le trajet allongé dans l’atmosphère appauvrit la lumière incidente en courtes longueurs d’onde.
-`},
- en:{title:'Why the sky is not violet',
-  blurb:'Rayleigh scattering goes as $\lambda^{-4}$, so violet should win. It does not. Find the two reasons.'}},
-
-{id:'P-015',slug:'invariant-jetons',date:'2026-02-11',level:2,tags:['math','algebra'],
- fr:{title:'Un invariant pour un jeu de jetons',
-  blurb:'Un tableau, trois jetons, une règle de déplacement. Certaines configurations sont inaccessibles : le prouver.',
-  statement:String.raw`
-Trois jetons occupent les cases $(0,0)$, $(0,1)$ et $(1,0)$ d’une grille $\mathbb{N} \times \mathbb{N}$. Un coup consiste à retirer un jeton d’une case $(i,j)$ et à placer un jeton en $(i+1,j)$ et un en $(i,j+1)$, à condition que ces deux cases soient libres.
-
-1. Montrer qu’il est impossible de vider entièrement le carré $2 \times 2$ formé des cases $(0,0)$, $(0,1)$, $(1,0)$, $(1,1)$.
-2. Généraliser : caractériser les régions qu’il est impossible de vider.
-3. Que devient le résultat si l’on autorise plusieurs jetons sur une même case ?
-`,
-  hint:String.raw`
-Cherchez une fonction de poids $w(i,j)$ telle que la somme des poids des jetons soit invariante. Essayez $w(i,j) = x^i y^j$ et déterminez les contraintes sur $x$ et $y$.
-`,
-  solution:String.raw`
-**1.** Cherchons un poids multiplicatif $w(i,j) = x^i y^j$. Un coup remplace $x^i y^j$ par $x^{i+1}y^j + x^i y^{j+1}$, donc la somme est invariante si et seulement si
-
-$$1 = x + y$$
-
-Prenons $x = y = \tfrac{1}{2}$ : le poids d’une case vaut $2^{-(i+j)}$ et la somme totale est conservée par tout coup. La configuration initiale pèse
-
-$$1 + \tfrac{1}{2} + \tfrac{1}{2} = 2$$
-
-Or le poids de la grille entière vaut $\sum_{i,j\geq 0} 2^{-(i+j)} = 4$, et celui du carré $2\times 2$ vaut $1 + \tfrac12 + \tfrac12 + \tfrac14 = \tfrac94$. Le complémentaire du carré pèse donc $4 - \tfrac94 = \tfrac74 < 2$. Une configuration entièrement située hors du carré pèserait au plus $\tfrac74$, strictement moins que $2$ : vider le carré est impossible.
-
-**2.** Le même argument s’applique à toute région $R$ dont le complémentaire a un poids total strictement inférieur au poids initial :
-
-$$\sum_{(i,j)\notin R} 2^{-(i+j)} \;<\; \sum_{\text{jetons}} 2^{-(i+j)}$$
-
-C’est le cas pour tout escalier contenant la diagonale $i + j \leq 1$. L’invariant fournit une obstruction, pas une condition suffisante : montrer qu’une configuration est atteignable demande une construction explicite.
-
-**3.** L’invariant de poids ne dépend pas de la condition « cases libres » : il reste valable si l’on empile des jetons. L’impossibilité subsiste donc, et c’est ce qui rend cet argument robuste : il ne repose sur aucune contrainte géométrique, seulement sur une identité algébrique.
-`},
- en:{title:'An invariant for a token game',
-  blurb:'A grid, three tokens, one move rule. Some configurations are unreachable: prove it.'}},
-
-{id:'P-014',slug:'hachage-anniversaires',date:'2025-12-08',level:1,tags:['cs','probability'],
- fr:{title:'Hachage et anniversaires',
-  blurb:'Combien de clés avant la première collision ? La réponse est plus petite que tout le monde ne le pense.',
-  statement:String.raw`
-Une fonction de hachage renvoie une valeur uniforme parmi $m$ possibles.
-
-1. Donner la probabilité qu’aucune collision n’apparaisse après insertion de $n$ clés distinctes.
-2. Estimer le $n$ pour lequel cette probabilité passe sous $1/2$, en fonction de $m$.
-3. Combien d’identifiants aléatoires de 64 bits peut-on tirer avant d’avoir une chance sur un million de collision ?
-`,
-  hint:String.raw`
-Utilisez $\ln(1-u) \approx -u$ pour $u$ petit, ainsi que $\sum_{k=0}^{n-1} k = \frac{n(n-1)}{2}$.
-`,
-  solution:String.raw`
-**1.** En insérant les clés une à une, la $k$-ième trouve $k-1$ cases occupées :
-
-$$\mathbb{P}(\text{aucune collision}) = \prod_{k=0}^{n-1}\left(1 - \frac{k}{m}\right)$$
-
-**2.** En passant au logarithme et en approchant $\ln(1 - k/m) \approx -k/m$ :
-
-$$\ln \mathbb{P} \approx -\frac{n(n-1)}{2m}$$
-
-Ce logarithme atteint $-\ln 2$ pour
-
-$$n \approx \sqrt{2m\ln 2} \approx 1{,}177\sqrt{m}$$
-
-C’est le paradoxe des anniversaires : le seuil est en $\sqrt{m}$, pas en $m$. Pour $m = 365$ on retrouve $n \approx 22{,}5$, cohérent avec la valeur exacte $23$.
-
-**3.** Pour une probabilité de collision $p$ petite, $p \approx \dfrac{n^2}{2m}$, donc $n \approx \sqrt{2mp}$. Avec $m = 2^{64}$ et $p = 10^{-6}$ :
-
-$$n \approx \sqrt{2 \cdot 1{,}8\times10^{19} \cdot 10^{-6}} \approx 6\times 10^{6}$$
-
-Six millions d’identifiants suffisent pour atteindre ce risque : c’est peu à l’échelle d’une base de données, et c’est la raison pour laquelle les identifiants uniques sérieux font 128 bits.
-`},
- en:{title:'Hashing and birthdays',
-  blurb:'How many keys before the first collision? The answer is smaller than everyone expects.'}},
-
-{id:'P-013',slug:'tunnel-terre',date:'2025-10-22',level:3,tags:['physics','mechanics'],
- fr:{title:'Chute dans un tunnel traversant la Terre',
-  blurb:'Un tunnel rectiligne quelconque, pas seulement diamétral. Le temps de trajet ne dépend pas de la destination.',
-  statement:String.raw`
-On suppose la Terre sphérique, de rayon $R$, de masse volumique uniforme $\rho$, et l’on néglige tout frottement ainsi que la rotation.
-
-1. Montrer que le champ de gravitation à l’intérieur est proportionnel à la distance au centre.
-2. On creuse un tunnel rectiligne entre deux points de la surface, sans passer par le centre. Établir l’équation du mouvement d’un objet lâché sans vitesse initiale et calculer la durée du trajet.
-3. Commenter le résultat et calculer la valeur numérique avec les données terrestres moyennes.
-`,
-  hint:String.raw`
-Question 2 : projetez le champ sur l’axe du tunnel. La composante utile est proportionnelle à la coordonnée le long du tunnel, indépendamment de la distance minimale au centre.
-`,
-  solution:String.raw`
-**1.** Le théorème de Gauss appliqué à une sphère de rayon $r < R$ ne retient que la masse intérieure $M(r) = \tfrac{4}{3}\pi\rho r^3$, d’où
-
-$$g(r) = \frac{G M(r)}{r^2} = \frac{4}{3}\pi G \rho\, r$$
-
-dirigé vers le centre : le champ croît linéairement du centre vers la surface.
-
-**2.** Soit $s$ l’abscisse le long du tunnel comptée depuis son milieu, et $d$ la distance du centre de la Terre au tunnel, de sorte que $r^2 = s^2 + d^2$. La composante du champ le long du tunnel vaut
-
-$$g(r)\,\frac{s}{r} = \frac{4}{3}\pi G \rho\, s$$
-
-Le terme $d$ disparaît. L’équation du mouvement est donc celle d’un oscillateur harmonique :
-
-$$\ddot{s} + \omega^2 s = 0, \qquad \omega^2 = \frac{4}{3}\pi G \rho = \frac{g_0}{R}$$
-
-Le trajet d’un bout à l’autre correspond à une demi-période :
-
-$$t = \frac{T}{2} = \pi\sqrt{\frac{R}{g_0}}$$
-
-indépendante de la longueur du tunnel.
-
-**3.** Avec $R = 6371\ \mathrm{km}$ et $g_0 = 9{,}81\ \mathrm{m\cdot s^{-2}}$, on trouve $t \approx 2530\ \mathrm{s}$, soit environ 42 minutes, quelle que soit la destination. Ce temps est exactement la moitié de la période d’un satellite en orbite rasante, ce qui n’est pas une coïncidence : les deux mouvements sont des projections du même oscillateur. L’hypothèse la plus fausse ici est l’uniformité de $\rho$ ; avec le profil réel, plus dense au centre, la durée descend à environ 38 minutes.
-`},
- en:{title:'Falling through a tunnel across the Earth',
-  blurb:'Any straight tunnel, not just a diametral one. The travel time does not depend on the destination.'}},
-
-{id:'P-012',slug:'determinant-volume',date:'2025-09-03',level:1,tags:['math','algebra'],
- fr:{title:'Le déterminant comme volume',
-  blurb:'Retrouver les propriétés du déterminant sans jamais écrire de formule de développement.',
-  statement:String.raw`
-On admet qu’il existe une unique application $\det : (\mathbb{R}^n)^n \to \mathbb{R}$ qui soit $n$-linéaire, alternée, et qui vaille $1$ sur la base canonique.
-
-1. Interpréter géométriquement chacune de ces trois propriétés en termes de volume orienté.
-2. En déduire, sans calcul de coefficients, que $\det(v_1,\dots,v_n) = 0$ si et seulement si les vecteurs sont liés.
-3. Justifier géométriquement la multiplicativité $\det(AB) = \det(A)\det(B)$.
-`,
-  hint:String.raw`
-Pensez au parallélépipède engendré par les vecteurs colonnes. Que fait à son volume la multiplication d’une arête par un scalaire ? L’échange de deux arêtes ?
-`,
-  solution:String.raw`
-**1.** La $n$-linéarité traduit que $\det(\dots,\lambda v_i,\dots) = \lambda \det(\dots,v_i,\dots)$ : étirer une arête d’un facteur $\lambda$ multiplie le volume par $\lambda$, et l’additivité selon une arête correspond au découpage du parallélépipède. Le caractère alterné encode l’orientation : échanger deux vecteurs change le signe, donc $\det$ est un volume *signé*. La normalisation $\det(e_1,\dots,e_n) = 1$ dit que le cube unité a pour volume $1$, ce qui fixe l’unité de mesure.
-
-**2.** Si les vecteurs sont liés, l’un s’écrit $v_n = \sum_{i<n}\lambda_i v_i$ ; par linéarité, le déterminant se décompose en termes contenant chacun deux fois le même vecteur, tous nuls par antisymétrie. Géométriquement, le parallélépipède est aplati dans un hyperplan : volume nul. Réciproquement, si les vecteurs sont libres, ils forment une base, et l’unicité impose une valeur non nulle.
-
-**3.** Appliquer $B$ puis $A$, c’est composer deux transformations de l’espace. Or le déterminant mesure le facteur par lequel une application linéaire multiplie tous les volumes, ce facteur ne dépendant pas de la figure choisie (conséquence de l’unicité) :
-
-$$\mathrm{vol}\big(A(B(K))\big) = \det(A)\,\mathrm{vol}\big(B(K)\big) = \det(A)\det(B)\,\mathrm{vol}(K)$$
-
-Composer deux dilatations de volumes multiplie donc les facteurs. Le signe suit la même logique : deux inversions d’orientation se compensent.
-`},
- en:{title:'The determinant as a volume',
-  blurb:'Recovering the properties of the determinant without ever writing an expansion formula.'}}
-]
-
-};
+]};
