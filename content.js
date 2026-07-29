@@ -26,35 +26,45 @@ window.SITE = {
    1. PROFIL
    ========================================================= */
 profile:{
-  first:'Antoine', last:'C.',
-  email:'antoine@exemple.fr',
-  location:{fr:'Paris · mathématiques appliquées & informatique',
-            en:'Paris · applied mathematics & computer science'},
+  first:'Antoine', last:'THEOBALD--ROSA',
+  email:'antoine.theobaldrosaa@gmail.com',
+  location:{fr:'Paris · Mathématiques, Informatique & Finance',
+            en:'Paris · Mathematics, Computer Science & Finance'},
   title:{
-    fr:'Étudiant test en mathématiques appliquées et informatique. J’écris du code, des articles, et des problèmes pour ceux qui aiment se casser la tête.',
-    en:'Graduate student in applied mathematics and computer science. I write code, essays, and problems for people who enjoy getting stuck.'},
+    fr:'Étudiant à l’École Polytechnique<br>Mathématiques, Informatique & Finance',
+    en:'Student at École Polytechnique, Paris, France<br>Mathematics, Computer Science & Finance'},
   bio:{
     fr:[
-     'Je m’intéresse à ce qui se passe à la frontière entre le théorème et l’implémentation : les algorithmes qui marchent en théorie mais pas en cache, les modèles physiques qui tiennent jusqu’au troisième chiffre significatif, les démonstrations qu’on croit comprendre avant d’essayer de les coder.',
-     'Ce site rassemble trois choses : les [projets](#/projets) que je construis, un [carnet](#/carnet) où j’explique ce que je viens de comprendre, et une collection de [problèmes](#/problemes) que je rédige et que je donne en colle.'],
+     'Bienvenue sur ma page personnelle.<br>Étudiant en école d’ingénieur, je suis particulièrement passionné de mathétmatiques, d’informatique et de finance. Mes centres d’intérêts scientifiques sont plus précisément l’algèbre et l’arithmétique, l’algorithmique et le trading haute-fréquence. De manière tout à fait personnel, je m’intéresse à la psychologie, aux actualités technologiques et, peut-être par nostalgie, je suis également fasciné par l’histoire des dinosaures.',
+     'Ce site rassemble trois choses : les [projets](#/projets) que je construis, des [articles](#/articles) où j’essaye de rendre clair des sujets peu traités mais tout à fait passionant, ainsi qu’une collection de [problèmes](#/problemes) sur lesquels j’ai aimé me casser la tête.',
+     'Vous trouverez mon parcours et mon contact sur ce site. Je suis joignable à tout moment.'],
     en:[
-     'I care about the seam between a theorem and its implementation: algorithms that work in theory but not in cache, physical models that hold to three significant figures, proofs you think you understand until you try to code them.',
-     'This site holds three things: the [projects](#/projets) I build, a [notebook](#/carnet) where I explain whatever I have just understood, and a collection of [problems](#/problemes) I write and hand out in oral exams.']},
+     'Welcome to my personal page.<br>I am an engineering student with a strong passion for mathematics, computer science, and finance. My main scientific interests focus more specifically on algebra and number theory, algorithms, and high-frequency trading. On a more personal level, I am interested in psychology, technological news, and — perhaps out of nostalgia — I am also fascinated by the history of dinosaurs.',
+     'This site brings together three things: the [projects](#/projets) I build, [articles](#/articles) where I try to make lesser-known yet fascinating topics clear, and a collection of [problems](#/problemes) that I have enjoyed working through.',
+     'You will also find my background and contact information here. I am available to be reached at any time.']},
   formation:[
-    {y:'2025—26',fr:{t:'M2 Mathématiques appliquées & informatique',s:'Optimisation, probabilités numériques, calcul haute performance'},
-                 en:{t:'MSc Applied Mathematics & Computer Science',s:'Optimisation, numerical probability, high performance computing'}},
-    {y:'2023—25',fr:{t:'Licence de mathématiques, mineure informatique',s:'Mention très bien · TIPE sur les méthodes spectrales'},
-                 en:{t:'BSc Mathematics, CS minor',s:'First class honours · research project on spectral methods'}},
-    {y:'2021—23',fr:{t:'CPGE MP*',s:'Mathématiques, physique, informatique'},
-                 en:{t:'French \u00ab classes préparatoires \u00bb, MP*',s:'Mathematics, physics, computer science'}}
-  ],
-  skills:['Python','C++','OCaml','Rust','TypeScript','NumPy / SciPy','LaTeX','Git',
-          {fr:'Algorithmique',en:'Algorithms'},{fr:'Probabilités',en:'Probability'},
-          {fr:'Analyse numérique',en:'Numerical analysis'},{fr:'Calcul parallèle',en:'Parallel computing'}],
+    {y:'2025—2029',
+    fr:{t:'École Polytechnique',s:'Cycle ingénieur polytechnicien<br>Mathématiques, Informatique, Physique & Économie'},
+    en:{t:'École Polytechnique',s:'Engineering program<br>Mathematics, Computer Science, Physics & Economics'}},
+
+    {y:'2025—2025',
+    fr:{t:'École Militaire des Aspirants de Coëtquidan',s:'Formation Militaire en tant qu’Officier de l’Armée de Terre'},
+    en:{t:'École Militaire des Aspirants de Coëtquidan',s:'Military training as an officer in the French Army'}},
+
+    {y:'2022—2025',
+    fr:{t:'Lycée Janson de Sailly<br>Classe préparatoire MP2I/MPI*/MPI*',s:'Mathématiques, physique, informatique<br>Admis 18ème à l’École Polytechnique'},
+    en:{t:'Lycée Janson de Sailly<br> Preparatory Classes (MP2I/MPI*/MPI*)',s:'Mathematics, Physics, Computer Science<br>Ranked 18th in the entrance examination to École Polytechnique'}},
+
+    {y:'2019—2022',
+    fr:{t:'Lycée Fabert (Metz)',s:'Mathématiques, Physique, Informatique<br>Baccalauréat Mention Très Bien'},
+    en:{t:'Lycée Fabert (Metz)',s:'Mathematics, Physics, Computer Science<br>French Baccalaureate with highest honors (Très Bien)'}}
+      ],
+  skills:['Python', 'C', 'C++','OCaml','Java','SQL','NumPy / SciPy','LaTeX','Git / Github',
+          {fr:'Data Science',en:'Data Science'}, {fr:'IA',en:'AI'}, {fr:'Algorithmique',en:'Algorithms'},{fr:'Informatique Graphique',en:'Probability'}],
   socials:[
-    {label:'GitHub',href:'https://github.com',glyph:'↗'},
-    {label:'LinkedIn',href:'https://linkedin.com',glyph:'↗'},
-    {label:'antoine@exemple.fr',href:'mailto:antoine@exemple.fr',glyph:'✉'},
+    {label:'GitHub',href:'https://github.com/AntoineTHEOBALDROSA',glyph:'↗'},
+    {label:'LinkedIn',href:'https://www.linkedin.com/in/antoine-theobald-rosa-696087381/',glyph:'↗'},
+    {label:'antoine.theobaldrosaa@gmail.com',href:'mailto:antoine.theobaldrosaa@gmail.com',glyph:'✉'},
     {label:{fr:'CV (PDF)',en:'Résumé (PDF)'},href:'#/contact',glyph:'↓'}
   ]
 },
@@ -66,29 +76,29 @@ tags:{
   math:{fr:'Mathématiques',en:'Mathematics'},
   cs:{fr:'Informatique',en:'Computer science'},
   physics:{fr:'Physique',en:'Physics'},
-  probability:{fr:'probabilités',en:'probability'},
-  algorithms:{fr:'algorithmique',en:'algorithms'},
-  analysis:{fr:'analyse',en:'analysis'},
   algebra:{fr:'algèbre',en:'algebra'},
+  numbertheory:{fr:'arithmétique',en:'number theory'},
+  probability:{fr:'probabilités',en:'probability'},
+  analysis:{fr:'analyse',en:'analysis'},
   combinatorics:{fr:'combinatoire',en:'combinatorics'},
+  algorithms:{fr:'algorithmique',en:'algorithms'},
   mechanics:{fr:'mécanique',en:'mechanics'},
-  optics:{fr:'optique',en:'optics'}
 },
 domains:['math','cs','physics'],
 
 /* =========================================================
-   3. CATÉGORIES DU CARNET
+   3. CATÉGORIES DES ARTICLES
    ========================================================= */
 cats:[
  {id:'math',
-  fr:{name:'Mathématiques',blurb:'Des objets que je croyais comprendre, jusqu’à ce que j’essaie de les expliquer sans formule inutile.'},
-  en:{name:'Mathematics',blurb:'Objects I thought I understood, until I tried explaining them without a single needless formula.'}},
+  fr:{name:'Mathématiques',blurb:'Parce que ça reste la plus belle des sciences...'},
+  en:{name:'Mathematics',blurb:'Because it remains the most beautiful of all sciences...'}},
  {id:'cs',
-  fr:{name:'Informatique',blurb:'Structures de données, compilation, performance. Surtout : pourquoi le code rapide n’est presque jamais celui qu’on croit.'},
-  en:{name:'Computer science',blurb:'Data structures, compilers, performance. Mostly: why the fast code is almost never the code you expected.'}},
+  fr:{name:'Informatique',blurb:String.raw`Des structures de données monstrueuses pour gagner un facteur $\sqrt{n}$ : c'est la beauté de l'informatique!`},
+  en:{name:'Computer science',blurb: String.raw`Monstrous data structures to gain a $\sqrt{n}$ factor: that’s the beauty of computer science!`}},
  {id:'physics',
-  fr:{name:'Physique',blurb:'Modèles, ordres de grandeur, et les endroits où l’intuition physique se trompe pour de bonnes raisons.'},
-  en:{name:'Physics',blurb:'Models, orders of magnitude, and the places where physical intuition fails for good reasons.'}}
+  fr:{name:'Physique',blurb:'Souvent les articles les plus intuitifs, parce que la physique est la science du quotidien!'},
+  en:{name:'Physics',blurb:'Often the most intuitive articles—because physics is the science of everyday life!'}}
 ],
 
 /* =========================================================
@@ -101,7 +111,7 @@ projects:[
   blurb:'Un solveur qui ne devine presque jamais : AC-3 pour réduire les domaines, puis backtracking guidé par l’heuristique MRV.',
   lead:'Résoudre un Sudoku par force brute prend des millions d’essais. En traitant la grille comme un problème de satisfaction de contraintes, on tombe à quelques dizaines de branchements.',
   stack:[['Langage','Python 3.12'],['Cœur','AC-3, MRV, degré'],['Tests','pytest, 4 200 grilles'],['Interface','CLI + trace texte']],
-  links:[['Code source','https://github.com'],['Notes d’implémentation','#/carnet/cs']],
+  links:[['Code source','https://github.com'],['Notes d’implémentation','#/articles/cs']],
   body:String.raw`
 ## Contexte
 
@@ -137,7 +147,7 @@ La leçon inattendue : la structure de données des domaines compte plus que l�
   blurb:'A solver that almost never guesses: AC-3 to shrink the domains, then backtracking driven by the MRV heuristic.',
   lead:'Brute force needs millions of attempts. Treat the grid as a constraint satisfaction problem and you are down to a few dozen branchings.',
   stack:[['Language','Python 3.12'],['Core','AC-3, MRV, degree'],['Tests','pytest, 4,200 grids'],['Interface','CLI + text trace']],
-  links:[['Source code','https://github.com'],['Implementation notes','#/carnet/cs']],
+  links:[['Source code','https://github.com'],['Implementation notes','#/articles/cs']],
   body:String.raw`
 ## Context
 
@@ -253,7 +263,7 @@ $$\vec{v}_{n+1/2} = \vec{v}_{n-1/2} + \vec{a}_n \, \Delta t, \qquad \vec{r}_{n+1
   blurb:'Un outil de dépouillement de spectres : détection de pics, ajustement de profils de Voigt, export d’un tableau prêt à mettre dans un compte rendu.',
   lead:'Nous perdions plus de temps à pointer les pics à la souris qu’à comprendre les spectres. Ce script fait le pointage, nous laissons la physique.',
   stack:[['Langage','Python 3.11'],['Traitement','SciPy, lmfit'],['Sortie','CSV + figure PDF'],['Validation','Raies du Hg et du Ne']],
-  links:[['Code source','https://github.com'],['Article : ligne de base','#/carnet/physics/ligne-de-base-spectres']],
+  links:[['Code source','https://github.com'],['Article : ligne de base','#/articles/physics/ligne-de-base-spectres']],
   body:String.raw`
 ## Contexte
 
@@ -275,7 +285,7 @@ Sur les spectres de référence du mercure, l’écart aux valeurs tabulées res
 
 ![Spectre brut, ligne de base estimée, et pics ajustés.](fig:wave)
 
-Le piège le plus coûteux a été la ligne de base : tant qu’on l’estimait par moindres carrés, les pics eux-mêmes tiraient la ligne vers le haut et biaisaient toutes les aires. J’ai écrit [un article entier](#/carnet/physics/ligne-de-base-spectres) sur ce biais.
+Le piège le plus coûteux a été la ligne de base : tant qu’on l’estimait par moindres carrés, les pics eux-mêmes tiraient la ligne vers le haut et biaisaient toutes les aires. J’ai écrit [un article entier](#/articles/physics/ligne-de-base-spectres) sur ce biais.
 
 ![Résidus d’ajustement pour les douze raies de référence.](fig:bars)
 `},
@@ -283,7 +293,7 @@ Le piège le plus coûteux a été la ligne de base : tant qu’on l’estimait 
   blurb:'A spectrum reduction tool: peak detection, Voigt profile fitting, and a results table ready to paste into a report.',
   lead:'We spent more time clicking on peaks than understanding spectra. This script does the clicking; we keep the physics.',
   stack:[['Language','Python 3.11'],['Processing','SciPy, lmfit'],['Output','CSV + PDF figure'],['Validation','Hg and Ne lines']],
-  links:[['Source code','https://github.com'],['Article: baseline estimation','#/carnet/physics/ligne-de-base-spectres']]}},
+  links:[['Source code','https://github.com'],['Article: baseline estimation','#/articles/physics/ligne-de-base-spectres']]}},
 
 {slug:'minipascal',thumb:'tree',year:'2024',tags:['OCaml','LLVM','Compilation'],
  fr:{title:'Compilateur d’un langage jouet vers LLVM',role:'Projet de cours, étendu',status:'Terminé',
@@ -331,7 +341,7 @@ La partie la plus instructive n’était ni l’analyse syntaxique ni LLVM : c�
   blurb:'Index inversé, BM25, tolérance aux fautes : 12 000 pages de notes interrogées en moins de deux millisecondes.',
   lead:'J’avais douze mille pages de notes et aucun moyen de retrouver quoi que ce soit. grep était trop littéral, les outils existants trop lourds.',
   stack:[['Langage','Rust 1.86'],['Classement','BM25 · $k_1=1{,}2$, $b=0{,}75$'],['Flou','Automate de Levenshtein'],['Interface','TUI + serveur local']],
-  links:[['Code source','https://github.com'],['Article : les tries','#/carnet/cs/tries-sous-estimes']],
+  links:[['Code source','https://github.com'],['Article : les tries','#/articles/cs/tries-sous-estimes']],
   body:String.raw`
 ## Contexte
 
@@ -371,7 +381,7 @@ Reste à faire : la recherche par expression régulière sur les listes de posit
   blurb:'Inverted index, BM25, typo tolerance: 12,000 pages of notes queried in under two milliseconds.',
   lead:'I had twelve thousand pages of notes and no way to find anything. grep was too literal, existing tools too heavy.',
   stack:[['Language','Rust 1.86'],['Ranking','BM25 · $k_1=1.2$, $b=0.75$'],['Fuzzy','Levenshtein automaton'],['Interface','TUI + local server']],
-  links:[['Source code','https://github.com'],['Article: tries','#/carnet/cs/tries-sous-estimes']]}},
+  links:[['Source code','https://github.com'],['Article: tries','#/articles/cs/tries-sous-estimes']]}},
 
 {slug:'automates',thumb:'cells',year:'2023',tags:['TypeScript','Canvas','Automates'],
  fr:{title:'Visualiseur d’automates cellulaires',role:'Projet personnel',status:'Terminé',
@@ -412,7 +422,7 @@ Utilisé deux fois en atelier de vulgarisation auprès de lycéens : l’effet �
 ],
 
 /* =========================================================
-   5. ARTICLES DU CARNET
+   5. ARTICLES 
    ========================================================= */
 articles:[
 
@@ -1143,7 +1153,7 @@ Le facteur $4^n$ domine tout : $C_{30} \approx 3{,}8 \times 10^{15}$. Énumérer
  en:{title:'Counting binary trees',
   blurb:'A recursion, a generating function, and an asymptotic bound explaining why exhaustive enumeration is hopeless.'}},
 
-{id:'P-016',slug:'ciel-pas-violet',date:'2026-03-30',level:2,tags:['physics','optics'],
+{id:'P-016',slug:'ciel-pas-violet',date:'2026-03-30',level:2,tags:['physics'],
  fr:{title:'Pourquoi le ciel n’est pas violet',
   blurb:'La diffusion de Rayleigh varie comme $\lambda^{-4}$, donc le violet devrait gagner. Il ne gagne pas. Trouver les deux raisons.',
   statement:String.raw`

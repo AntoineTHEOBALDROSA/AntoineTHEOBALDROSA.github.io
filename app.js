@@ -16,7 +16,7 @@ if(!S){ main.innerHTML = '<div class="wrap"><p class="noscript">content.js n’a
 const UI = {
 fr:{
   code:'fr', locale:'fr-FR', other:'en',
-  nav:{home:'Accueil',projects:'Projets',notebook:'Carnet',problems:'Problèmes',contact:'Contact'},
+  nav:{home:'Accueil',projects:'Projets',articles:'Articles',problems:'Problèmes',contact:'Contact'},
   crumbHome:'Accueil',
   n:{project:n=>n+(n>1?' projets':' projet'),article:n=>n+(n>1?' articles':' article'),
      problem:n=>n+(n>1?' problèmes':' problème'),category:n=>n+(n>1?' catégories':' catégorie')},
@@ -24,14 +24,14 @@ fr:{
   home:{recent:'Ajouté récemment',kinds:{article:'Article',problem:'Problème',project:'Projet'},
     edu:'Formation',skills:'Compétences',elsewhere:'Ailleurs',ongoing:'en cours',
     doors:[
-      'Ce que je construis, du solveur de contraintes au moteur de recherche. Contexte, choix techniques, et ce qui a raté.',
-      'Des articles sur ce que je viens de comprendre, rangés par domaine : mathématiques, informatique, physique.',
-      'Des exercices que je rédige, avec indice et solution complète. Filtrables par domaine et par thème.']},
-  projects:{h1:'Projets',lead:'Six choses construites entre 2023 et 2026. Chaque page dit ce que je cherchais, ce que j’ai mesuré, et l’erreur qui m’a coûté le plus de temps.',
+      'Les projets que j’ai réalisé, que ce soit pour les cours, parce que les outils n’existaient pas.. ou simplement par curiosité. Parce qu’on apprend par la pratique!',
+      'Des articles que j’écris sur ce que je trouve fascinant. Ils sont rangés par domaine : mathématiques, informatique et physique.',
+      'Une compilation des plus beaux exercices que j’ai rencontré. Venez vous casser la tête sur des exercices pas toujours faciles!']},
+  projects:{h1:'Projets',lead:'Vous trouverez ici une liste des projets que j’ai réalisé. Ces projets ont parfois été menés pour les cours, mais plus souvent ils l’ont été pour répondre à des besoins personnels. Vous trouverez pour la plupart des projets la motivation du projet, les fonctionnalités du produit final, les problèmes rencontrés et ce que j’ai appris lors de sa conception.<br><br>Comme la plupart des projets sont en libre accès sur mon Github, amusez-vous à les installer et à jouer avec!',
     sheet:'Fiche technique',links:'Liens',stack:'Techniques',prev:'Projet précédent',next:'Projet suivant'},
-  notebook:{h1:'Carnet',lead:n=>'J’écris pour vérifier que j’ai compris. Si je n’arrive pas à l’expliquer sans jargon, c’est que je n’y suis pas encore. Trois domaines, '+n+' articles.',
+  articles:{h1:'Articles',lead:n=>'Parfois on tombe sur un résultat qui nous ébahit tant qu’on est soudainement pris d’une forte envie d’en parler à tout le monde. C’est de là que viennent ces articles.<br><br>Il y a actuellement '+n+' articles : bonne lecture !',
     allCats:'Toutes les catégories',prev:'Article précédent',next:'Article suivant'},
-  problems:{h1:'Problèmes',lead:'Des exercices que je rédige, souvent après avoir été surpris par un résultat. Chacun vient avec un indice, puis une solution détaillée. Filtrez par domaine ou par thème.',
+  problems:{h1:'Problèmes',lead:'Vous trouverez ici un recueil de problèmes et d’exercices, parmi les plus élégants et surprenants que j’ai rencontré au cours de ma scolarité et de mes lectures personnelles.<br><br>Chacun vient avec un indice, puis une solution détaillée. Mais prenez le temps de chercher une solution, une piste tout du moins, pour que le problème vous soit utile et que vous en perceviez l’élégance. Mais surtout, prenez du plaisir à réfléchir à ces jolis problèmes... en somme, amusez-vous.',
     domain:'Domaine',theme:'Thème',search:'Rechercher un mot, un thème, un identifiant…',clear:'Effacer la recherche',
     results:(n,t)=>n+(n>1?' problèmes':' problème')+' sur '+t,none:'aucun résultat',reset:'Réinitialiser',
     empty:'Aucun problème ne correspond. Les filtres se cumulent : un problème doit porter <em>tous</em> les tags sélectionnés.',
@@ -43,31 +43,32 @@ fr:{
        'Les corrections sont particulièrement bienvenues. Trois solutions ont déjà été rectifiées grâce à des lecteurs, et j’indique la correction en bas de page quand elle change le résultat.'],
     copy:'Copier l’adresse',copied:'Copié',copyFail:'Copie impossible',
     elsewhere:'Ailleurs',recent:'Projets récents',avail:'Disponibilité',
-    rows:[['Stage','À partir de mars 2027'],['Sujets','Calcul scientifique, performance, compilation'],['Lieu','Paris ou à distance']]},
+    rows:[['Stage','À partir de juin 2027'],['Sujets','Intelligence Artificielle, Finance'],['Lieu','France ou à l’étranger']]},
   nf:{eyebrow:'Erreur 404',h1:'Cette page n’existe pas',
     lead:'Le lien est peut-être ancien, ou l’adresse comporte une faute. Les quatre sections du site sont accessibles depuis le menu.'},
-  foot:{about:'Antoine C. — Paris.',updated:'Dernière mise à jour : juillet 2026.'},
+  foot:{about:'Antoine THEOBALD--ROSA — Paris.',updated:'Dernière mise à jour : juillet 2026.'},
   pending:null,
   langLabel:'Passer en anglais'
 },
 en:{
   code:'en', locale:'en-GB', other:'fr',
-  nav:{home:'Home',projects:'Projects',notebook:'Notebook',problems:'Problems',contact:'Contact'},
+  nav:{home:'Home',projects:'Projects',articles:'Articles',problems:'Problems',contact:'Contact'},
   crumbHome:'Home',
   n:{project:n=>n+' project'+(n>1?'s':''),article:n=>n+' article'+(n>1?'s':''),
      problem:n=>n+' problem'+(n>1?'s':''),category:n=>n+' categor'+(n>1?'ies':'y')},
   readTime:n=>n+' min read',
   home:{recent:'Recently added',kinds:{article:'Article',problem:'Problem',project:'Project'},
     edu:'Education',skills:'Skills',elsewhere:'Elsewhere',ongoing:'in progress',
-    doors:[
-      'What I build, from a constraint solver to a search engine. Context, technical choices, and what went wrong.',
-      'Essays about whatever I have just understood, filed by field: mathematics, computer science, physics.',
-      'Problems I write, each with a hint and a full solution. Filterable by field and by topic.']},
-  projects:{h1:'Projects',lead:'Six things built between 2023 and 2026. Each page states what I was after, what I measured, and the mistake that cost me the most time.',
+    doors: [
+      "The projects I have worked on, whether for coursework, because the tools did not exist yet, or simply out of curiosity. Because the best way to learn is by doing!",
+      "Articles I write about what I find fascinating. They are organized by field: mathematics, computer science, and physics.",
+      "A collection of the finest problems I have come across. Come challenge yourself with exercises that are not always easy!"
+    ]},
+  projects:{h1:'Projects',lead:'Here you will find a list of the projects I have worked on. These projects were sometimes carried out for coursework, but more often they were undertaken to address needs I had. For most projects, you will find the motivation behind the project, the features of the final product, the challenges encountered, and what I learned during its development.<br><br>As most projects are freely available on my GitHub, feel free to install them and play around with them!',
     sheet:'Tech sheet',links:'Links',stack:'Stack',prev:'Previous project',next:'Next project'},
-  notebook:{h1:'Notebook',lead:n=>'I write to check that I understood. If I cannot explain it without jargon, I am not there yet. Three fields, '+n+' articles.',
+  articles:{h1:'Articles',lead:n=>'Sometimes you come across a result that leaves you so awestruck that you suddenly feel compelled to tell everyone about it. That is where these articles come from.<br><br>There are currently '+n+' articles: happy reading!',
     allCats:'All categories',prev:'Previous article',next:'Next article'},
-  problems:{h1:'Problems',lead:'Problems I write, usually after being surprised by a result. Each comes with a hint, then a detailed solution. Filter by field or by topic.',
+  problems:{h1:'Problems',lead:'Here you will find a collection of problems and exercises, among the most elegant and surprising I have encountered during my studies and personal reading.<br><br>Each comes with a hint, followed by a detailed solution. But take the time to search for a solution, or at least a starting point, so that the problem becomes useful to you, so that you can appreciate its elegance at the very least. Most importantly, take pleasure in thinking through these beautiful problems... in short, have fun.F',
     domain:'Field',theme:'Topic',search:'Search a word, a topic, an identifier…',clear:'Clear search',
     results:(n,t)=>n+' of '+t+' problem'+(t>1?'s':''),none:'no result',reset:'Reset',
     empty:'No problem matches. Filters combine: a problem must carry <em>all</em> selected tags.',
@@ -79,10 +80,10 @@ en:{
        'Corrections are especially welcome. Three solutions have already been fixed thanks to readers, and I note the correction at the bottom of the page whenever it changes the result.'],
     copy:'Copy address',copied:'Copied',copyFail:'Copy failed',
     elsewhere:'Elsewhere',recent:'Recent projects',avail:'Availability',
-    rows:[['Internship','From March 2027'],['Topics','Scientific computing, performance, compilers'],['Location','Paris or remote']]},
+    rows:[['Internship','From June 2027'],['Topics','Artificial Intelligence, Finance'],['Location','Anywhere']]},
   nf:{eyebrow:'Error 404',h1:'This page does not exist',
     lead:'The link may be old, or the address has a typo. All four sections are reachable from the menu.'},
-  foot:{about:'Antoine C. — Paris. Hand-written site, no framework.',updated:'Last updated: July 2026.'},
+  foot:{about:'Antoine THEOBALD--ROSA — Paris.',updated:'Last updated: July 2026.'},
   pending:'Pas encore traduit / Not translated yet: the text below is in French.',
   langLabel:'Switch to French'
 }};
@@ -285,13 +286,13 @@ function viewHome(){
   const p = S.profile, u = T();
   const a0 = S.articles[0], pb0 = S.problems[0], pj = S.projects.find(x => x.slug === 'recherche') || S.projects[0];
   const rec = [
-    [u.home.kinds.article, pick(a0).title, '#/carnet/'+a0.cat+'/'+a0.slug, fmtDate(a0.date)],
+    [u.home.kinds.article, pick(a0).title, '#/articles/'+a0.cat+'/'+a0.slug, fmtDate(a0.date)],
     [u.home.kinds.problem, pick(pb0).title, '#/problemes/'+pb0.slug, pb0.id],
     [u.home.kinds.project, pick(pj).title, '#/projets/'+pj.slug, u.home.ongoing]
   ];
   const doors = [
     ['01', u.nav.projects, '#/projets', u.home.doors[0], u.n.project(S.projects.length)],
-    ['02', u.nav.notebook, '#/carnet', u.home.doors[1], u.n.article(S.articles.length)],
+    ['02', u.nav.articles, '#/articles', u.home.doors[1], u.n.article(S.articles.length)],
     ['03', u.nav.problems, '#/problemes', u.home.doors[2], u.n.problem(S.problems.length)]
   ];
   return '<div class="wrap view">' +
@@ -357,12 +358,12 @@ function viewProject(slug){
     '</div>';
 }
 
-function viewNotebook(){
-  const u = T().notebook;
-  return '<div class="wrap view">' + crumbs([[T().crumbHome,'#/'],[T().nav.notebook]]) +
+function viewArticles(){
+  const u = T().articles;
+  return '<div class="wrap view">' + crumbs([[T().crumbHome,'#/'],[T().nav.articles]]) +
     '<header class="pagehead"><h1>'+u.h1+'</h1><p class="lead">'+u.lead(S.articles.length)+'</p></header>' +
     '<div class="rows stagger">' + S.cats.map((c,i) => { const d = pick(c), n = artsOf(c.id).length;
-      return '<a class="cat" href="#/carnet/'+c.id+'" style="--i:'+i+'"><h2>'+d.name+'</h2>' +
+      return '<a class="cat" href="#/articles/'+c.id+'" style="--i:'+i+'"><h2>'+d.name+'</h2>' +
         '<span class="cat__count">'+T().n.article(n)+' &nbsp;→</span><p>'+inline(d.blurb)+'</p></a>';
     }).join('') + '</div></div>';
 }
@@ -370,30 +371,30 @@ function viewNotebook(){
 function viewCategory(id){
   const cat = catOf(id); if(!cat) return viewNotFound();
   const d = pick(cat), arts = artsOf(id);
-  return '<div class="wrap view">' + crumbs([[T().crumbHome,'#/'],[T().nav.notebook,'#/carnet'],[d.name]]) +
+  return '<div class="wrap view">' + crumbs([[T().crumbHome,'#/'],[T().nav.articles,'#/articles'],[d.name]]) +
     '<header class="pagehead"><h1>'+d.name+'</h1><p class="lead">'+inline(d.blurb)+'</p></header>' +
     '<div class="rows stagger">' + arts.map((a,i) => { const c = pick(a);
-      return '<a class="row" href="#/carnet/'+id+'/'+a.slug+'" style="--i:'+i+'"><div class="row__body">' +
+      return '<a class="row" href="#/articles/'+id+'/'+a.slug+'" style="--i:'+i+'"><div class="row__body">' +
         '<div class="row__meta"><span class="year">'+fmtDate(a.date)+'</span><span class="tag">'+T().readTime(a.read)+'</span></div>' +
         '<h2>'+inline(c.title)+'</h2><p>'+inline(c.blurb)+'</p></div></a>';
     }).join('') + '</div>' +
-    '<div style="margin-bottom:var(--s9)"><a class="btn" href="#/carnet">← '+T().notebook.allCats+'</a></div></div>';
+    '<div style="margin-bottom:var(--s9)"><a class="btn" href="#/articles">← '+T().articles.allCats+'</a></div></div>';
 }
 
 function viewArticle(catId, slug){
   const cat = catOf(catId); if(!cat) return viewNotFound();
   const arts = artsOf(catId), i = arts.findIndex(a => a.slug === slug);
   if(i < 0) return viewNotFound();
-  const a = arts[i], c = pick(a), d = pick(cat), u = T().notebook;
+  const a = arts[i], c = pick(a), d = pick(cat), u = T().articles;
   const prev = arts[i-1], next = arts[i+1], t = plain(c.title);
-  return '<div class="wrap view">' + crumbs([[T().crumbHome,'#/'],[T().nav.notebook,'#/carnet'],[d.name,'#/carnet/'+catId],[t.length>30?t.slice(0,28)+'…':t]]) +
+  return '<div class="wrap view">' + crumbs([[T().crumbHome,'#/'],[T().nav.articles,'#/articles'],[d.name,'#/articles/'+catId],[t.length>30?t.slice(0,28)+'…':t]]) +
     '<header class="pagehead"><p class="eyebrow">'+d.name+' · '+fmtDate(a.date)+' · '+T().readTime(a.read)+'</p>' +
     '<h1>'+inline(c.title)+'</h1><p class="lead">'+inline(c.blurb)+'</p></header>' +
     '<div class="detail">' + (isPending(a,'body') ? notice() : '') +
       '<article class="prose">' + md(c.body) + '</article>' +
-      '<div><a class="btn btn--a" href="#/carnet/'+catId+'">← '+d.name+'</a></div></div>' +
-    pager(prev && [u.prev, pick(prev).title, '#/carnet/'+catId+'/'+prev.slug],
-          next && [u.next, pick(next).title, '#/carnet/'+catId+'/'+next.slug]) + '</div>';
+      '<div><a class="btn btn--a" href="#/articles/'+catId+'">← '+d.name+'</a></div></div>' +
+    pager(prev && [u.prev, pick(prev).title, '#/articles/'+catId+'/'+prev.slug],
+          next && [u.next, pick(next).title, '#/articles/'+catId+'/'+next.slug]) + '</div>';
 }
 
 /* ---------- problèmes : filtres ---------- */
@@ -492,8 +493,8 @@ function viewContact(){
         '<button class="btn" id="copy" type="button"><i data-lucide="copy"></i><span>'+u.copy+'</span></button></p></div>' +
     '<aside class="detail__rail" style="border-left:1px solid var(--rule);padding-left:var(--s5)">' +
       '<section><h2>'+u.elsewhere+'</h2><div class="linklist">' +
-        '<a href="https://github.com" target="_blank" rel="noopener">GitHub<span aria-hidden="true">↗</span></a>' +
-        '<a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn<span aria-hidden="true">↗</span></a>' +
+        '<a href="https://github.com/AntoineTHEOBALDROSA" target="_blank" rel="noopener">GitHub<span aria-hidden="true">↗</span></a>' +
+        '<a href="https://www.linkedin.com/in/antoine-theobald-rosa-696087381/" target="_blank" rel="noopener">LinkedIn<span aria-hidden="true">↗</span></a>' +
         '<a href="#/projets">'+u.recent+'<span aria-hidden="true">→</span></a></div></section>' +
       '<section><h2>'+u.avail+'</h2><dl class="kv">' +
         u.rows.map(r => '<div><dt>'+r[0]+'</dt><dd>'+r[1]+'</dd></div>').join('') + '</dl></section>' +
@@ -518,7 +519,7 @@ function viewNotFound(){
     '<div class="btnrow" style="margin-bottom:var(--s9)">' +
       '<a class="btn btn--a" href="#/">'+T().nav.home+'</a>' +
       '<a class="btn" href="#/projets">'+T().nav.projects+'</a>' +
-      '<a class="btn" href="#/carnet">'+T().nav.notebook+'</a>' +
+      '<a class="btn" href="#/articles">'+T().nav.articles+'</a>' +
       '<a class="btn" href="#/problemes">'+T().nav.problems+'</a></div></div>';
 }
 
@@ -526,7 +527,7 @@ function viewNotFound(){
    6. Chrome : nav, switch de langue, pied de page
    ========================================================= */
 const NAVITEMS = [
-  ['home','#/','home'],['projects','#/projets','layers'],['notebook','#/carnet','notebook-text'],
+  ['home','#/','home'],['projects','#/projets','layers'],['articles','#/articles','articles-text'],
   ['problems','#/problemes','sigma'],['contact','#/contact','at-sign']
 ];
 function renderChrome(){
@@ -540,8 +541,8 @@ function renderChrome(){
   document.getElementById('foot').innerHTML =
     '<p>'+u.foot.about+'<br>'+u.foot.updated+'</p>' +
     '<nav>' + NAVITEMS.slice(1).map(n => '<a href="'+n[1]+'">'+u.nav[n[0]]+'</a>').join('') + '</nav>' +
-    '<p><a href="https://github.com" target="_blank" rel="noopener">GitHub</a> · ' +
-    '<a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></p>';
+    '<p><a href="https://github.com/AntoineTHEOBALDROSA" target="_blank" rel="noopener">GitHub</a> · ' +
+    '<a href="https://www.linkedin.com/in/antoine-theobald-rosa-696087381/" target="_blank" rel="noopener">LinkedIn</a></p>';
   document.documentElement.lang = LANG;
 }
 function setLang(l){
@@ -571,7 +572,7 @@ function route(keepScroll){
 
   if(sec === 'home'){ html = viewHome(); }
   else if(sec === 'projets'){ html = parts[1] ? viewProject(parts[1]) : viewProjects(); key = 'projects'; }
-  else if(sec === 'carnet'){ html = parts[2] ? viewArticle(parts[1], parts[2]) : (parts[1] ? viewCategory(parts[1]) : viewNotebook()); key = 'notebook'; }
+  else if(sec === 'articles'){ html = parts[2] ? viewArticle(parts[1], parts[2]) : (parts[1] ? viewCategory(parts[1]) : viewArticles()); key = 'articles'; }
   else if(sec === 'problemes'){ html = parts[1] ? viewProblem(parts[1]) : viewProblems(); key = 'problems'; }
   else if(sec === 'contact'){ html = viewContact(); key = 'contact'; }
   else { html = viewNotFound(); }
@@ -581,7 +582,7 @@ function route(keepScroll){
     [...g.children].forEach((c,i) => c.style.setProperty('--i', Math.min(i,10))));
 
   const h1 = main.querySelector('h1');
-  document.title = (h1 ? plain(h1.textContent) + ' — ' : '') + 'Antoine C.';
+  document.title = (h1 ? plain(h1.textContent) + ' — ' : '') + 'Antoine THEOBALD--ROSA';
   document.querySelectorAll('#nav a, #tabbar a').forEach(a =>
     a.dataset.k === key ? a.setAttribute('aria-current','page') : a.removeAttribute('aria-current'));
 

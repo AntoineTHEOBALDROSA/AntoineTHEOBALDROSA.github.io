@@ -1,5 +1,5 @@
 /* =========================================================
-   Antoine C. — personal site
+   Antoine THEOBALD-ROSA. — personal site
    styles.css  ·  design tokens, layout, components
    ========================================================= */
 
@@ -178,7 +178,7 @@ main{display:block;min-height:70vh}
 .tag+.tag::before{content:"·";margin-right:.7ch;color:var(--rule-2)}
 .year{font-family:var(--mono);font-size:.7rem;color:var(--ink-3);letter-spacing:.06em}
 
-/* ---------- notebook categories ---------- */
+/* ---------- articles categories ---------- */
 .cat{display:grid;grid-template-columns:1fr auto;gap:var(--s3) var(--s5);align-items:baseline;padding:var(--s6) 0;border-bottom:1px solid var(--rule);transition:background .25s var(--e-q),padding-inline .35s var(--e)}
 .cat:hover{background:var(--paper-2);padding-inline:var(--s3)}
 .cat h2{font-size:clamp(1.7rem,4.4vw,2.4rem);font-weight:400;transition:color .2s}
@@ -319,4 +319,8 @@ footer{border-top:1px solid var(--rule);padding:var(--s6) 0 var(--s7);margin-top
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001ms!important;transition-duration:.001ms!important}
   html{scroll-behavior:auto}
+}
+
+.timeline li i {
+  white-space: pre-line;
 }
