@@ -31,7 +31,7 @@ profile:{
   location:{fr:'Paris · mathématiques appliquées & informatique',
             en:'Paris · applied mathematics & computer science'},
   title:{
-    fr:'Étudiant en mathématiques appliquées et informatique. J’écris du code, des articles, et des problèmes pour ceux qui aiment se casser la tête.',
+    fr:'Étudiant test en mathématiques appliquées et informatique. J’écris du code, des articles, et des problèmes pour ceux qui aiment se casser la tête.',
     en:'Graduate student in applied mathematics and computer science. I write code, essays, and problems for people who enjoy getting stuck.'},
   bio:{
     fr:[
