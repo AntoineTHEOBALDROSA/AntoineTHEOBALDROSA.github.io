@@ -96,7 +96,7 @@ cats:[
    ========================================================= */
 projects:[
 
-{slug:'sudoku',thumb:'dots',year:'2025',tags:['Python','CSP','CLI'],
+{slug:'sudoku',thumb:'images/fft.png',year:'2025',tags:['Python','CSP','CLI'],
  fr:{title:'Solveur de Sudoku par propagation de contraintes',role:'Projet personnel',status:'Terminé',
   blurb:'Un solveur qui ne devine presque jamais : AC-3 pour réduire les domaines, puis backtracking guidé par l’heuristique MRV.',
   lead:'Résoudre un Sudoku par force brute prend des millions d’essais. En traitant la grille comme un problème de satisfaction de contraintes, on tombe à quelques dizaines de branchements.',
@@ -1069,9 +1069,11 @@ ce qui est bien la relation du mouvement uniformément accéléré et confirme l
 
 {id:'P-018',slug:'somme-inverses-carres',date:'2026-05-19',level:3,tags:['math','analysis'],
  fr:{title:'Somme des inverses des carrés, sans Fourier',
-  blurb:'Établir $\zeta(2) = \pi^2/6$ avec pour seuls outils une inégalité trigonométrique et un théorème des gendarmes.',
+  blurb:String.raw`Établir $\zeta(2)=\pi^2/6$... avec pour seuls outils une inégalité trigonométrique et un théorème des gendarmes.`,
   statement:String.raw`
 On souhaite démontrer que
+
+![FFT](images/fft.png)
 
 $$\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}$$
 

@@ -46,7 +46,7 @@ fr:{
     rows:[['Stage','À partir de mars 2027'],['Sujets','Calcul scientifique, performance, compilation'],['Lieu','Paris ou à distance']]},
   nf:{eyebrow:'Erreur 404',h1:'Cette page n’existe pas',
     lead:'Le lien est peut-être ancien, ou l’adresse comporte une faute. Les quatre sections du site sont accessibles depuis le menu.'},
-  foot:{about:'Antoine C. — Paris. Site écrit à la main, sans dépendance.',updated:'Dernière mise à jour : juillet 2026.'},
+  foot:{about:'Antoine C. — Paris.',updated:'Dernière mise à jour : juillet 2026.'},
   pending:null,
   langLabel:'Passer en anglais'
 },
@@ -134,10 +134,14 @@ function inline(src){
   s = s.replace(/`([^`]+)`/g, (_, c) => '<code>' + esc(c) + '</code>');
   s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
   s = s.replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>');
+  s = s.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, (_, alt, src) =>
+    '<img src="' + esc(src) + '" alt="' + esc(alt) + '" loading="lazy">'
+  );
   s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_, txt, href) =>
     '<a href="' + href + '"' + (/^https?:/.test(href) ? ' target="_blank" rel="noopener"' : '') + '>' + txt + '</a>');
   return s.replace(/\u0001(\d+)\u0001/g, (_, i) => tex(m[+i][0], m[+i][1]));
 }
+
 
 /* Rendu bloc : titres, listes, citations, code, figures, maths centrées. */
 function md(src){
@@ -150,11 +154,26 @@ function md(src){
 
   const blocks = s.split(/\n{2,}/).map(b => b.trim()).filter(Boolean).map(b => {
     let mm;
+    if((mm = b.match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/))) {
+      const src = mm[2];
+      if(/^(https?:\/\/|\/|\.\/|\.\.\/)/.test(src)) {
+        return '<figure><img src="' + esc(src) + '" alt="' + esc(mm[1]) + '">'
+          + '<figcaption>' + inline(mm[1]) + '</figcaption></figure>';
+      }
+      if(/^fig:[a-z]+$/.test(src)) return figure(src.slice(4), inline(mm[1]));
+    }
     if((mm = b.match(/^\u0002(\d+)\u0002$/))) return '<div class="pre">' + esc(code[+mm[1]]) + '</div>';
     if(/^###\s/.test(b))  return '<h3>' + inline(b.slice(4)) + '</h3>';
     if(/^##\s/.test(b))   return '<h2>' + inline(b.slice(3)) + '</h2>';
     if(/^>\s?/.test(b))   return '<blockquote>' + inline(b.replace(/^>\s?/gm, ' ').trim()) + '</blockquote>';
-    if((mm = b.match(/^!\[([^\]]*)\]\((?:fig|thumb):([a-z]+)\)$/))) return figure(mm[2], inline(mm[1]));
+    if((mm = b.match(/^!\[([^\]]*)\]\((?:fig|thumb):([a-z]+)\)$/))) {
+      return figure(mm[2], inline(mm[1]));
+    }
+
+    if((mm = b.match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/))) {
+      return '<figure><img src="' + esc(mm[2]) + '" alt="' + esc(mm[1]) + '" loading="lazy">' +
+            '<figcaption>' + inline(mm[1]) + '</figcaption></figure>';
+    }
     if(/^[-*]\s/.test(b)) return '<ul>' + listItems(b) + '</ul>';
     if(/^\d+[.)]\s/.test(b)) return '<ol>' + listItems(b) + '</ol>';
     if(/^\$\$[\s\S]+\$\$$/.test(b)) return tex(b.slice(2, -2), true);
@@ -217,7 +236,19 @@ const FIG = {
         : '<rect x="'+(8+x*13)+'" y="'+(8+y*13)+'" width="11" height="11" class="l" stroke-width=".5"/>'; }
     return svg(o); }
 };
-const thumb = k => '<div class="thumb">' + (FIG[k] || FIG.dots)() + '</div>';
+const thumb = (value, alt = '') => {
+  const isImage =
+    typeof value === 'string' &&
+    /^(https?:\/\/|\.?\.?\/|images\/)/.test(value);
+
+  if (isImage) {
+    return '<div class="thumb thumb--image">' +
+      '<img src="' + esc(value) + '" alt="' + esc(alt) + '" loading="lazy">' +
+      '</div>';
+  }
+
+  return '<div class="thumb">' + (FIG[value] || FIG.dots)() + '</div>';
+};
 const figure = (k, caption) =>
   '<figure><div class="shot"><div class="shot__bar"><b></b><b></b><b></b></div>' +
   '<div class="shot__body">' + (FIG[k] || FIG.dots)() + '</div></div>' +
@@ -260,7 +291,7 @@ function viewHome(){
   ];
   const doors = [
     ['01', u.nav.projects, '#/projets', u.home.doors[0], u.n.project(S.projects.length)],
-    ['02', u.nav.notebook, '#/carnet', u.home.doors[1], u.n.article(S.articles.length)+' · '+u.n.category(S.cats.length)],
+    ['02', u.nav.notebook, '#/carnet', u.home.doors[1], u.n.article(S.articles.length)],
     ['03', u.nav.problems, '#/problemes', u.home.doors[2], u.n.problem(S.problems.length)]
   ];
   return '<div class="wrap view">' +
@@ -295,7 +326,7 @@ function viewProjects(){
   return '<div class="wrap view">' + crumbs([[T().crumbHome,'#/'],[T().nav.projects]]) +
     '<header class="pagehead"><h1>'+u.h1+'</h1><p class="lead">'+u.lead+'</p></header>' +
     '<div class="rows stagger">' + S.projects.map((p,i) => { const c = pick(p);
-      return '<a class="row row--project" href="#/projets/'+p.slug+'" style="--i:'+i+'">' + thumb(p.thumb) +
+      return '<a class="row row--project" href="#/projets/'+p.slug+'" style="--i:'+i+'">' + thumb(p.thumb, c.title) +
         '<div class="row__body"><div class="row__meta"><span class="year">'+p.year+'</span><span class="tag">'+c.status+'</span></div>' +
         '<h2>'+inline(c.title)+'</h2><p>'+inline(c.blurb)+'</p>' +
         '<div class="row__meta">' + p.tags.map(t => '<span class="tag">'+t+'</span>').join('') + '</div></div></a>';

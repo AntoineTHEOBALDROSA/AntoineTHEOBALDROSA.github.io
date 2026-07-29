@@ -13,16 +13,7 @@ Les quatre fichiers doivent rester **dans le même dossier**.
 
 ## Lancer en local
 
-Ouvrir `index.html` suffit dans la plupart des cas. Pour éviter toute restriction de sécurité liée à `file://` :
-
-```
-python3 -m http.server 8000
-# puis http://localhost:8000
-```
-
-## Publier
-
-N'importe quel hébergement statique : GitHub Pages (push sur `main`, activer Pages sur la racine), Netlify, Cloudflare Pages. Rien à compiler.
+Ouvrir `index.html` suffit.
 
 ---
 
@@ -134,13 +125,13 @@ Tableau `projects`. Même principe, avec deux champs supplémentaires pour la co
  en:{ /* idem */ }},
 ```
 
-`thumb` choisit la vignette générée : `dots`, `orbit`, `wave`, `tree`, `bars`, `cells`. Pour utiliser une vraie image, remplacer dans `app.js` la fonction `thumb()` par une balise `<img src="images/...">`.
+`thumb` choisit la vignette générée : `dots`, `orbit`, `wave`, `tree`, `bars`, `cells`. Pour utiliser une vraie image, remplacer dans `content.js` par exemple `thumb:'orbit'` par `thumb:'images/sudoku.jpg'`.
 
 ---
 
 # Syntaxe des textes longs
 
-Markdown léger + LaTeX réel. Le moteur tient dans une soixantaine de lignes (`md()` et `inline()` dans `app.js`).
+Markdown + LaTeX. Le moteur se trouve dans `md()` et `inline()`, fichier `app.js`.
 
 | Ce qu'on écrit | Résultat |
 |---|---|
@@ -159,9 +150,9 @@ Markdown léger + LaTeX réel. Le moteur tient dans une soixantaine de lignes (`
 
 ## LaTeX
 
-C'est du vrai LaTeX, rendu par [KaTeX](https://katex.org) : `\frac`, `\sum`, `\int`, `\binom`, `\begin{pmatrix}`, `\mathbb{R}`, `\xrightarrow`, les environnements d'alignement, etc. La [liste des commandes supportées](https://katex.org/docs/support_table.html) est quasi exhaustive pour des maths de niveau licence/master.
+C'est du vrai LaTeX, rendu par [KaTeX](https://katex.org) : `\frac`, `\sum`, `\int`, `\binom`, `\begin{pmatrix}`, `\mathbb{R}`, `\xrightarrow`, les environnements d'alignement, etc. La [liste des commandes supportées](https://katex.org/docs/support_table.html).
 
-Quatre macros maison sont déjà définies dans `app.js` (fonction `tex()`) : `\R`, `\N`, `\Z`, `\eps`. En ajouter est une ligne :
+Quatre macros sont déjà définies dans `app.js` (fonction `tex()`) : `\R`, `\N`, `\Z`, `\eps`. En ajouter est une ligne :
 
 ```js
 macros:{'\\R':'\\mathbb{R}', '\\P':'\\mathbb{P}'}
@@ -171,7 +162,7 @@ Une formule invalide n'écroule pas la page : KaTeX l'affiche en rouge à sa pla
 
 ## Deux pièges à connaître
 
-1. **Les textes vivent dans `` String.raw`...` ``**, justement pour que `\frac` reste `\frac` et non un caractère d'échappement. Ne pas doubler les antislashs.
+1. **Les textes sont écrits dans `` String.raw`...` ``**, justement pour que `\frac` reste `\frac` et non un caractère d'échappement. Ne pas doubler les antislashs.
 2. **Un backtick de code s'écrit `` \` ``** dans ces mêmes chaînes (sinon il fermerait le littéral). Le moteur le normalise à l'affichage. Idem pour un `$` littéral hors formule : préférer `\$`.
 
 ---
@@ -184,7 +175,6 @@ Le bouton `FR | EN` en haut à droite bascule toute l'interface. Le choix est m�
 - Le contenu vit dans `content.js`, chaque objet ayant un bloc `fr` et un bloc `en`.
 - **Le repli est champ par champ.** Un article dont `en.title` existe mais pas `en.body` s'affiche avec le titre anglais et le corps français, précédé d'un avis discret « not translated yet ». Écrire d'abord en français puis traduire au fil du temps est donc parfaitement supporté.
 
-Actuellement traduits en entier : les deux premiers projets, trois articles (Fourier, benchmarks, entropie) et deux problèmes (P-021, P-020). Les autres attendent leur `en.body`.
 
 ---
 
@@ -194,5 +184,3 @@ Deux, toutes deux chargées par CDN dans `index.html` :
 
 - **KaTeX 0.16** pour les formules. Sans lui, les formules s'affichent en source LaTeX monospace au lieu de casser la page.
 - **Lucide** pour les quelques icônes. Sans lui, les libellés textuels restent lisibles.
-
-Pour un site totalement autonome (hors ligne, ou si un CDN est bloqué) : `npm i katex lucide`, copier `katex/dist` et `lucide/dist/umd` dans `vendor/`, et remplacer les trois URLs de `index.html` par des chemins locaux. Rien d'autre à changer.
