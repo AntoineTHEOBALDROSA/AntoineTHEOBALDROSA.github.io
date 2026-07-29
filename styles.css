@@ -163,6 +163,17 @@ main{display:block;min-height:70vh}
 .thumb .fl,.shot__body .fl{fill:var(--ink-3);stroke:none}
 .row:hover .thumb{border-color:var(--rule-2)}
 
+.thumb--image {
+  overflow: hidden;
+}
+
+.thumb--image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
 .tag+.tag::before{content:"·";margin-right:.7ch;color:var(--rule-2)}
 .year{font-family:var(--mono);font-size:.7rem;color:var(--ink-3);letter-spacing:.06em}
