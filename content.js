@@ -905,6 +905,64 @@ La régression quantile a réduit le biais sur les aires d’un facteur cinq, po
    6. PROBLÈMES
    ========================================================= */
 problems:[
+  // P-002
+{id:'P-002',slug:'harmonic-prime',date:'2026-07-30',level:2,tags:['math','numbertheory'],
+ fr:{title:'Divisibilité et série harmonique',
+  blurb:'Que peut-on dire de la divisiblité de la différence du numérateur par la dénominateur de la série harmonique ?',
+  statement:String.raw`
+Soit $p$ premier impair et $r, s$ tels que
+$$H_p = 1 + \cdots + \frac{1}{p} = \frac{r}{ps}$$
+Démontrer que $r-s$ est divisible par $p^3$.
+`,
+  hint:String.raw`
+Essayer de mettre du $p$ en facteur dès que possible. $\\$
+Regrouper les termes deux-par-deux.$\\$
+Travailler modulo $p$ autant que possible.
+`,
+  solution:String.raw`
+On peut réécrire
+$$H_p = \frac{\frac{p!}1 + \cdots + \frac{p!}{p}}{p\cdot (p-1)!}$$
+Comme le numérateur n'est pas divisible par $p$, un diviseur commun du dénominateur et du dénominateur est strictement inférieur à $p$ et on peut donc considérer
+$$r = \frac{p!}1 + \cdots + \frac{p!}{p}, \qquad s = (p-1)!$$
+(peut-être qu'on n'a pas réduit entièrement $r$ et $s$ en les posant comme tels, mais au moins on n'a pas introduit de facteurs $p$ qui fausseraient le résultat).$\\$
+On a 
+$$r - s = p\left(\frac{(p-1)!}{1} + \cdots + \frac{(p-1)!}{p-1}\right)$$
+D'où le premier facteur $p$. De plus en regroupant deux-par-deux les termes extrémaux de la somme, on trouve que
+$$\frac{(p-1)!}1 + \cdots + \frac{(p-1)!}{p-1} = \sum_{k=1}^{(p-1)/2}\frac{(p-1)!}{k(p-k)}(k + (p-k)) = p\sum_{k=1}^{(p-1)/2}\frac{(p-1)!}{k(p-k)}$$
+D'où le deuxième facteur $p$. Enfin, comme $x\mapsto x^{-1}$ est une bijection de $(\Z/p\Z)^\times$,
+$$\sum_{k=1}^{(p-1)/2}\frac{(p-1)!}{k(p-k)} \equiv \sum_{k=1}^{(p-1)/2}(p-1)!(k(p-k))^{-1} \equiv \sum_{k=1}^{(p-1)/2}(p-1)!k(p-k) \pmod p$$
+Or $(p-1)!\equiv -1 \pmod p$ par Wilson et $k(p-k) \equiv -k\pmod p$ ; la somme est donc congrue à 
+$$\sum_{k=1}^{(p-1)/2}k^2 = \frac{\frac{p-1}{2}\cdot \frac{p+1}{2}\cdot p}{6} \equiv 0 \pmod p$$
+D'où le dernier facteur $p$.
+`},
+ en:{title:'Divisibility and the harmonic series',
+  blurb:'What can be said about the divisibility of the difference between the numerator and denominator of the harmonic series?',
+  statement:String.raw`
+Let $p$ be an odd prime and $r, s$ such that
+$$H_p = 1 + \cdots + \frac{1}{p} = \frac{r}{ps}$$
+Prove that $r-s$ is divisible by $p^3$.
+`,
+  hint:String.raw`
+Try to factor out $p$ whenever possible. $\\$
+Group terms in pairs.$\\$
+Work modulo $p$ as much as possible.
+`,
+  solution:String.raw`
+We can rewrite
+$$H_p = \frac{\frac{p!}1 + \cdots + \frac{p!}{p}}{p\cdot (p-1)!}$$
+Since the numerator is not divisible by $p$, a common divisor of the numerator and denominator is strictly less than $p$, and we can therefore take
+$$r = \frac{p!}1 + \cdots + \frac{p!}{p}, \qquad s = (p-1)!$$
+(perhaps we have not fully reduced $r$ and $s$ by defining them this way, but at least we have not introduced any factors of $p$ that would distort the result).$\\$
+We have
+$$r - s = p\left(\frac{(p-1)!}{1} + \cdots + \frac{(p-1)!}{p-1}\right)$$
+Hence the first factor of $p$. Moreover, by grouping the extreme terms of the sum in pairs, we find that
+$$\frac{(p-1)!}1 + \cdots + \frac{(p-1)!}{p-1} = \sum_{k=1}^{(p-1)/2}\frac{(p-1)!}{k(p-k)}(k + (p-k)) = p\sum_{k=1}^{(p-1)/2}\frac{(p-1)!}{k(p-k)}$$
+Hence the second factor of $p$. Finally, since $x\mapsto x^{-1}$ is a bijection of $(\Z/p\Z)^\times$,
+$$\sum_{k=1}^{(p-1)/2}\frac{(p-1)!}{k(p-k)} \equiv \sum_{k=1}^{(p-1)/2}(p-1)!(k(p-k))^{-1} \equiv \sum_{k=1}^{(p-1)/2}(p-1)!k(p-k) \pmod p$$
+But $(p-1)!\equiv -1 \pmod p$ by Wilson's theorem and $k(p-k) \equiv -k\pmod p$; the sum is therefore congruent to
+$$\sum_{k=1}^{(p-1)/2}k^2 = \frac{\frac{p-1}{2}\cdot \frac{p+1}{2}\cdot p}{6} \equiv 0 \pmod p$$
+Hence the last factor of $p$.
+`}},
 
 // P-001
 {id:'P-001',slug:'gros-facteur-premier',date:'2026-07-29',level:2,tags:['math','numbertheory'],
