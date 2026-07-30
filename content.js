@@ -426,479 +426,53 @@ Utilisé deux fois en atelier de vulgarisation auprès de lycéens : l’effet �
    ========================================================= */
 articles:[
 
-{slug:'fourier-changement-de-base',cat:'math',date:'2026-06-14',read:9,
- fr:{title:'La transformée de Fourier est un changement de base',
-  blurb:'On l’enseigne comme une intégrale intimidante. C’est d’abord une projection sur une famille orthogonale, et tout le reste en découle.',
+{slug:'partition-formula',cat:'math',date:'2026-07-30',read:10,
+ fr:{title:String.raw`Formule pratique du nombre de partitions d'un entier $p(n)$`,
+  blurb:String.raw`Comment calculer efficacement le nombre de partitions d'un entier $p(n)$ ?`,
   body:String.raw`
-La première fois qu’on rencontre la transformée de Fourier, elle arrive sous cette forme :
+En 1918, Hardy et Ramanujan ont montré que 
+$$p(n)\sim \frac{1}{4n\sqrt3}\text{exp}\left(\pi\sqrt{\frac{2n}{3}}\right)$$
+Mais comment calculer efficacement la valeur exacte de $p(n)$ ? Un calcule par force brute serait beaucoup trop long. On se proposer de démontrer
 
-$$\hat{f}(\xi) = \int_{\mathbb{R}} f(x)\, e^{-2i\pi x \xi}\, \mathrm{d}x$$
+$$\begin{equation*}
+\begin{split}
+p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + p(n-15) + \cdots \\
+ & = \sum_{k\geq 1}(-1)^{k-1}p(n-k(3k\pm 1)/2)
+\end{split}
+\end{equation*}$$
 
-et l’on passe le semestre à manipuler des propriétés sans jamais savoir ce que l’objet *est*. Pourtant l’idée tient en une phrase : on écrit une fonction dans une autre base, et cette base a la propriété remarquable de diagonaliser la dérivation.
+## Série génératrice de $p(n)$
 
-## Le cas fini, d’abord
+Pour $\lvert x \rvert\lt 1$, on pose 
+$$f(x)=\prod_{n\geq 1}\frac{1}{1-x^n} = \prod_{n\geq 1}\sum_{i\geq 0}x^{ni} = \prod_{n\geq 1}(1+ x^n + x^{2n} + \cdots)$$
+Essayons de trouver le coefficient devant $x^k$ pour $k\geq 1$ : quand on développe le produit, on choisit dans chaque facteur $(1+ x^n + x^{2n} + \cdots)$ un $x^{ni}$ ; on l'interpète comme « je choisis $i$ fois le nombre $n$ ». Ainsi on choisit un certain nombre de fois le nombre $1$, un certain nombre de fois le nombre $2$, $\ldots$ Au final le coefficient devant $x^k$ est le nombre de manière de choisir $(i_1, i_2, \ldots)$ telle que :
+$$1\cdot i_1 + 2 \cdot i_2 + 3 \cdot i_3 + \cdots = k$$
+Ce nombre de manière, c'est exactement $p(k)$. D'où
+$$f(x) = 1 + \sum_{n\geq 1} p(n)x^n$$ 
 
-Prenons un vecteur de $\mathbb{R}^n$. Personne ne trouve mystérieux de l’écrire dans une base orthonormée : on projette sur chaque vecteur de base avec un produit scalaire, on récupère $n$ coordonnées, et le vecteur est la somme des coordonnées fois les vecteurs de base. La transformée de Fourier discrète ne fait rien d’autre. La base choisie est
+## Théorème des nombres pentagonaux
 
-$$e_k(j) = e^{2i\pi jk/n}, \qquad k = 0,\dots,n-1$$
+On va démontrer le théorème des nombres pentagonaux, théorème qu'on doit à Euler :
 
-et le produit scalaire est le produit hermitien usuel $\langle u, v\rangle = \sum_j u_j \overline{v_j}$.
+$$\prod_{n\geq 1}(1-x^n)=1 + \sum_{k\geq 1} (-1)^k\left(x^{k(3k-1)/2} + x^{k(3k+1)/2}\right)$$
+$\underline{Preuve :}$ On va faire une première constatation : regardons le produit suivant, très légèrement différent :
+$$\prod_{n\geq 1}(1+x^n) = (1+x)(1+x^2)(1+x^3)\cdots$$
+En développant comme on l'a fait dans la partie précédente, on se rend compte devant $x^k$ on a le nombre de manière d'écrire $k$ comme
+$$k = 1\cdot \varepsilon_1 + 2\cdot \varepsilon_2 + \cdots \qquad \text{où } \varepsilon_i \in \{0,1\}$$
+Concrètement, on a la série génératrice du nombre de partitions avec des entiers distincts. Par exemple, la parition $7=5+1+1$ n'est pas comptée, alors que $7=5+2$ l'est.$\\$
+Mais notre produit comporte un signe moins, donc :
 
-Le coefficient $k$ n’est donc pas une quantité exotique : c’est $\langle f, e_k \rangle$, la coordonnée de $f$ selon la $k$-ième direction. La formule d’inversion n’est pas un théorème profond, c’est la reconstruction d’un vecteur à partir de ses coordonnées.
+$$\prod_{n\geq 1}(1-x^n) = \sum_{\varepsilon_1, \varepsilon_2, \ldots} (-1)^{\varepsilon_1 + \cdots + \varepsilon_s} x^{1\varepsilon_1 + 2\varepsilon_2 + \cdots + s\varepsilon_s}$$
+On compte positivement une partition avec des nombres distincts avec un nombre pair de termes, et négativement si une telle partition a un nombre impair de termes.$\\$
+Si on regarde les premiers termes, on a 
 
-## Pourquoi cette base et pas une autre
+$$\prod_{n\geq 1}(1-x^n) = 1-x-x^2 + x^5 + x^7 - x^{12} + \cdots$$
 
-Il existe une infinité de bases orthonormées. Celle-ci mérite son statut pour une raison précise : les exponentielles sont les vecteurs propres de la dérivation.
-
-$$\frac{\mathrm{d}}{\mathrm{d}x} e^{2i\pi \xi x} = 2i\pi\xi \cdot e^{2i\pi \xi x}$$
-
-Dériver, dans cette base, c’est multiplier chaque coordonnée par un scalaire. Une équation différentielle linéaire à coefficients constants, qui couple les valeurs d’une fonction et de ses dérivées en chaque point, devient un système d’équations indépendantes, une par fréquence. C’est tout l’intérêt : la base de Fourier est celle où l’opérateur qui nous intéresse est diagonal.
-
-> Tout ce qu’on appelle « propriété de la transformée de Fourier » est une conséquence de cette diagonalisation, ou de la structure de groupe de $\mathbb{R}$.
-
-## La convolution, gratuitement
-
-Le théorème de convolution semble miraculeux :
-
-$$\widehat{f * g} = \hat{f} \cdot \hat{g}$$
-
-Il cesse de l’être si l’on remarque que la convolution est l’opération de composition des opérateurs de translation, et que les exponentielles sont vecteurs propres des translations aussi :
-
-$$\tau_a e^{2i\pi \xi x} = e^{2i\pi \xi (x-a)} = e^{-2i\pi \xi a} \cdot e^{2i\pi \xi x}$$
-
-Un opérateur qui commute avec toutes les translations est donc diagonal dans la base des exponentielles. Sa matrice, en base de Fourier, est une multiplication point par point. Le théorème de convolution est cette phrase, traduite.
-
-## Ce que le cas continu ajoute vraiment
-
-Passer de $n$ dimensions à $\mathbb{R}$ n’ajoute pas d’idée, il ajoute des difficultés techniques : la famille des exponentielles n’est plus dénombrable, elles n’appartiennent pas à $L^2(\mathbb{R})$, et la somme devient une intégrale qui demande des hypothèses de décroissance. C’est réel, c’est l’objet de l’analyse fonctionnelle, mais ce n’est pas ce qui donne son sens à l’objet.
-
-Alors si la formule vous intimide encore, lisez-la comme une liste de coordonnées. La fonction n’a pas changé. On l’a simplement regardée depuis un autre repère, celui où la dérivation est une homothétie.
+ce qui laisse penser que pour beaucoup de $n$ (par exemple $n=3, 4, 6, 8, 9, \ldots$) le nombre de partition utilisant des nombres distincts avec un nombre pair de termes est exactement le nombre de partition utilisant des nombres distincts avec un nombre impair de termes, et que dans les autres cas la différence est de $\pm1$ seulement.$\\$
+On va expliquer quand ces paritions peuvent s'appairer, ce qui nous donnera la formule attendue.
 `},
- en:{title:'The Fourier transform is a change of basis',
-  blurb:'It is taught as an intimidating integral. It is first a projection onto an orthogonal family, and everything else follows.',
-  body:String.raw`
-The first time you meet the Fourier transform, it arrives in this shape:
+ },
 
-$$\hat{f}(\xi) = \int_{\mathbb{R}} f(x)\, e^{-2i\pi x \xi}\, \mathrm{d}x$$
-
-and you spend a semester manipulating its properties without ever learning what the object *is*. Yet the idea fits in one sentence: you write a function in another basis, and that basis happens to diagonalise differentiation.
-
-## The finite case first
-
-Take a vector in $\mathbb{R}^n$. Nobody finds it mysterious to write it in an orthonormal basis: project onto each basis vector with an inner product, collect $n$ coordinates, and the vector is the sum of coordinates times basis vectors. The discrete Fourier transform does exactly that, with the basis
-
-$$e_k(j) = e^{2i\pi jk/n}, \qquad k = 0,\dots,n-1$$
-
-and the usual Hermitian product $\langle u, v\rangle = \sum_j u_j \overline{v_j}$.
-
-Coefficient $k$ is therefore not an exotic quantity: it is $\langle f, e_k \rangle$, the coordinate of $f$ along the $k$-th direction. The inversion formula is not a deep theorem, it is the reconstruction of a vector from its coordinates.
-
-## Why this basis and no other
-
-There are infinitely many orthonormal bases. This one earns its status for a precise reason: exponentials are the eigenvectors of differentiation.
-
-$$\frac{\mathrm{d}}{\mathrm{d}x} e^{2i\pi \xi x} = 2i\pi\xi \cdot e^{2i\pi \xi x}$$
-
-In this basis, differentiating means multiplying each coordinate by a scalar. A linear ODE with constant coefficients, which couples the values of a function and its derivatives at every point, becomes a family of independent equations, one per frequency. That is the whole point: the Fourier basis is the one where the operator you care about is diagonal.
-
-> Everything called a "property of the Fourier transform" is a consequence of that diagonalisation, or of the group structure of $\mathbb{R}$.
-
-## Convolution, for free
-
-The convolution theorem looks miraculous:
-
-$$\widehat{f * g} = \hat{f} \cdot \hat{g}$$
-
-It stops being so once you notice that convolution composes translation operators, and that exponentials are eigenvectors of translations too:
-
-$$\tau_a e^{2i\pi \xi x} = e^{2i\pi \xi (x-a)} = e^{-2i\pi \xi a} \cdot e^{2i\pi \xi x}$$
-
-An operator commuting with every translation is thus diagonal in the exponential basis. Its matrix, in Fourier coordinates, is a pointwise multiplication. The convolution theorem is that sentence, translated.
-
-## What the continuous case actually adds
-
-Going from $n$ dimensions to $\mathbb{R}$ adds no idea, it adds technical difficulty: the family of exponentials is no longer countable, they do not belong to $L^2(\mathbb{R})$, and the sum becomes an integral demanding decay hypotheses. That is real, it is what functional analysis is for, but it is not what gives the object its meaning.
-
-So if the formula still intimidates you, read it as a list of coordinates. The function has not changed. You are simply looking at it from another frame, the one where differentiation is a scaling.
-`}},
-
-{slug:'euler-pas-mysterieux',cat:'math',date:'2026-04-02',read:6,
- fr:{title:'Pourquoi $e^{i\pi} = -1$ n’a rien de mystérieux',
-  blurb:'La formule est présentée comme un miracle. Elle devient évidente dès qu’on accepte que l’exponentielle mesure une rotation.',
-  body:String.raw`
-On répète que l’identité d’Euler est la plus belle formule des mathématiques parce qu’elle relie cinq constantes fondamentales. C’est joli à dire et ça n’explique rien. Voici la lecture qui, pour moi, a tout débloqué.
-
-## Que fait l’exponentielle
-
-L’exponentielle est la solution de $y' = y$ avec $y(0) = 1$. Lue comme une trajectoire : à chaque instant, ma vitesse est égale à ma position. Pour un réel, cela donne une croissance qui s’accélère. Remplaçons maintenant le coefficient $1$ par $i$ :
-
-$$y' = i\,y, \qquad y(0) = 1$$
-
-Multiplier par $i$, dans le plan complexe, c’est tourner d’un quart de tour. La condition devient : à chaque instant, ma vitesse est perpendiculaire à ma position, et de même norme. Cette description est exactement celle d’un mouvement circulaire uniforme sur le cercle unité, à vitesse angulaire $1$.
-
-## L’identité, alors
-
-Si $e^{it}$ parcourt le cercle unité à vitesse angulaire 1 en partant de $1$, alors après un temps $t$ j’ai tourné d’un angle $t$. Pour $t = \pi$, j’ai fait un demi-tour, et un demi-tour depuis $1$ mène à $-1$. Il n’y a plus rien à démontrer.
-
-Le vrai contenu de la formule n’est donc pas numérique, il est structurel : l’addition des exposants correspond à la composition des rotations, ce qui fait de $t \mapsto e^{it}$ un morphisme de groupes
-
-$$(\mathbb{R}, +) \longrightarrow (\mathbb{U}, \times), \qquad e^{i(s+t)} = e^{is}\,e^{it}$$
-
-Le nombre $\pi$ apparaît uniquement parce que nous avons choisi de mesurer les angles en radians.
-
-## Le sentiment de mystère, d’où vient-il
-
-Il vient de l’ordre d’exposition. On apprend l’exponentielle comme une machine à faire grandir les intérêts composés, puis on lui donne un argument imaginaire, et on s’étonne qu’une machine à croissance produise une rotation. Mais la croissance n’était pas la définition, elle était un cas particulier, celui où la direction de la vitesse coïncide avec celle de la position.
-
-Une fois cette image en tête, plusieurs choses deviennent immédiates : les formules d’addition
-
-$$\cos(a+b) = \cos a \cos b - \sin a \sin b$$
-
-(composer deux rotations), la dérivée du cosinus, et la raison pour laquelle les solutions de $y'' + \omega^2 y = 0$ oscillent. La même idée continue de servir en algèbre linéaire, où $e^{tA}$ décrit le flot d’un système linéaire : la matrice dit dans quelle direction on est poussé, l’exponentielle intègre cette poussée.
-`},
- en:{title:'Why $e^{i\pi} = -1$ is not mysterious',
-  blurb:'The formula is sold as a miracle. It becomes obvious once you accept that the exponential measures a rotation.'}},
-
-{slug:'benchmarks-mentent',cat:'cs',date:'2026-05-21',read:11,
- fr:{title:'Vos mesures de performance mentent, et voici comment',
-  blurb:'Cache, prédiction de branche, montée en fréquence, allocateur : quatre raisons pour lesquelles le code « plus rapide » ne l’est que dans votre boucle de test.',
-  body:String.raw`
-J’ai passé une semaine à optimiser une fonction de tri. Gain mesuré : 40 %. Gain constaté dans le programme réel : zéro. Ce n’est pas une erreur de mesure, c’est une erreur de modèle, et c’est extrêmement commun.
-
-## 1. Le cache que votre boucle a réchauffé
-
-Une boucle de test appelle mille fois la même fonction sur les mêmes données. Au deuxième tour, tout tient en cache L1. Dans le programme réel, la fonction est appelée une fois entre deux traitements qui ont vidé le cache. Vous avez mesuré le coût de l’arithmétique, alors que le coût réel était celui des accès mémoire.
-
-~~~
-Latences typiques (cycles, ordre de grandeur)
-L1        ~4
-L2       ~14
-L3       ~45
-RAM     ~200
-~~~
-
-Le test à faire : mesurer sur des données plus grandes que le dernier niveau de cache, et alterner les jeux de données entre les appels.
-
-## 2. Le prédicteur de branche qui a appris votre jeu de test
-
-Si vos données de test sont triées, ou générées par un générateur pseudo-aléatoire à graine fixe, le prédicteur finit par deviner correctement presque toutes les branches. Une comparaison mal prédite coûte une quinzaine de cycles ; bien prédite, elle est quasiment gratuite. Le même code peut être trois fois plus lent uniquement parce que les données sont devenues imprévisibles.
-
-C’est la raison pour laquelle un tri sans branchement peut perdre face à un tri classique sur des données presque triées, et gagner largement sur des données aléatoires.
-
-## 3. La fréquence qui bouge sous vos pieds
-
-Un processeur portable monte en fréquence pendant les premières secondes de charge, puis redescend en régime thermique. Mesurer une fonction juste après le lancement du programme, c’est mesurer un état transitoire. Pire, l’usage d’instructions vectorielles larges peut faire baisser la fréquence de tout le cœur : le code vectorisé « fait plus de travail par cycle » et vos cycles sont devenus plus lents.
-
-Remède minimal : plusieurs séries de mesures, ordre alterné entre les variantes, et publication de la médiane avec l’écart interquartile plutôt que du meilleur temps observé. Le meilleur temps est la mesure la plus flatteuse et la moins informative.
-
-## 4. L’allocateur qui vous rend service une fois
-
-Le premier appel à l’allocateur demande des pages au système ; les suivants réutilisent une arène déjà chaude. Une variante qui alloue beaucoup paraît donc peu coûteuse dans une boucle serrée, et devient un problème dans un programme qui alloue par ailleurs, où la fragmentation entre en jeu.
-
-## Ce que dit la loi d’Amdahl, et qu’on oublie
-
-Si une portion $p$ du temps total est accélérée d’un facteur $s$, le gain global vaut
-
-$$G = \frac{1}{(1-p) + \dfrac{p}{s}}$$
-
-Avec $p = 0{,}03$ et $s = 1{,}4$, on obtient $G \approx 1{,}009$ : neuf millièmes. C’est exactement ma semaine perdue.
-
-## La méthode que j’applique maintenant
-
-- Mesurer dans le programme réel avant de mesurer en isolation. Une micro-mesure ne sert qu’à expliquer un écart déjà observé.
-- Compter les événements, pas seulement le temps : défauts de cache, branches mal prédites, instructions retirées.
-- Garder la version naïve dans les tests et comparer les sorties. Une optimisation qui change les résultats n’est pas une optimisation.
-- Écrire l’hypothèse avant la mesure. Si je ne sais pas dire ce que je m’attends à voir, je ne saurai pas interpréter ce que je vois.
-
-La conclusion agaçante : mon tri était bien 40 % plus rapide. Simplement, le tri représentait 3 % du temps total. La première question n’était pas « ce code est-il rapide », mais « ce code compte-t-il ».
-`},
- en:{title:'Your benchmarks are lying, and here is how',
-  blurb:'Cache, branch prediction, frequency scaling, allocator: four reasons the "faster" code is only faster inside your test loop.',
-  body:String.raw`
-I spent a week optimising a sort function. Measured gain: 40 %. Gain in the real program: zero. That is not a measurement error, it is a modelling error, and it is extremely common.
-
-## 1. The cache your loop warmed up
-
-A benchmark loop calls the same function a thousand times on the same data. By the second iteration everything sits in L1. In the real program the function is called once, between two workloads that flushed the cache. You measured arithmetic; the real cost was memory.
-
-~~~
-Typical latencies (cycles, order of magnitude)
-L1        ~4
-L2       ~14
-L3       ~45
-RAM     ~200
-~~~
-
-The fix: measure on data larger than the last level cache, and rotate data sets between calls.
-
-## 2. The branch predictor that learned your test set
-
-If your test data is sorted, or generated from a fixed seed, the predictor eventually guesses almost every branch. A mispredicted comparison costs around fifteen cycles; a predicted one is nearly free. The same code can be three times slower purely because the data became unpredictable.
-
-That is why a branchless sort can lose against a classic one on nearly sorted data, and win by a mile on random data.
-
-## 3. The clock moving under your feet
-
-A laptop CPU boosts during the first seconds of load, then settles under thermal limits. Timing a function right after start-up means timing a transient. Worse, wide vector instructions can lower the frequency of the whole core: the vectorised code does more work per cycle, and your cycles just got slower.
-
-Minimum remedy: several measurement runs, alternating variant order, and report the median with the interquartile range rather than the best observed time. The best time is the most flattering and least informative number you have.
-
-## 4. The allocator that helps you exactly once
-
-The first allocation asks the OS for pages; the next ones reuse a warm arena. An allocation-heavy variant therefore looks cheap in a tight loop and becomes a problem in a program that allocates elsewhere, where fragmentation kicks in.
-
-## What Amdahl's law says, and we forget
-
-If a fraction $p$ of total time is sped up by a factor $s$, the overall gain is
-
-$$G = \frac{1}{(1-p) + \dfrac{p}{s}}$$
-
-With $p = 0.03$ and $s = 1.4$, $G \approx 1.009$: nine parts in a thousand. That is precisely my wasted week.
-
-## The method I use now
-
-- Measure in the real program before measuring in isolation. A micro-benchmark only explains a gap you already observed.
-- Count events, not just time: cache misses, mispredicted branches, retired instructions.
-- Keep the naive version in the tests and compare outputs. An optimisation that changes results is not an optimisation.
-- Write the hypothesis before the measurement. If I cannot say what I expect to see, I cannot interpret what I see.
-
-The annoying conclusion: my sort really was 40 % faster. It just happened to be 3 % of total runtime. The first question was never "is this code fast", it was "does this code matter".
-`}},
-
-{slug:'monades-parseur',cat:'cs',date:'2026-02-18',read:8,
- fr:{title:'Ce que j’ai compris des monades en écrivant un parseur',
-  blurb:'Pas d’analogie avec des burritos. Un parseur, un problème de plomberie, et le moment où l’abstraction devient inévitable.',
-  body:String.raw`
-J’ai lu une dizaine d’explications des monades sans rien retenir. Ce qui a fonctionné, c’est d’écrire un analyseur syntaxique à la main et de me heurter au problème que les monades résolvent.
-
-## Le point de départ
-
-Un analyseur est une fonction qui prend une chaîne et renvoie, soit un échec, soit une valeur accompagnée du reste de la chaîne :
-
-~~~
-type 'a parser = string -> ('a * string) option
-~~~
-
-Rien d’abstrait. Un analyseur de chiffre regarde le premier caractère, un analyseur de mot-clé compare un préfixe. Le problème apparaît quand on veut les enchaîner : analyser un nombre, *puis* un signe, *puis* un autre nombre. Chaque étape doit propager le reste de la chaîne, et court-circuiter si l’une échoue.
-
-## La plomberie qu’on écrit trois fois
-
-Écrit naïvement, chaque enchaînement produit la même cascade de filtrage : déballer l’option, traiter l’échec, passer le reste à l’étape suivante. Au troisième ou quatrième cas, le motif se voit. On l’extrait :
-
-~~~
-let ( >>= ) p f = fun s ->
-  match p s with
-  | None -> None
-  | Some (v, rest) -> (f v) rest
-
-let return v = fun s -> Some (v, s)
-~~~
-
-Ces deux fonctions sont la monade. Ce n’est pas une métaphore, c’est le nom de ce couple d’opérations : un moyen d’injecter une valeur ordinaire dans le contexte (\`return\`) et un moyen d’enchaîner des calculs qui vivent dans ce contexte (\`>>=\`). Le contexte, ici, c’est « peut échouer et consomme de l’entrée ».
-
-## Ce que ça change concrètement
-
-Une fois ces deux briques posées, la grammaire s’écrit presque telle qu’on l’énonce. L’enchaînement, l’alternative et la répétition deviennent des combinateurs de quelques lignes, et le code de l’analyseur cesse de parler de chaînes de caractères pour parler de règles de grammaire. C’est le vrai bénéfice : la plomberie disparaît du texte.
-
-## Pourquoi les explications habituelles échouent
-
-Elles présentent l’abstraction avant le problème. Or une abstraction est une réponse ; sans la question, elle ressemble à une décoration. Les lois de la monade
-
-$$\mathrm{return}\ a \gg\!= f \;=\; f\,a, \qquad m \gg\!= \mathrm{return} \;=\; m$$
-
-$$(m \gg\!= f) \gg\!= g \;=\; m \gg\!= (\lambda x.\, f\,x \gg\!= g)$$
-
-m’ont paru arbitraires jusqu’au moment où j’ai remarqué qu’elles disent exactement : « regrouper les étapes autrement ne change pas le résultat ». Sans elles, un refactoring innocent casserait l’analyseur.
-
-Depuis, je reconnais le motif ailleurs : les promesses en JavaScript, \`Result\` en Rust, les générateurs de nombres aléatoires qui trimballent un état. Même forme, même bénéfice. L’intérêt n’a jamais été la théorie des catégories ; l’intérêt, c’est de n’écrire la plomberie qu’une fois.
-`},
- en:{title:'What I understood about monads by writing a parser',
-  blurb:'No burrito analogy. A parser, a plumbing problem, and the moment the abstraction becomes unavoidable.'}},
-
-{slug:'tries-sous-estimes',cat:'cs',date:'2025-09-15',read:6,
- fr:{title:'Le trie, structure sous-estimée',
-  blurb:'Entre la table de hachage et l’arbre équilibré, il existe une structure qui répond à des questions que ni l’une ni l’autre ne sait traiter.',
-  body:String.raw`
-Pour stocker des chaînes, le réflexe est la table de hachage. Elle est excellente pour une seule question : cette clé exacte est-elle présente ? Dès que la question devient « quelles clés commencent par ce préfixe », le hachage n’a rien à offrir, parce qu’il détruit délibérément toute structure de la clé.
-
-## Ce que le trie conserve
-
-Un trie range les chaînes caractère par caractère le long des branches. Deux clés partageant un préfixe partagent un chemin. Cette propriété donne directement la recherche par préfixe, l’énumération en ordre lexicographique, la plus longue correspondance de préfixe, et la complétion automatique. Le coût d’une recherche est
-
-$$O(|k|) \quad \text{et non} \quad O\!\left(|k| + \text{collisions}\right)$$
-
-c’est-à-dire qu’il dépend de la longueur de la clé, pas du nombre de clés stockées.
-
-![Trie compressé : chaque nœud à un seul enfant est fusionné avec son parent.](fig:tree)
-
-## Les objections, et ce qu’elles valent
-
-« Ça consomme trop de mémoire. » Vrai pour l’implémentation naïve à 256 pointeurs par nœud. Un trie compressé, qui fusionne les chaînes de nœuds à un seul enfant, réduit fortement l’empreinte ; les variantes à tableaux triés ou à mots de bits par nœud vont plus loin. Sur des jeux de clés très partagés, un trie compressé peut consommer moins qu’une table de hachage, parce que les préfixes communs ne sont stockés qu’une fois.
-
-« Le hachage est plus rapide. » En moyenne, sur des clés courtes et des recherches exactes, oui. Mais le hachage doit lire toute la clé pour calculer l’empreinte, alors qu’un trie s’arrête au premier caractère qui diffère. Et le trie n’a pas de pire cas de collision.
-
-## Où je m’en sers
-
-Dans [mon moteur de recherche](#/projets/recherche), le dictionnaire de termes est un trie compressé : il sert à la complétion, mais surtout à la recherche tolérante aux fautes. Un automate de Levenshtein parcouru en parallèle du trie élimine des sous-arbres entiers dès que la distance minimale possible dépasse le seuil. Avec une table de hachage, la même fonctionnalité exigerait de tester chaque terme du vocabulaire.
-
-Retenez la question de sélection : mes clés ont-elles une structure que je veux interroger ? Si oui, ne la détruisez pas au moment de les ranger.
-`},
- en:{title:'The trie is underrated',
-  blurb:'Between the hash table and the balanced tree sits a structure that answers questions neither of them can.'}},
-
-{slug:'entropie-pas-le-desordre',cat:'physics',date:'2026-07-08',read:10,
- fr:{title:'L’entropie n’est pas le désordre',
-  blurb:'La métaphore de la chambre en désordre fait plus de dégâts qu’elle n’en évite. Ce que compte l’entropie, ce sont des états, pas de l’esthétique.',
-  body:String.raw`
-« L’entropie mesure le désordre. » Cette phrase, répétée partout, produit des raisonnements faux dès qu’on lui fait porter du poids. Le désordre est un jugement visuel ; l’entropie est un décompte.
-
-## Ce que dit la définition
-
-Pour un système isolé dont tous les micro-états accessibles sont équiprobables, Boltzmann écrit :
-
-$$S = k_{\mathrm{B}} \ln \Omega$$
-
-$\Omega$ est le nombre de configurations microscopiques compatibles avec ce que l’on connaît macroscopiquement. Rien dans cette formule ne parle d’ordre. Elle dit : plus il y a de façons d’être dans l’état macroscopique où je suis, plus l’entropie est grande. L’entropie est une propriété de notre description, autant que du système.
-
-## Où la métaphore casse
-
-Prenez un cristal parfait de glace et de l’eau liquide à la même température. Le cristal a l’air ordonné, et son entropie est effectivement plus faible : la métaphore semble tenir. Prenez maintenant un mélange de sphères dures de deux tailles : au-delà d’une certaine densité, le système cristallise *spontanément*, en augmentant son entropie. Il s’ordonne visuellement parce qu’un arrangement régulier laisse plus de liberté de mouvement local, donc plus de micro-états. Le désordre visuel et l’entropie viennent de s’opposer.
-
-> Un système peut devenir plus régulier à l’œil en augmentant son entropie. La cristallisation entropique n’est pas une curiosité de laboratoire, c’est un contre-exemple décisif.
-
-## La bonne image : compter, pas juger
-
-Si l’on veut une intuition, prenons celle du jeu de dés. Deux dés, somme 7 : six combinaisons. Somme 12 : une seule. La somme 7 n’est pas « plus désordonnée » que 12, elle est simplement plus réalisable. Le deuxième principe dit que le système évolue vers des états macroscopiques largement plus réalisables, ce qui est un énoncé de probabilité, pas d’esthétique.
-
-Les nombres impliqués rendent l’irréversibilité écrasante. Pour un gaz de $N = 10^{23}$ particules, le rapport de réalisabilité entre « réparti dans la boîte » et « tout dans la moitié gauche » vaut
-
-$$\frac{\Omega_{\text{boîte}}}{\Omega_{\text{moitié}}} = 2^{N} = 2^{10^{23}}$$
-
-Ce n’est pas interdit, c’est perdu dans le bruit.
-
-## Ce que la formulation correcte permet
-
-Elle rend l’entropie de Shannon reconnaissable :
-
-$$H = -\sum_i p_i \ln p_i$$
-
-même formule, même interprétation en termes de nombre d’états compatibles avec une information donnée. Elle rend le paradoxe de Gibbs traitable : la question « ces deux gaz sont-ils distinguables ? » est une question sur la description, et la formule répond en conséquence. Et elle désamorce le démon de Maxwell : trier des molécules demande de l’information, et effacer un bit coûte au minimum $k_{\mathrm{B}} T \ln 2$ d’énergie dissipée.
-
-Le prix à payer est modeste. Il suffit de remplacer une phrase par une autre : l’entropie ne mesure pas le désordre, elle mesure le nombre de micro-états compatibles avec ce que nous savons.
-`},
- en:{title:'Entropy is not disorder',
-  blurb:'The messy bedroom metaphor causes more damage than it prevents. Entropy counts states, not aesthetics.',
-  body:String.raw`
-"Entropy measures disorder." That sentence, repeated everywhere, produces wrong reasoning as soon as you make it carry weight. Disorder is a visual judgement; entropy is a count.
-
-## What the definition says
-
-For an isolated system whose accessible microstates are equiprobable, Boltzmann writes:
-
-$$S = k_{\mathrm{B}} \ln \Omega$$
-
-$\Omega$ is the number of microscopic configurations compatible with what you know macroscopically. Nothing in that formula mentions order. It says: the more ways there are to be in the macrostate I am in, the higher the entropy. Entropy is a property of our description as much as of the system.
-
-## Where the metaphor breaks
-
-Take a perfect ice crystal and liquid water at the same temperature. The crystal looks ordered, and its entropy is indeed lower, so the metaphor seems to hold. Now take a mixture of hard spheres of two sizes: above a certain density the system crystallises *spontaneously*, increasing its entropy. It becomes visually ordered because a regular packing leaves more local freedom of movement, hence more microstates. Visual disorder and entropy have just moved in opposite directions.
-
-> A system can look more regular while increasing its entropy. Entropic crystallisation is not a laboratory curiosity, it is a decisive counterexample.
-
-## The right picture: count, do not judge
-
-If you want intuition, use dice. Two dice, sum 7: six combinations. Sum 12: one. Sum 7 is not "more disordered" than 12, it is simply more realisable. The second law says the system evolves towards vastly more realisable macrostates, which is a statement about probability, not aesthetics.
-
-The numbers involved make irreversibility overwhelming. For a gas of $N = 10^{23}$ particles, the ratio between "spread over the box" and "all in the left half" is
-
-$$\frac{\Omega_{\text{box}}}{\Omega_{\text{half}}} = 2^{N} = 2^{10^{23}}$$
-
-It is not forbidden, it is lost in the noise.
-
-## What the correct phrasing buys you
-
-It makes Shannon entropy recognisable:
-
-$$H = -\sum_i p_i \ln p_i$$
-
-same formula, same reading in terms of the number of states compatible with given information. It makes the Gibbs paradox tractable: "are these two gases distinguishable" is a question about the description, and the formula answers accordingly. And it defuses Maxwell's demon: sorting molecules requires information, and erasing one bit costs at least $k_{\mathrm{B}} T \ln 2$ of dissipated energy.
-
-The price is modest. Replace one sentence with another: entropy does not measure disorder, it measures the number of microstates compatible with what we know.
-`}},
-
-{slug:'moindre-action-en-pratique',cat:'physics',date:'2026-03-11',read:9,
- fr:{title:'Le principe de moindre action, en pratique',
-  blurb:'Reformuler la mécanique avec une intégrale à minimiser n’est pas une coquetterie : cela remplace la chasse aux forces par un choix de coordonnées.',
-  body:String.raw`
-La première rencontre avec le lagrangien laisse souvent une impression de tour de passe-passe : on pose $L = T - V$, on applique une équation, et les résultats de Newton tombent. D’où vient cette recette, et surtout, à quoi sert-elle ?
-
-## Le changement de point de vue
-
-Newton décrit le mouvement localement : connaissant l’état à un instant, les forces donnent l’accélération. La formulation variationnelle décrit le mouvement globalement : parmi tous les chemins reliant un point de départ à un point d’arrivée, la trajectoire réelle est celle qui rend stationnaire l’action
-
-$$S[q] = \int_{t_1}^{t_2} L(q, \dot{q}, t)\, \mathrm{d}t, \qquad \delta S = 0$$
-
-ce qui donne les équations d’Euler-Lagrange
-
-$$\frac{\mathrm{d}}{\mathrm{d}t}\!\left(\frac{\partial L}{\partial \dot{q}_i}\right) - \frac{\partial L}{\partial q_i} = 0$$
-
-Précision utile : stationnaire, pas nécessairement minimale. Le nom « moindre action » est un abus historique, et pour des temps de parcours longs la trajectoire est souvent un point selle.
-
-## Ce que l’on gagne vraiment
-
-Le gain n’est pas philosophique, il est calculatoire, et il apparaît dès qu’il y a des contraintes. Une bille dans une gouttière, un pendule double, une perle sur un cerceau qui tourne : en newtonien, chaque contrainte introduit une force de réaction inconnue qu’il faut éliminer. En lagrangien, on choisit des coordonnées qui satisfont automatiquement les contraintes, et les réactions n’apparaissent jamais dans les équations.
-
-Pour le pendule double, deux angles suffisent, et l’énergie cinétique s’écrit
-
-$$T = \tfrac{1}{2}(m_1+m_2)\ell_1^2\dot{\theta}_1^2 + \tfrac{1}{2}m_2\ell_2^2\dot{\theta}_2^2 + m_2\ell_1\ell_2\dot{\theta}_1\dot{\theta}_2\cos(\theta_1-\theta_2)$$
-
-Les deux équations du mouvement sortent sans qu’on ait dessiné une seule force de liaison.
-
-## La conséquence structurelle
-
-Le vrai théorème derrière tout cela est celui de Noether : à toute symétrie continue de l’action correspond une quantité conservée. L’invariance par translation dans le temps donne l’énergie, par translation dans l’espace la quantité de mouvement, par rotation le moment cinétique. Les lois de conservation cessent d’être des faits à retenir séparément ; elles deviennent la lecture des symétries du lagrangien.
-
-C’est aussi pour cette raison que la formulation se transporte là où les forces n’ont plus de sens évident : théorie des champs, relativité générale, mécanique quantique via l’intégrale de chemin, où l’amplitude s’écrit
-
-$$\langle q_f | q_i \rangle = \int \mathcal{D}q \; e^{\,i S[q]/\hbar}$$
-
-## Le conseil que je me donnerais
-
-Ne commencez pas par la démonstration des équations d’Euler-Lagrange. Prenez trois systèmes contraints, résolvez-les des deux façons, et chronométrez. L’argument le plus convaincant en faveur du lagrangien est le nombre de lignes de calcul économisées.
-`},
- en:{title:'The principle of least action, in practice',
-  blurb:'Recasting mechanics as an integral to minimise is not a flourish: it trades hunting for forces against choosing coordinates.'}},
-
-{slug:'ligne-de-base-spectres',cat:'physics',date:'2025-11-27',read:7,
- fr:{title:'Estimer une ligne de base sans se faire piéger par ses propres pics',
-  blurb:'Retour d’expérience sur un biais discret : la régression des moindres carrés se laisse tirer par le signal qu’elle est censée ignorer.',
-  body:String.raw`
-Dans [l’analyseur de spectres](#/projets/spectres) que j’utilise en TP, l’erreur la plus coûteuse ne venait ni de la détection de pics ni de l’ajustement, mais de l’étape qu’on considère comme un détail : la soustraction de la ligne de base.
-
-## Le symptôme
-
-Les aires de pics étaient systématiquement sous-estimées, d’autant plus que le pic était intense. Une erreur qui dépend de l’amplitude du signal n’est pas du bruit : c’est un biais, et il faut chercher un couplage.
-
-## La cause
-
-La ligne de base était ajustée par un polynôme au sens des moindres carrés, c’est-à-dire en minimisant
-
-$$\sum_{i=1}^{n} \left(y_i - P(x_i)\right)^2$$
-
-Or cette somme pénalise le carré des écarts, symétriquement. Un pic, qui est un écart positif énorme sur quelques points, tire donc la ligne de base vers le haut. Plus le pic est grand, plus la base est surestimée sous ce pic, et plus l’aire calculée est petite. Le signal contaminait l’estimation du fond.
-
-## Trois corrections, par ordre d’efficacité
-
-- **Régression quantile** plutôt que moindres carrés : on minimise $\sum \rho_\tau(y_i - P(x_i))$ avec $\rho_\tau(u) = u(\tau - \mathbf{1}_{u<0})$ et $\tau = 0{,}1$. Les écarts positifs cessent d’être surpondérés.
-- **Réajustement itératif avec écrêtage** : ajuster, retirer les points au-dessus de $P(x) + 2\sigma$, recommencer. Trois itérations suffisent en pratique.
-- **Fenêtres sans pic** déclarées à la main sur les spectres de référence : très fiable, mais non automatisable.
-
-La régression quantile a réduit le biais sur les aires d’un facteur cinq, pour quinze lignes de code. Le contrôle qui a permis de le vérifier : ajouter un pic synthétique d’aire connue à un spectre réel et comparer l’aire retrouvée. Aucun contrôle interne n’aurait révélé le biais, puisque le code faisait exactement ce qu’on lui demandait.
-
-> Quand une erreur croît avec l’amplitude du signal, cherchez l’endroit où l’estimation du fond regarde le signal.
-`},
- en:{title:'Estimating a baseline without being fooled by your own peaks',
-  blurb:'A field report on a quiet bias: least squares regression gets pulled by the very signal it is supposed to ignore.'}}
 ],
 
 /* =========================================================
