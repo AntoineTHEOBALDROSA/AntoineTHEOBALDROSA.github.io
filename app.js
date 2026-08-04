@@ -46,7 +46,7 @@ fr:{
     rows:[['Stage','À partir de juin 2027'],['Sujets','Intelligence Artificielle, Finance'],['Lieu','France ou à l’étranger']]},
   nf:{eyebrow:'Erreur 404',h1:'Cette page n’existe pas',
     lead:'Le lien est peut-être ancien, ou l’adresse comporte une faute. Les quatre sections du site sont accessibles depuis le menu.'},
-  foot:{about:'Antoine THEOBALD--ROSA — Paris.',updated:'Dernière mise à jour : juillet 2026.'},
+  foot:{about:'Antoine THEOBALD--ROSA — Paris.',updated:'Dernière mise à jour : août 2026.'},
   pending:null,
   langLabel:'Passer en anglais'
 },

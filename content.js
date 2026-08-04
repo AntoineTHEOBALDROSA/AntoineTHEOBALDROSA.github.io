@@ -555,19 +555,329 @@ p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + \cdots \\
 
 
 `},
-en:{title:'*TO DO*',
-  blurb:'*TO DO*',
+en:{title:String.raw`Practical formula for the number of partitions of an integer $p(n)$`,
+  blurb:String.raw`How can we efficiently compute the number of partitions of an integer $p(n)$?`,
   body:String.raw`
-*TO DO*
+In 1918, Hardy and Ramanujan showed that 
+$$p(n)\sim \frac{1}{4n\sqrt3}\text{exp}\left(\pi\sqrt{\frac{2n}{3}}\right)$$
+But how can we efficiently compute the exact value of $p(n)$? A brute-force computation would take far too long. We propose to prove
+
+
+<div style="border-left:3px solid #888; padding-left:12px; margin:12px 0;">
+
+
+$$\begin{equation*}
+\begin{split}
+p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + \cdots \\
+ & = \sum_{k\geq 1}(-1)^{k-1}p(n-k(3k\pm 1)/2)
+\end{split}
+\end{equation*}$$
+
+
+</div>
+
+
+
+## 1. Generating series of $p(n)$
+
+
+For $\lvert x \rvert\lt 1$, let 
+$$f(x)=\prod_{n\geq 1}\frac{1}{1-x^n} = \prod_{n\geq 1}\sum_{i\geq 0}x^{ni} = \prod_{n\geq 1}(1+ x^n + x^{2n} + \cdots)$$
+Let's try to find the coefficient in front of $x^k$ for $k\geq 1$: when we expand the product, in each factor $(1+ x^n + x^{2n} + \cdots)$ we pick a term $x^{i\cdot n}$; we interpret this as "I choose the number $n$, $i$ times." Thus we choose the number $1$ a certain number of times, the number $2$ a certain number of times, $\ldots$ In the end, the coefficient in front of $x^k$ is the number of ways to choose $(i_1, i_2, \ldots)$ such that:
+$$i_1\cdot 1 + i_2 \cdot 2 + i_3 \cdot 3 + \cdots = k$$
+This number of ways is exactly $p(k)$. Hence
+$$\boxed{f(x) = \prod_{n\geq 1}\frac{1}{1-x^n} =  1 + \sum_{n\geq 1} p(n)x^n}$$ 
+
+
+## 2. Pentagonal number theorem
+
+
+We will prove the pentagonal number theorem, a theorem due to Euler:
+
+
+<div style="border-left:3px solid #888; padding-left:12px; margin:12px 0;">
+
+
+$$\prod_{n\geq 1}(1-x^n)=1 + \sum_{k\geq 1} (-1)^k\left(x^{k(3k-1)/2} + x^{k(3k+1)/2}\right)$$
+
+
+</div> $\underline{\text{Proof:}}$ Let's start with an observation: consider the following product, which is very slightly different:
+$$\prod_{n\geq 1}(1+x^n) = (1+x)(1+x^2)(1+x^3)\cdots$$
+Expanding it as we did in the previous section, we see that in front of $x^k$ we have the number of ways to write $k$ as
+$$k = 1\cdot \varepsilon_1 + 2\cdot \varepsilon_2 + \cdots \qquad \text{where } \varepsilon_i \in \{0,1\}$$
+Concretely, this is the generating series for the number of partitions into distinct integers. For example, the partition $7=5+1+1$ is not counted, whereas $7=5+2$ is.$\\$
+But our product has a minus sign, so:
+
+
+$$\prod_{n\geq 1}(1-x^n) = \sum_{\varepsilon_1, \varepsilon_2, \ldots} (-1)^{\varepsilon_1 + \cdots + \varepsilon_s} x^{1\varepsilon_1 + 2\varepsilon_2 + \cdots + s\varepsilon_s}$$
+We count positively a partition into distinct numbers with an even number of terms, and negatively if such a partition has an odd number of terms.$\\$
+If we look at the first few terms, we get 
+
+
+$$\prod_{n\geq 1}(1-x^n) = 1-x-x^2 + x^5 + x^7 - x^{12} + \cdots$$
+
+
+which suggests that for many $n$ (for example $n=3, 4, 6, 8, 9, \ldots$) the number of partitions into distinct numbers with an even number of terms is exactly the number of partitions into distinct numbers with an odd number of terms, and that in the other cases the difference is only $\pm1$.$\\$
+We will explain when such partitions can be paired up, which will give us the expected formula.
+
+
+Let's take an example; we represent the partition $20 = 7 + 6 + 4 + 3$
+$$
+\begin{array}{ccccc}
+\bullet & \bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\bullet & \bullet & \bullet & \bullet \\
+\textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet}
+\end{array}
+$$
+Let's say the bottom row (in blue) has $a$ dots, and the diagonal on the right (in red) has $b$ dots. <br>
+If we want to move the bottom row and place it next to the red dots, we need $a\leq b$ so as not to have a floating dot. To move the red diagonal below the blue row and obtain a smaller row, we need $a\gt b$.<br>
+It's easy to see that these two operations are inverse to one another, and that starting from a partition into distinct numbers with an even number of terms we get one with an odd number of terms, and vice versa. Their contribution in our product is therefore zero.<br>
+But there are edge cases when these two rows contain a common dot (the purple dot):
+$$
+\begin{array}{ccccc}
+\bullet & \bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{purple}{\bullet} \\
+\end{array}
+$$
+Since moving one of the two rows decreases the size of the other by $1$:
+<ul style="margin-top: 4px; margin-left: 6px; line-height: 1;">
+  <li>to move the red row below the blue one and obtain a strictly smaller number, we need $a-1 \gt b$ </li>
+  <li>to move the blue row next to the red one without any floating dots, we need $b-1 \geq a$ </li>
+</ul> 
+The edge cases are therefore $a=b$ (first row) and $a = b+1$ (second row): 
+$$
+\begin{array}{ccccc}
+\bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{purple}{\bullet}
+\end{array} 
+\qquad \qquad
+\begin{array}{ccccc}
+\bullet & \bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{purple}{\bullet}
+\end{array} 
+$$
+$$
+\begin{array}{ccccc}
+\bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{purple}{\bullet}
+\end{array}
+\qquad \qquad
+\begin{array}{ccccc}
+\bullet & \bullet & \bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\bullet & \bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{purple}{\bullet}
+\end{array}
+$$
+We check that these numbers are of the form $\frac{k(3k-1)}{2}$ and $\frac{k(3k+1)}{2}$ where $k$ is the number of rows, that is, the number of distinct terms in the partition, which gives the theorem. $\square$ 
+
+
+## 3. Proof of the formula
+
+
+We have 
+$$ f(x)\prod_{n\geq 1}(1-x^n) = 1$$
+and by the pentagonal number theorem,
+$$ \par{1 + \sum_{n\geq 1} p(n)x^n}\par{1 + \sum_{n\geq 1} (-1)^n\par{x^{n(3n-1)/2} + x^{n(3n+1)/2}}}  = 1$$
+$$ \par{1 + p_1x + p_2x^2 + p_3x^3 + \cdots}\par{1-x-x^2 + x^5 + x^7 - x^{12} + \cdots}  = 1$$
+Since the coefficient in front of $x^n$ is zero, we indeed obtain
+$$\boxed{\begin{equation*}
+\begin{split}
+p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + \cdots \\
+ & = \sum_{k\geq 1}(-1)^{k+1}p(n-k(3k\pm 1)/2)
+\end{split}
+\end{equation*}}$$
 `}
  },
 
-{slug:'how-to-set-call-option-price',cat:'finance',date:'2026-08-04',read:10,
+{slug:'how-to-set-call-option-price',cat:'finance',date:'2026-08-04',read:15,
  fr:{title:String.raw`Comment fixer le prix d'une option ?`,
-  blurb:String.raw`*A TROUVER*`,
+  blurb:String.raw`Comment les banques vous vendent des *options* sans jouer à la lotterie ?`,
   body:String.raw`
+<p style="text-align: justify;">
+**1. Introduction**<br>
+  Imaginons la situation suivante : vous êtes boulanger, et un client vient vous voir pour prévoir une énorme commande de $1000$ croissants. Mais ce client est prévoyant : il ne veut ses croissants que dans un an. Comme vous ne pouvez pas faire les croissants aujourd'hui, vous devrez acheter les matières premières (par exemple la farine) dans un an. Mais peut-être que d'ici là le prix de la farine aura bien augmenté. Et votre client veut un devis maintenant!<br>
+  Dans ce cas, vous allez voir la banque et elle vous propose une assurance : elle vous promet de vous vendre de la farine à 1€ le kg, peu importe le prix du marché dans un an, même si la farine vaudra 10€ le kg.<br>
+  Un an plus tard, si le prix de la farine a baissé et ne coûte plus que 0,5€ le kg, vous l'achetez au supermarché. Mais si le prix a augmenté à 2€ le kg, vous l'achetez auprès de la banque. Dans tous les cas, vous ne payez jamais plus de 1€ le kg.<br>
+  Évidemment, ce service n'est pas gratuit et vous devrez payer la banque le prix de l'assurance.<br>
+  La question est la suivante : **combien la banque doit vous facturer cette assurance ? **<br><br>
 
+Ce type d'assurance, c'est ce qu'on appelle une **option call européenne** : un contrat qui donne le droit mais pas l’obligation d’acheter quelque chose (ici de la farine, mais ça pourrait être un service, des actions...) à un prix fixé à l’avance, appelé **strike** $K$, uniquement à une date fixée, appelée **maturité** $T$.<br>
+Si à la maturité le prix de l’actif $S_T$ dépasse $K$, le détenteur exerce et gagne $S_T-K$. Sinon, il n’exerce pas et le contrat ne vaut rien. Le gain final, ou **payoff**, s’écrit donc :
+$$\max\par{S_T-K, 0}$$
+
+La question centrale est simple en apparence : *combien ce contrat doit-il coûter aujourd’hui ?*
+
+
+**2. Une question pas si triviale...**<br>
+On pourrait penser que la question a une réponse simple. <br>
+Imaginons une action qui vaut 100€ aujourd'hui, et qui dans un an vaudra soit 150€, soit 50€. Maintenant on vous propose le pari suivant : si l'action finit à 150€ on vous donne 50€, si elle finit à 50€ on ne vous donne rien. Ce pari, c'est exactement une option call avec un strike à 100€. Combien seriez vous prêt à payer pour ce pari ?<br>
+
+Si je considère que chaque possibilité a une chance sur deux d'arriver, alors en moyenne je gagne 25€. Si la banque me prête à taux $r$, comme 25€ dans un an valent 25€$\cdot e^{-r\Delta t}$ aujourd'hui (avec $\Delta t=1\text{ an}$), alors je suis prêt à payer cette option :
+$$25\cdot e^{-r\Delta t}€$$
+*(Si vous n'avez pas compris d'où vient $e^{-r\Delta t}$, considérez que la banque fait des prêts à taux $r=0$, c'est-à-dire que l'argent dans un an vaut la même chose que l'argent d'aujourd'hui et lisez la suite de l'article en prenant $r=0$, c'est-à-dire en supprimant les facteurs $e^{-r\Delta t}$.)*
+
+Mais maintenant si mon ami est optimiste et pense que l'action a 70% de chance de monter et 30% de chance de descendre, alors  il pense gagner en moyenne $50\cdot \frac{70}{100} + 0 \cdot \frac{30}{100} = 35€$ et il est donc prêt à payer $35\cdot e^{-r\Delta t}€$...
+
+Mais en finance on a besoin d'un prix unique, qui ne dépend pas de ce que pensent chacun des acteurs! <br>
+En l'absence de prix unique, par exemple si une action s'échange à 20€ chez le Crédit Mutuel et 10€ à la Société Générale, alors j'achète plein d'actions à la Société Générale et je les revends au Crédit Mutuel, en empochant *immédiatement* et *sans risque* 10€ pour chaque transaction : c'est ce qu'on appelle l'**arbitrage**.
+
+On va voir comment construire un portefeuille (un mélange d'actions et d'argent à la banque) dont la valeur à la maturité égale exactement le payoff de l'option. Si une telle « machine » existe, le prix de l'option **doit** être égal au prix pour construire cette machine (ce portefeuille), ce sans quoi il y aura de l'arbitrage.
+</p>
+
+**3. Le modèle binomial à un pas**
+
+Aujourd'hui, l'action vaut $S$ et à la date $\Delta t$, elle ne peut prendre que deux valeurs : 
+<ul style="margin-top: 4px; margin-left: 6px; line-height: 1;">
+  <li>$S\cdot u$ dans le scénario où elle monte
+  <li>$S\cdot d$ dans le scénario où elle descend
+</ul> 
+Je vous laisse vérifier que $0\lt d \lt e^{r\Delta t} \lt u$ sinon on peut faire de l'arbitrage.<br>
+On suppose qu'on peut acheter une fraction d'action et qu'on peut prêter ou emprunter au taux $r$.
+On se place évidemment dans le cadre d'une option call européenne de strike $K$ de payoff
+$$C_u =  \max\par{Su-K, 0}, \qquad C_d =  \max\par{Sd-K, 0}$$
+On cherche une quantité d'action $\Delta$ et un montant en banque $\Gamma$ (c'est-à-dire une quantité à prêter ou emprunter), tels qu'à la date $\Delta t$, le portefeuille vaille exactement le payoff dans les deux scénarios :
+$$\begin{cases}
+\Delta \cdot S u + \Gamma \, e^{r \Delta t} = C_u \\
+\Delta \cdot S d + \Gamma \, e^{r \Delta t} = C_d
+\end{cases}$$
+En résolvant le système, on a 
+$$\Delta = \frac{C_u - C_d}{S(u - d)}\qquad\text{ et }\qquad 
+\Gamma = e^{-r \Delta t} \left( \frac{u C_d - d C_u}{u - d} \right)$$
+En général, on trouve $\Gamma \lt 0$, ce qui signifie qu'« on » *emprunte* de l'argent (« on » signifie celui qui promet l'argent du call, c'est-à-dire la banque bien souvent).$\\$
+Le coût $C$ de l'option est finalement
+$$\boxed{C=\Delta \cdot S + \Gamma}$$
+On remarquera qu'à **aucun moment** on n'a fait intervenir les probabilité pour l'action de monter ou de descendre! Le prix ne dépend pas de ces probabilités.
+
+**4. Ce que fait la banque en pratique**<p style="text-align: justify;">
+Concrètement, ce que fait la banque (le vendeur de l'option) :
+<ul style="margin-top: 4px; margin-left: 6px; line-height: 1;">
+  <li> le client achète une option call au prix $C$; la banque reçoit donc $C$
+  <li> la banque emprunte $-\Gamma$ (si $\Gamma\lt 0$)  
+  <li> la banque achète $\Delta$ actions grâce à $C - \Gamma$ (car $\Delta\cdot S = C - \Gamma$)
+  <li> à la maturité $T$, la banque donne au client ce qu'elle lui doit
+</ul> 
+
+La banque réplique le pari du client : si le client a gagné son pari, la banque aussi et elle le rembourse sans frais de sa poche; si le client a perdu, la banque aussi mais elle ne lui doit rien.<br>
+En pratique, la banque gagne de l'argent en vendant l'option plus chère que le prix théorique, avec des frais de service ou des services autour de l'option. 
+
+**5. La probabilité risque neutre**
+
+On a vu que les probabilité de up et down sont inconnues. Mais on aimerait bien créer une *fausse* probabilité $q$ qui ferait que *tout se passe comme si $S$ avait probabilité $q$ de monter et probabilité $1-q$ de descendre*, c'est-à-dire :
+$$e^{r\Delta t}S = qSu + (1-q)Sd$$
+on trouve alors
+$$q = \frac{e^{r\Delta t} - d}{u - d}$$
+Comme $d\lt e^{r\Delta t}\lt u$, on a bien $0\lt q \lt 1$ et on peut *interpréter* $q$ comme une probabilité : la **probabilité de risque neutre** (attention! $q$ ne représente pas du tout la vraie probabilité pour $S$ de monter).<br>
+Sous la probabilité $q$, on a 
+$$\mathbb{E}^q(S_{\Delta t})=qSu + (1-q)Sd = e^{r\Delta t}S \qquad \text{ donc } \qquad S = e^{-r\Delta t}\mathbb{E}^q(S_{\Delta t})$$
+On remarque aussi qu'on a 
+$$C = e^{-r\Delta t}(qC_u + (1-q)C_d)$$
+ce qui signifie qu'en calculant les payoff $C_u, C_d$ ainsi que $q$ on peut remonter au prix du call $C$, ce qui évite de calculer $\Delta$ et $\Gamma$. 
+</p>
 `},
+en:{title:String.raw`How do you price an option?`,
+  blurb:String.raw`How do banks sell you *options* without playing the lottery?`,
+  body:String.raw`
+<p style="text-align: justify;">
+**1. Introduction**<br>
+  Imagine the following situation: you are a baker, and a customer comes to you to place a huge order for $1000$ croissants. But this customer is cautious: they only want their croissants in a year. Since you can't make the croissants today, you'll need to buy the raw materials (flour, say) a year from now. But maybe by then the price of flour will have gone up a lot. And your customer wants a quote now!<br>
+  In that case, you go to the bank and it offers you an insurance: it promises to sell you flour at €1 per kg, no matter what the market price is in a year, even if flour is worth €10 per kg by then.<br>
+  A year later, if the price of flour has dropped and now only costs €0.5 per kg, you buy it at the supermarket. But if the price has risen to €2 per kg, you buy it from the bank. In any case, you never pay more than €1 per kg.<br>
+  Obviously, this service isn't free and you'll have to pay the bank the price of the insurance.<br>
+  The question is: **how much should the bank charge you for this insurance?**<br><br>
+
+
+This type of insurance is what's called a **European call option**: a contract that gives the right but not the obligation to buy something (here flour, but it could be a service, shares...) at a price fixed in advance, called the **strike** $K$, only on a fixed date, called the **maturity** $T$.<br>
+If at maturity the price of the asset $S_T$ exceeds $K$, the holder exercises and gains $S_T-K$. Otherwise, they don't exercise and the contract is worth nothing. The final gain, or **payoff**, is therefore written:
+$$\max\par{S_T-K, 0}$$
+
+
+The central question seems simple at first: *how much should this contract cost today?*
+
+
+
+**2. A question that's not so trivial...**<br>
+One might think this question has a simple answer. <br>
+Imagine a stock that's worth €100 today, and which in a year will be worth either €150 or €50. Now you're offered the following bet: if the stock ends at €150 you get €50, if it ends at €50 you get nothing. This bet is exactly a call option with a strike of €100. How much would you be willing to pay for this bet?<br>
+
+
+If I consider that each outcome has a fifty-fifty chance of happening, then on average I win €25. If the bank lends me money at rate $r$, since €25 in a year is worth €25$\cdot e^{-r\Delta t}$ today (with $\Delta t=1\text{ year}$), then I'm willing to pay for this option:
+$$25\cdot e^{-r\Delta t}€$$
+*(If you don't understand where $e^{-r\Delta t}$ comes from, just consider that the bank lends at rate $r=0$, meaning money in a year is worth the same as money today, and read the rest of the article taking $r=0$, i.e. dropping the $e^{-r\Delta t}$ factors.)*
+
+
+But now if my friend is optimistic and thinks the stock has a 70% chance of going up and a 30% chance of going down, then he thinks he'll win on average $50\cdot \frac{70}{100} + 0 \cdot \frac{30}{100} = 35€$ and so he's willing to pay $35\cdot e^{-r\Delta t}€$...
+
+
+But in finance we need a single price, one that doesn't depend on what each individual actor believes! <br>
+Without a single price, for example if a stock trades at €20 at Crédit Mutuel and €10 at Société Générale, then I buy lots of shares at Société Générale and sell them at Crédit Mutuel, pocketing *immediately* and *risk-free* €10 on every transaction: this is what's called **arbitrage**.
+
+
+We're going to see how to build a portfolio (a mix of stock and money at the bank) whose value at maturity exactly equals the option's payoff. If such a "machine" exists, the price of the option **must** equal the price of building this machine (this portfolio), otherwise there will be arbitrage.
+</p>
+
+
+**3. The one-step binomial model**
+
+
+Today, the stock is worth $S$ and at time $\Delta t$, it can only take two values: 
+<ul style="margin-top: 4px; margin-left: 6px; line-height: 1;">
+  <li>$S\cdot u$ in the scenario where it goes up
+  <li>$S\cdot d$ in the scenario where it goes down
+</ul> 
+I'll let you check that $0\lt d \lt e^{r\Delta t} \lt u$, otherwise arbitrage is possible.<br>
+We assume we can buy a fraction of a share and that we can lend or borrow at rate $r$.
+We of course consider a European call option with strike $K$ and payoff
+$$C_u =  \max\par{Su-K, 0}, \qquad C_d =  \max\par{Sd-K, 0}$$
+We look for a quantity of stock $\Delta$ and an amount at the bank $\Gamma$ (i.e. an amount to lend or borrow), such that at time $\Delta t$, the portfolio is worth exactly the payoff in both scenarios:
+$$\begin{cases}
+\Delta \cdot S u + \Gamma \, e^{r \Delta t} = C_u \\
+\Delta \cdot S d + \Gamma \, e^{r \Delta t} = C_d
+\end{cases}$$
+Solving the system, we get 
+$$\Delta = \frac{C_u - C_d}{S(u - d)}\qquad\text{ and }\qquad 
+\Gamma = e^{-r \Delta t} \left( \frac{u C_d - d C_u}{u - d} \right)$$
+In general, we find $\Gamma \lt 0$, which means "we" *borrow* money ("we" meaning whoever promises the call's payoff, that is, most often the bank).$\\$
+The cost $C$ of the option is finally
+$$\boxed{C=\Delta \cdot S + \Gamma}$$
+Notice that **at no point** did we bring in the probabilities of the stock going up or down! The price doesn't depend on these probabilities.
+
+
+**4. What the bank does in practice**<p style="text-align: justify;">
+Concretely, here's what the bank (the option seller) does:
+<ul style="margin-top: 4px; margin-left: 6px; line-height: 1;">
+  <li> the customer buys a call option at price $C$; the bank therefore receives $C$
+  <li> the bank borrows $-\Gamma$ (if $\Gamma\lt 0$)  
+  <li> the bank buys $\Delta$ shares using $C - \Gamma$ (since $\Delta\cdot S = C - \Gamma$)
+  <li> at maturity $T$, the bank gives the customer what it owes them
+</ul> 
+
+
+The bank replicates the customer's bet: if the customer won their bet, so did the bank, and it pays them back out of its own pocket at no extra cost; if the customer lost, so did the bank, but it owes them nothing.<br>
+In practice, the bank makes money by selling the option for more than its theoretical price, along with service fees or services around the option. 
+
+
+**5. The risk-neutral probability**
+
+
+We've seen that the up and down probabilities are unknown. But we'd like to create a *fake* probability $q$ such that *everything behaves as if $S$ had probability $q$ of going up and probability $1-q$ of going down*, that is:
+$$e^{r\Delta t}S = qSu + (1-q)Sd$$
+we then find
+$$q = \frac{e^{r\Delta t} - d}{u - d}$$
+Since $d\lt e^{r\Delta t}\lt u$, we indeed have $0\lt q \lt 1$ and we can *interpret* $q$ as a probability: the **risk-neutral probability** (careful! $q$ does not represent the true probability of $S$ going up at all).<br>
+Under probability $q$, we have 
+$$\mathbb{E}^q(S_{\Delta t})=qSu + (1-q)Sd = e^{r\Delta t}S \qquad \text{ so } \qquad S = e^{-r\Delta t}\mathbb{E}^q(S_{\Delta t})$$
+We also notice that we have 
+$$C = e^{-r\Delta t}(qC_u + (1-q)C_d)$$
+which means that by computing the payoffs $C_u, C_d$ as well as $q$ we can work back to the call price $C$, which avoids having to compute $\Delta$ and $\Gamma$. 
+</p>
+`}
  }, 
 ],
 
@@ -728,10 +1038,16 @@ $$\boxed{p(n)=\frac{1}{2i\pi}\int_{c-i\pi}^{c+i\pi} f(e^{-t})e^{nt}dt}\qquad (\s
 <div style="border-left:3px solid #888; padding-left:12px; margin:12px 0;">
 
 <b>Rappel (Mellin).</b> Pour $\mathrm{Re}\,s>0$, $\displaystyle\Gamma(s)=\int_0^{\infty}e^{-y}y^{s-1}\,dy$, et la formule d'inversion donne, pour $c>0$ et $y>0$ :
-
 $$e^{-y}=\frac{1}{2i\pi}\int_{(c)}\Gamma(s)\,y^{-s}\,ds$$
 
 </div>
+
+$$\par{\sum} \qquad \norm{\sum} \qquad \abs{\sum}$$
+
+<ul style="margin-top: 4px; margin-left: 6px; line-height: 1;">
+  <li>pour bouger la ligne ligne rouge en dessous de la bleue et obtenir un nombre strictement plus petit, il faut $a-1 \gt b$ </li>
+  <li>pour bouger la ligne ligne bleue à côté de la rouge et ne pas avoir de points flottant, il faut  il faut $b-1 \geq a$ </li>
+</ul> 
 
 ~~~
 pour i de 0 à n-1 :
