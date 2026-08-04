@@ -96,9 +96,12 @@ cats:[
  {id:'cs',
   fr:{name:'Informatique',blurb:String.raw`Des structures de données monstrueuses pour gagner un facteur $\sqrt{n}$ : c'est la beauté de l'informatique!`},
   en:{name:'Computer science',blurb: String.raw`Monstrous data structures to gain a $\sqrt{n}$ factor: that’s the beauty of computer science!`}},
- {id:'physics',
+  {id:'finance',
+  fr:{name:'Finance',blurb:'Recherches 100% personnelles.'},
+  en:{name:'Finance',blurb:'100% personnal research.'}},
+  {id:'physics',
   fr:{name:'Physique',blurb:'Souvent les articles les plus intuitifs, parce que la physique est la science du quotidien!'},
-  en:{name:'Physics',blurb:'Often the most intuitive articles—because physics is the science of everyday life!'}}
+  en:{name:'Physics',blurb:'Often the most intuitive articles—because physics is the science of everyday life!'}},
 ],
 
 /* =========================================================
@@ -434,28 +437,36 @@ En 1918, Hardy et Ramanujan ont montré que
 $$p(n)\sim \frac{1}{4n\sqrt3}\text{exp}\left(\pi\sqrt{\frac{2n}{3}}\right)$$
 Mais comment calculer efficacement la valeur exacte de $p(n)$ ? Un calcule par force brute serait beaucoup trop long. On se proposer de démontrer
 
+<div style="border-left:3px solid #888; padding-left:12px; margin:12px 0;">
+
 $$\begin{equation*}
 \begin{split}
-p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + p(n-15) + \cdots \\
+p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + \cdots \\
  & = \sum_{k\geq 1}(-1)^{k-1}p(n-k(3k\pm 1)/2)
 \end{split}
 \end{equation*}$$
 
-## Série génératrice de $p(n)$
+</div>
+
+
+## 1. Série génératrice de $p(n)$
 
 Pour $\lvert x \rvert\lt 1$, on pose 
 $$f(x)=\prod_{n\geq 1}\frac{1}{1-x^n} = \prod_{n\geq 1}\sum_{i\geq 0}x^{ni} = \prod_{n\geq 1}(1+ x^n + x^{2n} + \cdots)$$
-Essayons de trouver le coefficient devant $x^k$ pour $k\geq 1$ : quand on développe le produit, on choisit dans chaque facteur $(1+ x^n + x^{2n} + \cdots)$ un $x^{ni}$ ; on l'interpète comme « je choisis $i$ fois le nombre $n$ ». Ainsi on choisit un certain nombre de fois le nombre $1$, un certain nombre de fois le nombre $2$, $\ldots$ Au final le coefficient devant $x^k$ est le nombre de manière de choisir $(i_1, i_2, \ldots)$ telle que :
-$$1\cdot i_1 + 2 \cdot i_2 + 3 \cdot i_3 + \cdots = k$$
+Essayons de trouver le coefficient devant $x^k$ pour $k\geq 1$ : quand on développe le produit, on choisit dans chaque facteur $(1+ x^n + x^{2n} + \cdots)$ un $x^{i\cdot n}$ ; on l'interpète comme « je choisis $i$ fois le nombre $n$ ». Ainsi on choisit un certain nombre de fois le nombre $1$, un certain nombre de fois le nombre $2$, $\ldots$ Au final le coefficient devant $x^k$ est le nombre de manière de choisir $(i_1, i_2, \ldots)$ telle que :
+$$i_1\cdot 1 + i_2 \cdot 2 + i_3 \cdot 3 + \cdots = k$$
 Ce nombre de manière, c'est exactement $p(k)$. D'où
-$$f(x) = 1 + \sum_{n\geq 1} p(n)x^n$$ 
+$$\boxed{f(x) = \prod_{n\geq 1}\frac{1}{1-x^n} =  1 + \sum_{n\geq 1} p(n)x^n}$$ 
 
-## Théorème des nombres pentagonaux
+## 2. Théorème des nombres pentagonaux
 
 On va démontrer le théorème des nombres pentagonaux, théorème qu'on doit à Euler :
 
+<div style="border-left:3px solid #888; padding-left:12px; margin:12px 0;">
+
 $$\prod_{n\geq 1}(1-x^n)=1 + \sum_{k\geq 1} (-1)^k\left(x^{k(3k-1)/2} + x^{k(3k+1)/2}\right)$$
-$\underline{Preuve :}$ On va faire une première constatation : regardons le produit suivant, très légèrement différent :
+
+</div> $\underline{\text{Preuve :}}$ On va faire une première constatation : regardons le produit suivant, très légèrement différent :
 $$\prod_{n\geq 1}(1+x^n) = (1+x)(1+x^2)(1+x^3)\cdots$$
 En développant comme on l'a fait dans la partie précédente, on se rend compte devant $x^k$ on a le nombre de manière d'écrire $k$ comme
 $$k = 1\cdot \varepsilon_1 + 2\cdot \varepsilon_2 + \cdots \qquad \text{où } \varepsilon_i \in \{0,1\}$$
@@ -470,9 +481,94 @@ $$\prod_{n\geq 1}(1-x^n) = 1-x-x^2 + x^5 + x^7 - x^{12} + \cdots$$
 
 ce qui laisse penser que pour beaucoup de $n$ (par exemple $n=3, 4, 6, 8, 9, \ldots$) le nombre de partition utilisant des nombres distincts avec un nombre pair de termes est exactement le nombre de partition utilisant des nombres distincts avec un nombre impair de termes, et que dans les autres cas la différence est de $\pm1$ seulement.$\\$
 On va expliquer quand ces paritions peuvent s'appairer, ce qui nous donnera la formule attendue.
+
+Prenons un exemple; on représente la partition $20 = 7 + 6 + 4 + 3$
+$$
+\begin{array}{ccccc}
+\bullet & \bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\bullet & \bullet & \bullet & \bullet \\
+\textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet}
+\end{array}
+$$
+Disons que la ligne du bas (en bleu) possède $a$ points, et que la diagonale sur la droite (en rouge) possède $b$ points. <br>
+Si on veut bouger la ligne du bas et la juxtaposer aux points rouges, il faut $a\leq b$ pour ne pas avoir de point flottant. Pour déplacer la diagonale rouge en dessous de la ligne bleue et obtenir une ligne plus petite, il faut $a\gt b$.<br>
+On se rend compte aisément que ces deux opérations sont inverses l'une de l'autre, et qu'en partant d'une partition avec des nombres distincts avec un nombre pair de termes on en obtient une avec un nombre impair de termes, et inversement. Leur contribution dans notre produit est est donc nul.<br>
+Mais il y a des cas limites quand ces deux lignes contiennent un point commun (le point violet) :
+$$
+\begin{array}{ccccc}
+\bullet & \bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{purple}{\bullet} \\
+\end{array}
+$$
+Comme bouger une des deux lignes décrémente de $1$ la taille de l'autre:
+<ul style="margin-top: 4px; margin-left: 6px; line-height: 1;">
+  <li>pour bouger la ligne ligne rouge en dessous de la bleue et obtenir un nombre strictement plus petit, il faut $a-1 \gt b$ </li>
+  <li>pour bouger la ligne ligne bleue à côté de la rouge et ne pas avoir de points flottant, il faut  il faut $b-1 \geq a$ </li>
+</ul> 
+Les cas limites sont donc $a=b$ (première ligne) et $a = b+1$ (deuxième ligne) : 
+$$
+\begin{array}{ccccc}
+\bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{purple}{\bullet}
+\end{array} 
+\qquad \qquad
+\begin{array}{ccccc}
+\bullet & \bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{purple}{\bullet}
+\end{array} 
+$$
+$$
+\begin{array}{ccccc}
+\bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{purple}{\bullet}
+\end{array}
+\qquad \qquad
+\begin{array}{ccccc}
+\bullet & \bullet & \bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\bullet & \bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
+\textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{purple}{\bullet}
+\end{array}
+$$
+On vérifie que ces nombres sont de la forme $\frac{k(3k-1)}{2}$ et $\frac{k(3k+1)}{2}$ où $k$ le nombre de lignes c'est-à dire le nombre de facteurs distincts la partition, ce qui donne le théorème. $\square$ 
+
+## 3. Démonstration de la formule
+
+On a 
+$$ f(x)\prod_{n\geq 1}(1-x^n) = 1$$
+et d'après le théorème des nombres pentagonaux,
+$$ \par{1 + \sum_{n\geq 1} p(n)x^n}\par{1 + \sum_{n\geq 1} (-1)^n\par{x^{n(3n-1)/2} + x^{n(3n+1)/2}}}  = 1$$
+$$ \par{1 + p_1x + p_2x^2 + p_3x^3 + \cdots}\par{1-x-x^2 + x^5 + x^7 - x^{12} + \cdots}  = 1$$
+Comme le coefficient devant $x^n$ est nul, on obtient bien
+$$\boxed{\begin{equation*}
+\begin{split}
+p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + \cdots \\
+ & = \sum_{k\geq 1}(-1)^{k+1}p(n-k(3k\pm 1)/2)
+\end{split}
+\end{equation*}}  $$
+
+
 `},
+en:{title:'*TO DO*',
+  blurb:'*TO DO*',
+  body:String.raw`
+*TO DO*
+`}
  },
 
+{slug:'how-to-set-call-option-price',cat:'finance',date:'2026-08-04',read:10,
+ fr:{title:String.raw`Comment fixer le prix d'une option ?`,
+  blurb:String.raw`*A TROUVER*`,
+  body:String.raw`
+
+`},
+ }, 
 ],
 
 /* =========================================================
@@ -620,11 +716,22 @@ $$p = k2^{n+2} + 1$$
 For $n=5$, one must test $p=128k + 1$, so excluding composite $p$, it suffices to test $p=257$ and $p=641$ only! 
 `}},
 
-{id:'P-020',slug:'tri-qui-nen-est-pas-un',date:'2026-06-30',level:1,tags:['cs','algorithms'],
- fr:{title:'Le tri qui n’en est pas un',
-  blurb:'Un algorithme de tri en apparence correct, un contre-exemple à trouver, et une borne inférieure à justifier.',
+{id:'P-999  ',slug:'test',date:'0000-00-00',level:1,tags:[],
+ fr:{title:'None',
+  blurb:String.raw`None`,
   statement:String.raw`
-On propose l’algorithme suivant pour trier un tableau \`t\` de $n$ entiers :
+
+1. Le point de départ : $p(n)$ comme intégrale
+
+$$\boxed{p(n)=\frac{1}{2i\pi}\int_{c-i\pi}^{c+i\pi} f(e^{-t})e^{nt}dt}\qquad (\star)$$
+
+<div style="border-left:3px solid #888; padding-left:12px; margin:12px 0;">
+
+<b>Rappel (Mellin).</b> Pour $\mathrm{Re}\,s>0$, $\displaystyle\Gamma(s)=\int_0^{\infty}e^{-y}y^{s-1}\,dy$, et la formule d'inversion donne, pour $c>0$ et $y>0$ :
+
+$$e^{-y}=\frac{1}{2i\pi}\int_{(c)}\Gamma(s)\,y^{-s}\,ds$$
+
+</div>
 
 ~~~
 pour i de 0 à n-1 :
@@ -633,94 +740,16 @@ pour i de 0 à n-1 :
             échanger t[j] et t[j+2]
 ~~~
 
-1. Que fait réellement cet algorithme ? Le prouver.
-2. Exhiber le plus petit tableau non trié en sortie.
-3. Proposer une correction minimale, puis justifier qu’aucun tri par comparaisons ne peut être en $O(n)$ dans le pire cas.
-`,
-  hint:String.raw`
-Regardez ce que devient un élément d’indice pair. Peut-il jamais occuper une position impaire ?
-`,
-  solution:String.raw`
-**1.** Un échange entre les indices $j$ et $j+2$ préserve la parité de l’indice de chaque élément. L’algorithme trie donc indépendamment le sous-tableau des indices pairs et celui des indices impairs, sans jamais les mélanger. En sortie, ces deux sous-suites sont croissantes, mais leur entrelacement n’a aucune raison de l’être.
-
-**2.** Le tableau $[2, 1]$ reste inchangé, puisque les indices $0$ et $1$ ne sont jamais comparés. Le plus petit tableau non trié en sortie est donc de taille 2. Exemple plus parlant en taille 4 : $[1, 4, 2, 3]$ est déjà stable, alors que $[1,2,3,4]$ serait la sortie attendue.
-
-**3.** Remplacer \`t[j+2]\` par \`t[j+1]\` donne le tri à bulles usuel, correct en $O(n^2)$. Quant à la borne inférieure : un tri par comparaisons est un arbre de décision binaire dont les feuilles doivent couvrir les $n!$ permutations. Sa hauteur $h$ vérifie donc $2^h \geq n!$, soit
-
-$$h \;\geq\; \log_2(n!) \;=\; n\log_2 n - \frac{n}{\ln 2} + O(\log n) \;=\; \Theta(n \log n)$$
-
-par la formule de Stirling. Aucun tri par comparaisons ne peut donc être linéaire dans le pire cas, ce qui n’interdit rien aux tris exploitant la structure des clés, comme le tri par base.
-`},
- en:{title:'The sort that is not one',
-  blurb:'A seemingly correct sorting algorithm, a counterexample to find, and a lower bound to justify.',
-  statement:String.raw`
-Consider the following algorithm, meant to sort an array \`t\` of $n$ integers:
-
-~~~
-for i from 0 to n-1:
-    for j from 0 to n-3:
-        if t[j] > t[j+2]:
-            swap t[j] and t[j+2]
-~~~
-
-1. What does this algorithm actually do? Prove it.
-2. Exhibit the smallest array that comes out unsorted.
-3. Propose a minimal fix, then justify that no comparison sort can run in $O(n)$ in the worst case.
-`,
-  hint:String.raw`
-Look at what happens to an element sitting at an even index. Can it ever end up at an odd position?
-`,
-  solution:String.raw`
-**1.** Swapping indices $j$ and $j+2$ preserves the parity of each element's index. The algorithm therefore sorts the even-index subarray and the odd-index subarray independently, never mixing them. Both subsequences come out increasing, but their interleaving has no reason to be.
-
-**2.** The array $[2, 1]$ is left untouched, since indices $0$ and $1$ are never compared, so the smallest unsorted output has size 2. A more telling size-4 example: $[1, 4, 2, 3]$ is stable under the algorithm, while $[1,2,3,4]$ is the expected output.
-
-**3.** Replacing \`t[j+2]\` with \`t[j+1]\` gives the usual bubble sort, correct in $O(n^2)$. As for the lower bound: a comparison sort is a binary decision tree whose leaves must cover all $n!$ permutations, so its height $h$ satisfies $2^h \geq n!$, hence
-
-$$h \;\geq\; \log_2(n!) \;=\; n\log_2 n - \frac{n}{\ln 2} + O(\log n) \;=\; \Theta(n \log n)$$
-
-by Stirling's formula. No comparison sort can be linear in the worst case, which says nothing against sorts exploiting key structure, such as radix sort.
-`}},
-
-
-{id:'P-018',slug:'somme-inverses-carres',date:'2026-05-19',level:3,tags:['math','analysis'],
- fr:{title:'Somme des inverses des carrés, sans Fourier',
-  blurb:String.raw`Établir $\zeta(2)=\pi^2/6$... avec pour seuls outils une inégalité trigonométrique et un théorème des gendarmes.`,
-  statement:String.raw`
-On souhaite démontrer que
-
 ![FFT](images/fft.png)
 
-$$\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}$$
 
-sans utiliser de séries de Fourier ni d’intégrale de contour.
-
-1. Montrer que pour tout $x \in \left]0, \tfrac{\pi}{2}\right[$ on a $\cot^2 x < \dfrac{1}{x^2} < 1 + \cot^2 x$.
-2. En sommant cette inégalité aux points $x_k = \dfrac{k\pi}{2n+1}$ pour $k = 1,\dots,n$, et sachant que $\displaystyle\sum_{k=1}^{n} \cot^2 x_k = \frac{n(2n-1)}{3}$, conclure.
-3. Où intervient précisément l’hypothèse que $2n+1$ est impair ?
 `,
-  hint:String.raw`
-Pour la première inégalité, partez de $\sin x < x < \tan x$ sur $\left]0, \tfrac{\pi}{2}\right[$ et passez aux inverses au carré. L’identité de la question 2 vient des racines du polynôme dont les $\cot^2 x_k$ sont solutions.
+  hint:String.raw` None
 `,
-  solution:String.raw`
-**1.** Sur $\left]0, \tfrac{\pi}{2}\right[$ on a $\sin x < x < \tan x$. En passant aux carrés puis aux inverses :
-
-$$\cot^2 x = \frac{\cos^2 x}{\sin^2 x} < \frac{1}{x^2} < \frac{1}{\sin^2 x} = 1 + \cot^2 x$$
-
-**2.** Posons $N = 2n+1$ et $x_k = k\pi/N$. En sommant sur $k$ de $1$ à $n$ :
-
-$$\frac{n(2n-1)}{3} \;<\; \frac{N^2}{\pi^2}\sum_{k=1}^{n} \frac{1}{k^2} \;<\; n + \frac{n(2n-1)}{3}$$
-
-Multiplions par $\pi^2/N^2$ :
-
-$$\frac{\pi^2 n(2n-1)}{3(2n+1)^2} \;<\; \sum_{k=1}^{n} \frac{1}{k^2} \;<\; \frac{\pi^2\big(n + n(2n-1)/3\big)}{(2n+1)^2}$$
-
-Les deux bornes tendent vers $\dfrac{2\pi^2 n^2}{12 n^2} = \dfrac{\pi^2}{6}$, le terme supplémentaire $\pi^2 n/(2n+1)^2$ tendant vers $0$. Le théorème des gendarmes donne la conclusion.
-
-**3.** L’imparité de $N$ garantit que les $n$ valeurs $\cot^2(k\pi/N)$, pour $k = 1,\dots,n$, sont exactement les $n$ racines distinctes du polynôme obtenu en développant $\sin(Nx)$ : aucun des $x_k$ ne vaut $\pi/2$, où la cotangente s’annulerait et ferait chuter le degré. C’est ce qui permet d’identifier la somme des racines à $n(2n-1)/3$ par les relations coefficients-racines.
+  solution:String.raw`None
 `},
- en:{title:'Sum of reciprocal squares, without Fourier',
-  blurb:'Proving $\zeta(2) = \pi^2/6$ with nothing but a trigonometric inequality and the squeeze theorem.'}
+ en:{title:'None',
+  blurb:'None'}
 },
 
 ]};

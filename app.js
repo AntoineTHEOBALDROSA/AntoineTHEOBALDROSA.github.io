@@ -119,8 +119,21 @@ function tex(src, display){
   const clean = src.trim();
   if(window.katex){
     try{
-      return katex.renderToString(clean, {displayMode:!!display, throwOnError:false, strict:false,
-        macros:{'\\R':'\\mathbb{R}','\\N':'\\mathbb{N}','\\Z':'\\mathbb{Z}','\\eps':'\\varepsilon'}});
+      return katex.renderToString(clean, {
+        displayMode: !!display, 
+        throwOnError: false, 
+        strict: false,
+        macros: {
+          '\\R': '\\mathbb{R}',
+          '\\N': '\\mathbb{N}',
+          '\\Z': '\\mathbb{Z}',
+          '\\eps': '\\varepsilon',
+          // Ajout des nouvelles macros avec argument (#1)
+          '\\par': '\\left( #1 \\right)',
+          '\\abs': '\\left| #1 \\right|',
+          '\\norm': '\\left\\| #1 \\right\\|' 
+        }
+      });
     }catch(e){ /* tombe dans le repli */ }
   }
   return '<span class="tex-fallback' + (display ? ' tex-fallback--block' : '') + '">' + esc(clean) + '</span>';
