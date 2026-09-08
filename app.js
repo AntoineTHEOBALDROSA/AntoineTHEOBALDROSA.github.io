@@ -490,7 +490,7 @@ function viewProblem(slug){
       '<div class="chips">' + p.tags.map(t => '<span class="chip">'+tagLabel(t)+'</span>').join('') + '</div></header>' +
     '<div class="detail">' + (isPending(p,'statement') ? notice() : '') +
       '<article class="prose">' + md(c.statement) + '</article>' +
-      '<div style="max-width:70ch">' + disc(u.hint, c.hint) + disc(u.solution, c.solution) + '</div>' +
+      '<div>' + disc(u.hint, c.hint) + disc(u.solution, c.solution) + '</div>' +
       '<div><a class="btn btn--a" href="#/problemes">← '+u.all+'</a></div></div>' +
     pager(prev && [u.prev, pick(prev).title, '#/problemes/'+prev.slug],
           next && [u.next, pick(next).title, '#/problemes/'+next.slug]) + '</div>';
@@ -590,6 +590,7 @@ function route(keepScroll){
   else if(sec === 'contact'){ html = viewContact(); key = 'contact'; }
   else { html = viewNotFound(); }
 
+  main.dataset.section = key || '';
   main.innerHTML = html;
   document.querySelectorAll('.stagger').forEach(g =>
     [...g.children].forEach((c,i) => c.style.setProperty('--i', Math.min(i,10))));

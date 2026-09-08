@@ -324,3 +324,23 @@ footer{border-top:1px solid var(--rule);padding:var(--s6) 0 var(--s7);margin-top
 .timeline li i {
   white-space: pre-line;
 }
+
+/* Articles et problèmes : toute la largeur, avec marges adaptatives. */
+#main:is([data-section="articles"], [data-section="problems"]) .wrap {
+  width: calc(100% - clamp(32px, 6vw, 128px));
+  max-width: none;
+}
+
+#main:is([data-section="articles"], [data-section="problems"])
+:is(.pagehead, .lead, .prose, .disc__in, .row p, .cat p, .notice) {
+  max-width: none;
+}
+
+#main:is([data-section="articles"], [data-section="problems"]) .detail {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+#main:is([data-section="articles"], [data-section="problems"]) .prose {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}

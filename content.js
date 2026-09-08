@@ -27,7 +27,7 @@ window.SITE = {
    ========================================================= */
 profile:{
   first:'Antoine', last:'THEOBALD--ROSA',
-  email:'antoine.theobaldrosaa@gmail.com',
+  email:'antoine.theobald-rosa@polytechnique.edu',
   location:{fr:'Paris · Mathématiques, Informatique & Finance',
             en:'Paris · Mathematics, Computer Science & Finance'},
   title:{
@@ -60,11 +60,11 @@ profile:{
     en:{t:'Lycée Fabert (Metz)',s:'Mathematics, Physics, Computer Science<br>French Baccalaureate with highest honors (Très Bien)'}}
       ],
   skills:['Python', 'C', 'C++','OCaml','Java','SQL','NumPy / SciPy','LaTeX','Git / Github',
-          {fr:'Data Science',en:'Data Science'}, {fr:'IA',en:'AI'}, {fr:'Algorithmique',en:'Algorithms'},{fr:'Informatique Graphique',en:'Probability'}],
+          {fr:'Data Science',en:'Data Science'}, {fr:'IA',en:'AI'}, {fr:'Algorithmique',en:'Algorithms'},{fr:'Informatique Graphique',en:'Computer Graphics'}],
   socials:[
     {label:'GitHub',href:'https://github.com/AntoineTHEOBALDROSA',glyph:'↗'},
     {label:'LinkedIn',href:'https://www.linkedin.com/in/antoine-theobald-rosa-696087381/',glyph:'↗'},
-    {label:'antoine.theobaldrosaa@gmail.com',href:'mailto:antoine.theobaldrosaa@gmail.com',glyph:'✉'},
+    {label:'antoine.theobald-rosa@polytechnique.edu',href:'mailto:antoine.theobald-rosa@polytechnique.edu',glyph:'✉'},
     {label:{fr:'CV (PDF)',en:'Résumé (PDF)'},href:'#/contact',glyph:'↓'}
   ]
 },
@@ -429,6 +429,7 @@ Utilisé deux fois en atelier de vulgarisation auprès de lycéens : l’effet �
    ========================================================= */
 articles:[
 
+// ARTICLE PARTITION
 {slug:'partition-formula',cat:'math',date:'2026-07-30',read:10,
  fr:{title:String.raw`Formule pratique du nombre de partitions d'un entier $p(n)$`,
   blurb:String.raw`Comment calculer efficacement le nombre de partitions d'un entier $p(n)$ ?`,
