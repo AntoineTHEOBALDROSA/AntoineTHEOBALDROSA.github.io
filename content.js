@@ -28,15 +28,17 @@ window.SITE = {
 profile:{
   first:'Antoine', last:'THEOBALD--ROSA',
   email:'antoine.theobald-rosa@polytechnique.edu',
+    photo:'images/portrait.jpg',      // laisse '' tant que le fichier n'existe pas
   location:{fr:'Paris · Mathématiques, Informatique & Finance',
+    
             en:'Paris · Mathematics, Computer Science & Finance'},
   title:{
     fr:'Étudiant à l’École Polytechnique<br>Mathématiques, Informatique & Finance',
     en:'Student at École Polytechnique, Paris, France<br>Mathematics, Computer Science & Finance'},
   bio:{
     fr:[
-     'Bienvenue sur ma page personnelle.<br>Étudiant en école d’ingénieur, je suis particulièrement passionné de mathétmatiques, d’informatique et de finance. Mes centres d’intérêts scientifiques sont plus précisément l’algèbre et l’arithmétique, l’algorithmique et le trading haute-fréquence. De manière tout à fait personnel, je m’intéresse à la psychologie, aux actualités technologiques et, peut-être par nostalgie, je suis également fasciné par l’histoire des dinosaures.',
-     'Ce site rassemble trois choses : les [projets](#/projets) que je construis, des [articles](#/articles) où j’essaye de rendre clair des sujets peu traités mais tout à fait passionant, ainsi qu’une collection de [problèmes](#/problemes) sur lesquels j’ai aimé me casser la tête.',
+     'Bienvenue sur ma page personnelle.<br>Étudiant en école d’ingénieur, je suis particulièrement passionné de mathématiques, d’informatique et de finance. Mes centres d’intérêts scientifiques sont plus précisément l’algèbre et l’arithmétique, l’algorithmique et le trading haute-fréquence. De manière tout à fait personnel, je m’intéresse à la psychologie, aux actualités technologiques et, peut-être par nostalgie, je suis également fasciné par l’histoire des dinosaures.',
+     'Ce site rassemble trois choses : les [projets](#/projets) que je construis, des [articles](#/articles) où j’essaye de rendre clair des sujets peu traités mais tout à fait passionnant, ainsi qu’une collection de [problèmes](#/problemes) sur lesquels j’ai aimé me casser la tête.',
      'Vous trouverez mon parcours et mon contact sur ce site. Je suis joignable à tout moment.'],
     en:[
      'Welcome to my personal page.<br>I am an engineering student with a strong passion for mathematics, computer science, and finance. My main scientific interests focus more specifically on algebra and number theory, algorithms, and high-frequency trading. On a more personal level, I am interested in psychology, technological news, and — perhaps out of nostalgia — I am also fascinated by the history of dinosaurs.',
@@ -886,6 +888,145 @@ which means that by computing the payoffs $C_u, C_d$ as well as $q$ we can work 
    6. PROBLÈMES
    ========================================================= */
 problems:[
+{id:'P-003',slug:'contour-sinc',date:'2026-09-08',level:2,tags:['math','analysis'],
+ fr:{title:'Une jolie intégrale',
+  blurb:String.raw`Très très jolie intégrale, qui fait apparaître un $e^{-\pi}$.`,
+  statement:String.raw`
+Démontrer :
+$$I=\int_{-\infty}^{+\infty}\frac{\sin x}{x\,(\pi^2+x^2)}\,dx = \frac{1-e^{-\pi}}{\pi}$$
+`,
+  hint:String.raw`
+On peut passer par l'analyse complexe. On cherche à calculer la partie imaginaire de 
+$$\int_{-\infty}^{+\infty}\frac{e^{ix}}{x(\pi^2+x^2)}\,dx$$
+donc poser $f(z)=\frac{e^{iz}}{z(\pi^2+z^2)}$. Intégrer sur un contour ne contenant qu'un seul pôle, en évitant $0$.
+`,
+  solution:String.raw`
+On vérifie facilement la convergence de l'intégrale : la fonction est continue sur $\R^*$, se prolonge par continuité en $0$ et est un $\mathcal O\par{x^{-3}}$ en $\pm\infty$.
+
+1. On pose $f(z)=\frac{e^{iz}}{z(\pi^2+z^2)}$, qui possède des pôles en $0$ et $\pm i\pi$. On va intégrer sur le lacet $\gamma$ suivant : 
+
+~~~tikz 
+\begin{tikzpicture}[scale=1.1,line join=round]
+  \definecolor{brick}{HTML}{9A3A29}
+  \definecolor{slate}{HTML}{86817A}
+  % axes
+  \draw[slate,->] (-3.4,0) -- (3.6,0) node[below] {$\Re z$};
+  \draw[slate,->] (0,-2.6) -- (0,3.5) node[left] {$\Im z$};
+  % segments réels, de -R vers -eps puis de eps vers R
+  \draw[brick,very thick] (-2.9,0) -- (-0.34,0);
+  \draw[brick,very thick,->] (-2.9,0) -- (-1.5,0);
+  \draw[brick,very thick] (0.34,0) -- (2.9,0);
+  \draw[brick,very thick,->] (0.34,0) -- (1.75,0);
+  % petite indentation autour de 0, sens horaire
+  \draw[brick,very thick] (-0.34,0) arc (180:0:0.34);
+  \draw[brick,very thick,->] (-0.34,0) arc (180:80:0.34);
+  % grand demi-cercle, sens trigonométrique
+  \draw[brick,very thick] (2.9,0) arc (0:180:2.9);
+  \draw[brick,very thick,->] (2.9,0) arc (0:55:2.9);
+  % pôles
+  \fill (0,1.9) circle (2pt);
+  \node[right] at (0.14,1.9) {$i\pi$};
+  \draw (0,-1.9) circle (2pt);
+  \node[right] at (0.14,-1.9) {$-i\pi$};
+  \draw[fill=white] (0,0) circle (1.5pt);
+  \node[above right] at (0.05,0.05) {$0$};
+  % étiquettes
+  \node[below left] at (0,0) {$0$};
+  \node[below right] at (0.34,0) {$\varepsilon$};
+  \node[below] at (2.9,-0.06) {$R$};
+  \node[below] at (-2.9,-0.06) {$-R$};
+  \node[brick] at (-2.45,2.45) {$\Gamma_R$};
+  \node[brick,above left] at (0,0.34) {$\Gamma_\varepsilon$};
+\end{tikzpicture}
+~~~
+
+Seul le pôle $+i\pi$ est dans le lacet, et 
+$$(z-i\pi)f(z)=\frac{e^{iz}}{z(z+i\pi)}\xrightarrow[z \to i\pi]{}\frac{-e^{-\pi}}{2\pi^2}=\text{res}(f,i\pi)$$
+Par le théorème des résidus, 
+$$\int_{[-R,R]\setminus[-\varepsilon, \varepsilon]}f(x)\,dx + \int_{\Gamma_R} f + \int_{\Gamma_\varepsilon} f = 2i\pi \frac{-e^{-\pi}}{2\pi^2} =  \frac{-ie^{-\pi}}{\pi}$$
+**Grand arc $\Gamma_R$ :** Pour $z\in \Gamma_R$, $\text{Im} z\geq 0$ donc  $|e^{iz}|\leq 1$ et $|z|=R$. On suppose $R\gt \pi$. Donc $|f|\leq \frac{1}{R(R^2-\pi^2)}$ et
+$$\left|\int_{\Gamma_R}f\right|\leq \frac{\pi R}{R(R^2-\pi^2)}\xrightarrow[R\to\infty]{}0$$
+
+**Petit arc $\Gamma_\varepsilon$ :** dans un voisinage de $0$, $f(z) = \frac{1}{z\pi^2} + g(z)$ avec $g$ holomorphe. </br>
+$\Gamma_\varepsilon$ se parametrise avec $\gamma(\theta) = e^{i\theta}$ pour $\theta$ variant de $\pi$ à $0$ donc
+$$\int_{\Gamma_\varepsilon}f = \int_\pi^0 \par{\frac{1}{\pi^2\varepsilon e^{i\theta}} + g(\varepsilon e^{i\theta})}i\varepsilon e^{i\theta}\, d\theta = \frac{-i\pi}{\pi^2} + \mathcal O (\varepsilon) = \frac{-i}{\pi} + \mathcal O (\varepsilon)$$
+
+**Conclusion :** on pose $\varepsilon = \frac{1}{R}$, alors $\int_{[-R,R]\setminus[-\varepsilon, \varepsilon]}f(x)\,dx \xrightarrow[R\to+\infty]{} I$ et donc en faisant tendre $R\to+\infty$ dans le théorème des résidus,
+$$\int_{-\infty}^{+\infty}\frac{e^{ix}}{x(\pi^2+x^2)}\,dx-\frac{i}{\pi}=-\frac{i\,e^{-\pi}}{\pi}$$
+d'où en prenant la partie imaginaire :
+$$\boxed{I=\int_{-\infty}^{+\infty}\frac{\sin x}{x\,(\pi^2+x^2)}\,dx = \frac{1-e^{-\pi}}{\pi}}$$
+
+`},
+ en: {
+  title: 'A nice integral',
+  blurb: String.raw`A very, very nice integral featuring an $e^{-\pi}$.`,
+  statement: String.raw`
+Prove:
+$$I=\int_{-\infty}^{+\infty}\frac{\sin x}{x\,(\pi^2+x^2)}\,dx = \frac{1-e^{-\pi}}{\pi}$$
+`,
+  hint: String.raw`
+We can use complex analysis. We want to compute the imaginary part of 
+$$\int_{-\infty}^{+\infty}\frac{e^{ix}}{x(\pi^2+x^2)}\,dx$$
+so set $f(z)=\frac{e^{iz}}{z(\pi^2+z^2)}$. Integrate along a contour containing only one pole, indenting around $0$.
+`,
+  solution: String.raw`
+The convergence of the integral is readily verified: the integrand is continuous on $\R^*$, extends by continuity at $0$, and is $\mathcal O\par{x^{-3}}$ at $\pm\infty$.
+
+1. Let $f(z)=\frac{e^{iz}}{z(\pi^2+z^2)}$, which has poles at $0$ and $\pm i\pi$. We integrate along the following contour $\gamma$: 
+
+~~~tikz 
+\begin{tikzpicture}[scale=1.1,line join=round]
+  \definecolor{brick}{HTML}{9A3A29}
+  \definecolor{slate}{HTML}{86817A}
+  % axes
+  \draw[slate,->] (-3.4,0) -- (3.6,0) node[below] {$\Re z$};
+  \draw[slate,->] (0,-2.6) -- (0,3.5) node[left] {$\Im z$};
+  % real segments, from -R to -eps then from eps to R
+  \draw[brick,very thick] (-2.9,0) -- (-0.34,0);
+  \draw[brick,very thick,->] (-2.9,0) -- (-1.5,0);
+  \draw[brick,very thick] (0.34,0) -- (2.9,0);
+  \draw[brick,very thick,->] (0.34,0) -- (1.75,0);
+  % small indentation around 0, clockwise
+  \draw[brick,very thick] (-0.34,0) arc (180:0:0.34);
+  \draw[brick,very thick,->] (-0.34,0) arc (180:80:0.34);
+  % large semicircle, counterclockwise
+  \draw[brick,very thick] (2.9,0) arc (0:180:2.9);
+  \draw[brick,very thick,->] (2.9,0) arc (0:55:2.9);
+  % poles
+  \fill (0,1.9) circle (2pt);
+  \node[right] at (0.14,1.9) {$i\pi$};
+  \draw (0,-1.9) circle (2pt);
+  \node[right] at (0.14,-1.9) {$-i\pi$};
+  \draw[fill=white] (0,0) circle (1.5pt);
+  \node[above right] at (0.05,0.05) {$0$};
+  % labels
+  \node[below left] at (0,0) {$0$};
+  \node[below right] at (0.34,0) {$\varepsilon$};
+  \node[below] at (2.9,-0.06) {$R$};
+  \node[below] at (-2.9,-0.06) {$-R$};
+  \node[brick] at (-2.45,2.45) {$\Gamma_R$};
+  \node[brick,above left] at (0,0.34) {$\Gamma_\varepsilon$};
+\end{tikzpicture}
+~~~
+
+Only the pole $+i\pi$ lies inside the contour, and 
+$$(z-i\pi)f(z)=\frac{e^{iz}}{z(z+i\pi)}\xrightarrow[z \to i\pi]{}\frac{-e^{-\pi}}{2\pi^2}=\text{res}(f,i\pi)$$
+By the residue theorem, 
+$$\int_{[-R,R]\setminus[-\varepsilon, \varepsilon]}f(x)\,dx + \int_{\Gamma_R} f + \int_{\Gamma_\varepsilon} f = 2i\pi \frac{-e^{-\pi}}{2\pi^2} =  \frac{-ie^{-\pi}}{\pi}$$
+**Large arc $\Gamma_R$:** For $z\in \Gamma_R$, $\text{Im} z\geq 0$, so $|e^{iz}|\leq 1$ and $|z|=R$. Assuming $R\gt \pi$, we have $|f|\leq \frac{1}{R(R^2-\pi^2)}$ and
+$$\left|\int_{\Gamma_R}f\right|\leq \frac{\pi R}{R(R^2-\pi^2)}\xrightarrow[R\to\infty]{}0$$
+
+**Small arc $\Gamma_\varepsilon$:** In a neighborhood of $0$, $f(z) = \frac{1}{z\pi^2} + g(z)$ with $g$ holomorphic. </br>
+$\Gamma_\varepsilon$ is parameterized by $\gamma(\theta) = e^{i\theta}$ as $\theta$ ranges from $\pi$ to $0$, so
+$$\int_{\Gamma_\varepsilon}f = \int_\pi^0 \par{\frac{1}{\pi^2\varepsilon e^{i\theta}} + g(\varepsilon e^{i\theta})}i\varepsilon e^{i\theta}\, d\theta = \frac{-i\pi}{\pi^2} + \mathcal O (\varepsilon) = \frac{-i}{\pi} + \mathcal O (\varepsilon)$$
+
+**Conclusion:** Setting $\varepsilon = \frac{1}{R}$, we have $\int_{[-R,R]\setminus[-\varepsilon, \varepsilon]}f(x)\,dx \xrightarrow[R\to+\infty]{} I$. Letting $R\to+\infty$ in the residue theorem yields
+$$\int_{-\infty}^{+\infty}\frac{e^{ix}}{x(\pi^2+x^2)}\,dx-\frac{i}{\pi}=-\frac{i\,e^{-\pi}}{\pi}$$
+whence, taking the imaginary part:
+$$\boxed{I=\int_{-\infty}^{+\infty}\frac{\sin x}{x\,(\pi^2+x^2)}\,dx = \frac{1-e^{-\pi}}{\pi}}$$
+`}
+},
+
   // P-002
 {id:'P-002',slug:'harmonic-prime',date:'2026-07-30',level:2,tags:['math','numbertheory'],
  fr:{title:'Divisibilité et série harmonique',
@@ -1036,7 +1177,7 @@ For $n=5$, one must test $p=128k + 1$, so excluding composite $p$, it suffices t
 
 $$\boxed{p(n)=\frac{1}{2i\pi}\int_{c-i\pi}^{c+i\pi} f(e^{-t})e^{nt}dt}\qquad (\star)$$
 
-<div style="border-left:3px solid #888; padding-left:12px; margin:12px 0;">
+<div class="callout">
 
 <b>Rappel (Mellin).</b> Pour $\mathrm{Re}\,s>0$, $\displaystyle\Gamma(s)=\int_0^{\infty}e^{-y}y^{s-1}\,dy$, et la formule d'inversion donne, pour $c>0$ et $y>0$ :
 $$e^{-y}=\frac{1}{2i\pi}\int_{(c)}\Gamma(s)\,y^{-s}\,ds$$

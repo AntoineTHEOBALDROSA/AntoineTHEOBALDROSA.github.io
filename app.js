@@ -46,7 +46,7 @@ fr:{
     rows:[['Stage','À partir de juin 2027'],['Sujets','Intelligence Artificielle, Finance'],['Lieu','France ou à l’étranger']]},
   nf:{eyebrow:'Erreur 404',h1:'Cette page n’existe pas',
     lead:'Le lien est peut-être ancien, ou l’adresse comporte une faute. Les quatre sections du site sont accessibles depuis le menu.'},
-  foot:{about:'Antoine THEOBALD--ROSA — Paris.',updated:'Dernière mise à jour : août 2026.'},
+  foot:{about:'Antoine THEOBALD--ROSA — Paris.',updated:'Dernière mise à jour : septembre 2026.'},
   pending:null,
   langLabel:'Passer en anglais'
 },
@@ -83,7 +83,7 @@ en:{
     rows:[['Internship','From June 2027'],['Topics','Artificial Intelligence, Finance'],['Location','Anywhere']]},
   nf:{eyebrow:'Error 404',h1:'This page does not exist',
     lead:'The link may be old, or the address has a typo. All four sections are reachable from the menu.'},
-  foot:{about:'Antoine THEOBALD--ROSA — Paris.',updated:'Last updated: July 2026.'},
+  foot:{about:'Antoine THEOBALD--ROSA — Paris.',updated:'Last updated: september 2026.'},
   pending:'Pas encore traduit / Not translated yet: the text below is in French.',
   langLabel:'Switch to French'
 }};
@@ -114,6 +114,9 @@ const fmtDate = iso => new Date(iso + 'T12:00:00').toLocaleDateString(T().locale
    2. Moteur Markdown + LaTeX
    ========================================================= */
 const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+/* Blocs TikZ extraits du Markdown, remplis par md(), consommés par mountTikz(). */
+let TIKZ = [];
 
 function tex(src, display){
   const clean = src.trim();
@@ -161,6 +164,13 @@ function inline(src){
 function md(src){
   if(!src) return '';
   let s = String(src).replace(/\r/g, '').replace(/\\`/g, '`');
+   /* TikZ : ~~~tikz Légende optionnelle … ~~~   (1re ligne « %libs a,b » = librairies) */
+  s = s.replace(/(?:```|~~~)[ \t]*tikz[ \t]*([^\n]*)\n([\s\S]*?)(?:```|~~~)/g, (_, cap, body) => {
+    let libs = '';
+    body = body.replace(/^\s*%libs[ \t]+([^\n]*)\n/, (_, l) => { libs = l.trim(); return ''; });
+    TIKZ.push({ code: body.replace(/\s+$/, ''), cap: cap.trim(), libs: libs });
+    return '' + (TIKZ.length - 1) + '';
+  });
   const code = [];
   s = s.replace(/(?:```|~~~)\n?([\s\S]*?)(?:```|~~~)/g, (_, c) => {
     code.push(c.replace(/\n$/, '')); return '\u0002' + (code.length-1) + '\u0002';
@@ -168,6 +178,12 @@ function md(src){
 
   const blocks = s.split(/\n{2,}/).map(b => b.trim()).filter(Boolean).map(b => {
     let mm;
+    if((mm = b.match(/^(\d+)$/))){
+      const t = TIKZ[+mm[1]];
+      return '<figure class="tikz"><div class="tikz__slot" data-tikz="' + mm[1] + '"></div>' +
+        (t.cap ? '<figcaption>' + inline(t.cap) + '</figcaption>' : '') + '</figure>';
+    }
+    if(/^<(div|ul|ol|table|figure|section|details|aside|pre|blockquote|iframe|h[1-6])\b/i.test(b)) return inline(b);
     if((mm = b.match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/))) {
       const src = mm[2];
       if(/^(https?:\/\/|\/|\.\/|\.\.\/)/.test(src)) {
@@ -268,6 +284,22 @@ const figure = (k, caption) =>
   '<div class="shot__body">' + (FIG[k] || FIG.dots)() + '</div></div>' +
   '<figcaption>' + caption + '</figcaption></figure>';
 
+/* On recrée les <script type="text/tikz"> nœud par nœud : innerHTML seul
+   n'est pas vu par l'observateur de TikZJax (le script est imbriqué). */
+function mountTikz(){
+  if(!TIKZ.length) return;
+  document.querySelectorAll('.tikz__slot').forEach(slot => {
+    const t = TIKZ[+slot.dataset.tikz];
+    if(!t) return;
+    const sc = document.createElement('script');
+    sc.type = 'text/tikz';
+    if(t.libs) sc.setAttribute('data-tikz-libraries', t.libs);
+    sc.textContent = t.code;
+    slot.textContent = '';
+    slot.appendChild(sc);
+  });
+}
+
 /* =========================================================
    4. Fragments réutilisables
    ========================================================= */
@@ -309,7 +341,9 @@ function viewHome(){
     ['03', u.nav.problems, '#/problemes', u.home.doors[2], u.n.problem(S.problems.length)]
   ];
   return '<div class="wrap view">' +
-    '<section class="hero"><div class="hero__main">' +
+        '<section class="hero"><div class="hero__main">' +
+      (p.photo ? '<figure class="portrait"><img src="' + esc(p.photo) + '" alt="' +
+        esc(p.first + ' ' + p.last) + '" width="248" height="248" decoding="async"></figure>' : '') +
       '<p class="eyebrow">' + loc(p.location) + '</p>' +
       '<h1>' + p.first + ' <em>' + p.last + '</em></h1>' +
       '<p class="hero__title">' + inline(loc(p.title)) + '</p>' +
@@ -579,6 +613,7 @@ function icons(){ if(window.lucide && window.lucide.createIcons) window.lucide.c
 
 let firstRender = true;
 function route(keepScroll){
+  TIKZ = [];
   const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean).map(decodeURIComponent);
   const sec = parts[0] || 'home';
   let html, key = sec === 'home' ? 'home' : null;
@@ -600,7 +635,7 @@ function route(keepScroll){
   document.querySelectorAll('#nav a, #tabbar a').forEach(a =>
     a.dataset.k === key ? a.setAttribute('aria-current','page') : a.removeAttribute('aria-current'));
 
-  icons(); bindProblems(); bindContact();
+  icons(); mountTikz(); bindProblems(); bindContact();
   if(!firstRender && !keepScroll) window.scrollTo(0,0);
   firstRender = false;
 }

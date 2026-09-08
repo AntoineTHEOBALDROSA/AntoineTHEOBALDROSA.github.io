@@ -40,8 +40,8 @@
 <!-- /skill:chrome -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Antoine THEOBALD--ROSAaaa</title>
-<meta name="description" content="Site personnel d'Antoine THEOBALD--ROSA.">
+<title>Site personnel</title>
+<meta name="description" content="Site personnel.">
 <meta name="color-scheme" content="light">
 
 <!-- Typographie -->
@@ -51,6 +51,16 @@
 
 <!-- LaTeX : KaTeX rend réellement les formules -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+
+<!-- TikZ : LaTeX -> SVG dans le navigateur. L'ordre compte : options, css, bundle -->
+<script>
+  window.TikzJaxOptions = {
+    renderTimeout: 30000, maxRetries: 1, restartWorkerOnFail: true,
+    workerPool: { enabled:true, maxWorkers:3, reserveCpuCores:1, useDeviceMemory:true }
+  };
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@rod2ik/tikzjax@1.6.0/dist/fonts.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/@rod2ik/tikzjax@1.6.0/dist/tikzjax.min.js"></script>
 
 <!-- Feuille de style du site -->
 <link rel="stylesheet" href="styles.css">
