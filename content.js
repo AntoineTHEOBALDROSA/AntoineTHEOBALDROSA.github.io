@@ -112,11 +112,36 @@ cats:[
 projects:[
 
 {slug:'stat-arb-eng',thumb:'images/fft.png',year:'2026',tags:['Quant', 'Machine-Learning','Python'],
- fr:{title:'Solveur de Sudoku par propagation de contraintes',role:'Projet personnel',status:'Terminé',
-  blurb:'Un solveur qui ne devine presque jamais : AC-3 pour réduire les domaines, puis backtracking guidé par l’heuristique MRV.',
-  lead:'Résoudre un Sudoku par force brute prend des millions d’essais. En traitant la grille comme un problème de satisfaction de contraintes, on tombe à quelques dizaines de branchements.',
-  links:[['Code source','https://github.com/aaa']],
+ fr:{title:String.raw`Moteur d'arbitrage statistique & Pairs Trading`,role:'Projet personnel',status:'En cours',
+  blurb:String.raw`Comment tester de manière honnête (sans tricher) si une stratégie d'investissement aurait fait gagner de l'argent ? Application au *Pairs Trading*.`,
+  lead:String.raw`Comment tester de manière honnête (sans tricher) si une stratégie d'investissement aurait fait gagner de l'argent ? <br><br>
+  Supposons qu'on ait une idée de stratégie, par exemple : « dès qu'une action baisse trois jours de suite, je l'achète et je la revends le lendemain ». On pourrait prendre l'historique des prix et regarder ce qui se serait passé : c'est ce qu'on appelle un **backtest**. Mais en pratique, un backtest peut prédire une straégie comme gagnante alors qu'elle est perdant. Pourquoi? Parce qu'en réalité il y a des frais, un décalage de prix le temps d'envoyer l'offre, et d'autres facteurs encore.<br><br>
+  On va développer un moteur qui calcule si une stratégie gagne *vraiment* de l'argent, et on l'essayera sur la stratégie de **Pairs Trading**.`,
+  links:[['Code source','https://github.com/AntoineTHEOBALDROSA/Statistical-Arbitrage-Engine']],
   body:String.raw` 
+  /// Negative padding here /// 
+  /// Make links clickable if possible ? ///
+  ## Plan :<br>
+
+  1. Mise en place de la stratégie de Pairs Trading<br>
+  2. Élaboration du moteur de backtest<br>
+  3. Évaluation de la stratégie sur le moteur
+
+  Le code source du projet est disponible sur Github (lien ci-dessus).
+
+  ## 1. Pairs Trading 
+  Pour essayer le moteur de backtest, il nous faut déjà une stratégie d'investissement. J'ai choisis le **Pairs Trading** (arbitrage de pairs).<br>
+
+  Imaginons deux entreprises très similaires, par exemple TotalEnergies et Shell. Comme leurs sont presque identiques, on s'attend à ce que leurs actions évoluent ensemble : si le pétrole monte, les deux montent et inversement.<br>
+  Mais de temps en temps, un évènement s'écarter les deux cours, par exemple si un fond d'investissement vend ses actions d'une des deux entreprises pour avoir du cash. Dans ce cas, l'action de $A$ semble trop chère par rapport à celle de $B$ et inversement. Notre stratégie considère que cet écart finit toujours par se revenir à l'équilibre. 
+
+  Concrètement, dès qu'un écart se crée : 
+  1. On emprunte une action de $A$, l'entreprise dont le cours a trop monté et on la vend immédiatement.
+  2. Grâce à cet argent on achète l'action de $B$ qui a trop baissé.
+  3. Quand l'écart redevient normal, on revend l'action de $B$ pour acheter une action de $A$ et rendre ce qu'on a emprunté. On empoche la différence.
+  L'avantage de cette stratégie c'est qu'on ne parie pas sur la tendance du marché, mais seulement sur le fait que l'écart entre les deux entreprises va revenir à la normal.
+
+  Implémentons cette stratégie.
 
 `},
  en:{title:'Sudoku solver by constraint propagation',role:'Personal project',status:'Finished',
