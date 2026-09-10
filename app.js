@@ -387,21 +387,43 @@ function viewProject(slug){
   const p = S.projects[i], c = pick(p), u = T().projects;
   const prev = S.projects[i-1], next = S.projects[i+1];
   const t = plain(c.title);
+
+  // 1. On cherche uniquement le lien GitHub / Code source (on ignore les notes d'implémentation)
+  const codeLink = c.links && c.links.find(l => /code/i.test(l[0]) || /github/i.test(l[1]));
+
+  // 2. Bouton GitHub stylisé pour s'aligner parfaitement avec les badges (chips)
+  const githubBtn = codeLink
+    ? '<a class="btn btn--a" href="' + codeLink[1] + '" target="_blank" rel="noopener" style="padding:2px 9px; min-height:24px; font-size:.68rem; gap:6px; border-radius:2px; text-transform:uppercase;">' +
+        '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>' +
+        inline(codeLink[0]) +
+      '</a>'
+    : '';
+
+  // 3. Liste des tags
+  const tagsHtml = (p.tags && p.tags.length)
+    ? p.tags.map(x => '<span class="chip">' + x + '</span>').join('')
+    : '';
+
   return '<div class="wrap view">' + crumbs([[T().crumbHome,'#/'],[T().nav.projects,'#/projets'],[t.length>34?t.slice(0,32)+'…':t]]) +
-    '<header class="pagehead"><div class="row__meta"><span class="year">'+p.year+'</span>' +
-      '<span class="tag">'+c.role+'</span><span class="tag">'+c.status+'</span></div>' +
-      '<h1>'+inline(c.title)+'</h1><p class="lead">'+inline(c.lead)+'</p></header>' +
-    '<div class="detail detail--split"><div>' + (isPending(p,'body') ? notice() : '') +
-      '<article class="prose" style="margin-top:var(--s6)">' + md(c.body) + '</article></div>' +
-      '<aside class="detail__rail">' +
-        '<section><h2>'+u.sheet+'</h2><dl class="kv">' +
-          c.stack.map(s => '<div><dt>'+s[0]+'</dt><dd>'+inline(s[1])+'</dd></div>').join('') + '</dl></section>' +
-        '<section><h2>'+u.links+'</h2><div class="linklist">' +
-          c.links.map(l => '<a href="'+l[1]+'"' + (/^https?:/.test(l[1])?' target="_blank" rel="noopener"':'') + '>' +
-            l[0] + '<span aria-hidden="true">→</span></a>').join('') + '</div></section>' +
-        '<section><h2>'+u.stack+'</h2><div class="chips">' + p.tags.map(x => '<span class="chip">'+x+'</span>').join('') + '</div></section>' +
-      '</aside></div>' +
-    pager(prev && [u.prev, pick(prev).title, '#/projets/'+prev.slug], next && [u.next, pick(next).title, '#/projets/'+next.slug]) +
+    '<header class="pagehead">' +
+      '<div class="row__meta">' +
+        '<span class="year">' + p.year + '</span>' +
+        '<span class="tag">' + c.role + '</span>' +
+        '<span class="tag">' + c.status + '</span>' +
+      '</div>' +
+      '<h1>' + inline(c.title) + '</h1>' +
+      '<p class="lead">' + inline(c.lead) + '</p>' +
+      // Les tags et le bouton Code source sont côte à côte sur la même ligne
+      '<div class="chips" style="margin-top:var(--s4); align-items:center;">' +
+        tagsHtml +
+        githubBtn +
+      '</div>' +
+    '</header>' +
+    '<div class="detail">' + (isPending(p,'body') ? notice() : '') +
+      '<article class="prose" style="margin-top:var(--s6)">' + md(c.body) + '</article>' +
+      '<div style="margin-top:var(--s7)"><a class="btn" href="#/projets">← ' + u.h1 + '</a></div>' +
+    '</div>' +
+    pager(prev && [u.prev, pick(prev).title, '#/projets/' + prev.slug], next && [u.next, pick(next).title, '#/projets/' + next.slug]) +
     '</div>';
 }
 
