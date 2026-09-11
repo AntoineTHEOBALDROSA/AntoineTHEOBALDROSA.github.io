@@ -172,8 +172,9 @@ function md(src){
     return '' + (TIKZ.length - 1) + '';
   });
   const code = [];
-  s = s.replace(/(?:```|~~~)\n?([\s\S]*?)(?:```|~~~)/g, (_, c) => {
-    code.push(c.replace(/\n$/, '')); return '\u0002' + (code.length-1) + '\u0002';
+  s = s.replace(/(?:```|~~~)[ \t]*([a-zA-Z0-9_-]*)[ \t]*\n([\s\S]*?)(?:```|~~~)/g, (_, lang, c) => {
+    code.push({ lang: lang.trim(), src: c.replace(/\n$/, '') });
+    return '\n\n\u0002' + (code.length - 1) + '\u0002\n\n';
   });
 
   const blocks = s.split(/\n{2,}/).map(b => b.trim()).filter(Boolean).map(b => {
@@ -192,7 +193,11 @@ function md(src){
       }
       if(/^fig:[a-z]+$/.test(src)) return figure(src.slice(4), inline(mm[1]));
     }
-    if((mm = b.match(/^\u0002(\d+)\u0002$/))) return '<div class="pre">' + esc(code[+mm[1]]) + '</div>';
+    if((mm = b.match(/^\u0002(\d+)\u0002$/))) {
+      const it = code[+mm[1]];
+      const cls = it.lang ? ' class="language-' + esc(it.lang) + '"' : '';
+      return '<pre class="pre"><code' + cls + '>' + esc(it.src) + '</code></pre>';
+    }
     if(/^###\s/.test(b))  return '<h3>' + inline(b.slice(4)) + '</h3>';
     if(/^##\s/.test(b))   return '<h2>' + inline(b.slice(3)) + '</h2>';
     if(/^>\s?/.test(b))   return '<blockquote>' + inline(b.replace(/^>\s?/gm, ' ').trim()) + '</blockquote>';
@@ -633,6 +638,12 @@ document.addEventListener('click', e => {
    ========================================================= */
 function icons(){ if(window.lucide && window.lucide.createIcons) window.lucide.createIcons(); }
 
+function highlightCode(){
+  if(window.hljs){
+    document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el));
+  }
+}
+
 let firstRender = true;
 function route(keepScroll){
   TIKZ = [];
@@ -657,7 +668,7 @@ function route(keepScroll){
   document.querySelectorAll('#nav a, #tabbar a').forEach(a =>
     a.dataset.k === key ? a.setAttribute('aria-current','page') : a.removeAttribute('aria-current'));
 
-  icons(); mountTikz(); bindProblems(); bindContact();
+  icons(); mountTikz(); bindProblems(); bindContact(); highlightCode();
   if(!firstRender && !keepScroll) window.scrollTo(0,0);
   firstRender = false;
 }

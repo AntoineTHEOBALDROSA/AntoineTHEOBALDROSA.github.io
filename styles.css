@@ -355,3 +355,12 @@ footer{border-top:1px solid var(--rule);padding:var(--s6) 0 var(--s7);margin-top
 
 .prose .callout{background:var(--paper-2);border:1px solid var(--rule);padding:var(--s4) var(--s5);font-size:.97rem}
 .prose .callout b{font-weight:500;letter-spacing:.01em}
+
+/* Style propre pour les blocs de code multi-lignes */
+.prose pre.pre code, .pre code {
+  background: transparent !important;
+  padding: 0 !important;
+  font-family: inherit;
+  font-size: inherit;
+  border-radius: 0;
+}

@@ -142,7 +142,20 @@ projects:[
   L'avantage de cette stratégie c'est qu'on ne parie pas sur la tendance du marché, mais seulement sur le fait que l'écart entre les deux entreprises va revenir à la normal.
 
   Implémentons cette stratégie.
+  
+~~~python
+import yfinance as yf
+import matplotlib.pyplot as plt
 
+# Tickers boursiers des entreprises
+# TTE  (TotalEnergies sur Euronext Paris)
+# SHEL (Shell sur Euronext Amsterdam)
+tickers = ["TTE.PA", "SHELL.AS"]
+
+data = yf.download(tickers, start="2021-01-01", end="2026-01-01")
+~~~
+
+  hey
 `},
  en:{title:'Sudoku solver by constraint propagation',role:'Personal project',status:'Finished',
   blurb:'A solver that almost never guesses: AC-3 to shrink the domains, then backtracking driven by the MRV heuristic.',
