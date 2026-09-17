@@ -111,51 +111,256 @@ cats:[
    ========================================================= */
 projects:[
 
-{slug:'stat-arb-eng',thumb:'images/fft.png',year:'2026',tags:['Quant', 'Machine-Learning','Python'],
- fr:{title:String.raw`Moteur d'arbitrage statistique & Pairs Trading`,role:'Projet personnel',status:'En cours',
-  blurb:String.raw`Comment tester de manière honnête (sans tricher) si une stratégie d'investissement aurait fait gagner de l'argent ? Application au *Pairs Trading*.`,
+{slug:'stat-arb-eng',thumb:'images/pair_trading.png',year:'2026',tags:['Quant', 'Machine-Learning','Python'],
+ fr:{title:String.raw`Moteur d'arbitrage statistique & Pair Trading`,role:'Projet personnel',status:'En cours',
+  blurb:String.raw`Comment tester de manière honnête (sans tricher) si une stratégie d'investissement aurait fait gagner de l'argent ? Application au *Pair Trading*.`,
   lead:String.raw`Comment tester de manière honnête (sans tricher) si une stratégie d'investissement aurait fait gagner de l'argent ? <br><br>
   Supposons qu'on ait une idée de stratégie, par exemple : « dès qu'une action baisse trois jours de suite, je l'achète et je la revends le lendemain ». On pourrait prendre l'historique des prix et regarder ce qui se serait passé : c'est ce qu'on appelle un **backtest**. Mais en pratique, un backtest peut prédire une straégie comme gagnante alors qu'elle est perdant. Pourquoi? Parce qu'en réalité il y a des frais, un décalage de prix le temps d'envoyer l'offre, et d'autres facteurs encore.<br><br>
-  On va développer un moteur qui calcule si une stratégie gagne *vraiment* de l'argent, et on l'essayera sur la stratégie de **Pairs Trading**.`,
+  On va développer un moteur qui calcule si une stratégie gagne *vraiment* de l'argent, et on l'essayera sur la stratégie de **Pair Trading**.`,
   links:[['Code source','https://github.com/AntoineTHEOBALDROSA/Statistical-Arbitrage-Engine']],
   body:String.raw` 
-  /// Negative padding here /// 
-  /// Make links clickable if possible ? ///
-  ## Plan :<br>
+  <div style="margin-top: -5.5rem;"></div>
 
-  1. Mise en place de la stratégie de Pairs Trading<br>
-  2. Élaboration du moteur de backtest<br>
-  3. Évaluation de la stratégie sur le moteur
+## Plan du projet
 
-  Le code source du projet est disponible sur Github (lien ci-dessus).
+1. **Stratégie de Pairs Trading**
+2. **Moteur de backtest**
+3. **Évaluation des performances de la stratégie**
 
-  ## 1. Pairs Trading 
-  Pour essayer le moteur de backtest, il nous faut déjà une stratégie d'investissement. J'ai choisis le **Pairs Trading** (arbitrage de pairs).<br>
+## 1. Le Pair Trading
 
-  Imaginons deux entreprises très similaires, par exemple TotalEnergies et Shell. Comme leurs sont presque identiques, on s'attend à ce que leurs actions évoluent ensemble : si le pétrole monte, les deux montent et inversement.<br>
-  Mais de temps en temps, un évènement s'écarter les deux cours, par exemple si un fond d'investissement vend ses actions d'une des deux entreprises pour avoir du cash. Dans ce cas, l'action de $A$ semble trop chère par rapport à celle de $B$ et inversement. Notre stratégie considère que cet écart finit toujours par se revenir à l'équilibre. 
+Pour essayer le moteur de backtest, il nous faut déjà une stratégie d'investissement. J'ai choisis le **Pair Trading** (arbitrage de pairs).
 
-  Concrètement, dès qu'un écart se crée : 
-  1. On emprunte une action de $A$, l'entreprise dont le cours a trop monté et on la vend immédiatement.
-  2. Grâce à cet argent on achète l'action de $B$ qui a trop baissé.
-  3. Quand l'écart redevient normal, on revend l'action de $B$ pour acheter une action de $A$ et rendre ce qu'on a emprunté. On empoche la différence.
-  L'avantage de cette stratégie c'est qu'on ne parie pas sur la tendance du marché, mais seulement sur le fait que l'écart entre les deux entreprises va revenir à la normal.
+### Principe général
 
-  Implémentons cette stratégie.
-  
+Imaginons deux entreprises très similaires, par exemple **TotalEnergies** et **Shell**. Leurs activités étant presque identiques, leurs actions ont tendance à évoluer ensemble : une hausse du cours du baril de pétrole aura un impact positif similaire sur les deux actions.
+
+Cependant, des chocs temporaires de liquidité peuvent survenir : par exemple, si un fonds d'investissement liquide massivement sa position sur l'une des deux entreprises. Durant cet épisode, le cours de l'action $A$ peut sembler sous-évalué par rapport à celui de $B$. 
+
+L'hypothèse centrale du Pairs Trading est le retour à la moyenne : l'écart de valorisation est transitoire et finira par se refermer.
+
+<div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-left: 5px solid #0284c7; padding: 18px 22px; margin: 22px 0; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); font-family: inherit;">
+  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+    <strong style="color: #0369a1; font-size: 1.05rem;">Exécution : Dès qu'un écart statistiquement significatif apparaît</strong>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 1px;">
+    <!-- Étape 1 -->
+    <div style="display: flex; align-items: flex-start; gap: 8px;">
+      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">1</span>
+      <div style="color: #334155; line-height: 1.55;">
+        <strong> Vente à découvert (Short) :</strong> On emprunte des actions de l'entreprise surévaluée ($A$) pour les vendre immédiatement au prix fort.
+      </div>
+    </div>
+
+    <!-- Étape 2 -->
+    <div style="display: flex; align-items: flex-start; gap: 12px;">
+      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">2</span>
+      <div style="color: #334155; line-height: 1.55;">
+        Avec les liquidités générées, on achète simultanément des actions de l'entreprise sous-évaluée ($B$).
+      </div>
+    </div>
+
+    <!-- Étape 3 -->
+    <div style="display: flex; align-items: flex-start; gap: 12px;">
+      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">3</span>
+      <div style="color: #334155; line-height: 1.55;">
+        Lorsque l'écart revient à sa moyenne, on revend l'action $B$, on rachète l'action $A$ pour la restituer au prêteur, et on empoche la différence.
+      </div>
+    </div>
+  </div>
+</div>
+
+L'intérêt majeur de cette approche est d'être *neutre au marché* (*market-neutral*) : la performance ne dépend pas de la hausse ou de la baisse globale du pétrole, mais uniquement de la convergence du spread.
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+### Implémentation
+
+Implémentons la première étape en Python :
+
 ~~~python
 import yfinance as yf
-import matplotlib.pyplot as plt
 
-# Tickers boursiers des entreprises
-# TTE  (TotalEnergies sur Euronext Paris)
-# SHEL (Shell sur Euronext Amsterdam)
-tickers = ["TTE.PA", "SHELL.AS"]
+# Tickers boursiers :
+# TTE.PA  : TotalEnergies sur Euronext Paris
+# SHEL.AS : Shell sur Euronext Amsterdam
+tickers = ["TTE.PA", "SHEL.AS"]
 
-data = yf.download(tickers, start="2021-01-01", end="2026-01-01")
+# Téléchargement des cours ajustés 
+data = yf.download(tickers, start="2021-01-01", end="2026-01-01", auto_adjust=True)
+
+prices = data["Close"].dropna()
 ~~~
 
-  hey
+**Remarque :** la méthode \`.dropna()\` permet d'éliminer les jours fériés spécifiques à une seule place boursière (par exemple si la bourse d'Amsterdam est ouverte alors que celle de Paris est fermée).
+
+
+<div style="background-color: #f8fafc; border-left: 5px solid #2563eb; padding: 18px 20px; margin: 22px 0; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); font-family: inherit;">
+  <h3 style="margin-top: 0; margin-bottom: 14px; color: #1e40af; font-size: 1.15rem; display: flex; align-items: center; gap: 8px;">
+    <span>Foire aux questions : les marchés financiers</span>
+  </h3>
+
+
+  <p style="margin-bottom: 6px;"><strong>1. Qu'est-ce qu'Euronext ? Pourquoi TotalEnergies est-elle cotée à Paris et Shell à Amsterdam ?</strong></p>
+  <p style="margin-top: 0; color: #334155; line-height: 1.55;">
+    Une place boursière, c'est comme un grand marché couvert où des gens viennent acheter et vendre des parts d'entreprises. Euronext est l'entreprise privée qui gère les marchés de plusieurs villes européennes.<br>
+    TotalEnergies est française, son marché historique principal est donc Paris (.PA) alors que Shell est d'origine anglo-néerlandaise, son marché historique est donc à Amsterdam (.AS). Une entreprise choisit où elle veut être cotée.<br>
+    Une entreprise n'a pas un prix mondial par magie. La côte d'une entreprise est le résultat de la dernière transaction conclue entre deux personnes. Mais si le prix de Total est différent à Paris et à New York, disons 49€ à Paris et 51€ à New York, des arbitragistes acheteraient des actions à Paris pour les revendere instantanément à New York, rééquilibrant le prix vers 50$. C'est ce qui fixe le prix des entreprises.
+  </p>
+
+  <p style="margin-bottom: 6px; margin-top: 14px;"><strong>2. Pourquoi les bourses traditionnelles ferment-elles la nuit à l'ère d'Internet ?</strong></p>
+  <p style="margin-top: 0; color: #334155; line-height: 1.55;">
+    La bourse traditionnelle ferme pour concentrer tout le monde au même endroit au même moment. Si le marché restait ouvert à 3h du matin, il n'y aurait presque personne et le moindre ordre d'achat ferait bondir ou chuter le cours de 10% n'importe comment par manque de participants.
+  </p>
+
+  <p style="margin-bottom: 6px; margin-top: 14px;"><strong>3. À quoi correspondent les cours « ajustés » ?</strong></p>
+  <p style="margin-top: 0; margin-bottom: 0; color: #334155; line-height: 1.55;">
+    Supposons que vous achetiez une action d'entreprise à 100€. Le lendemain, l'entreprise verse 5€ à ses actionnaires. Mécaniquement, l'action ne vaut plus que 95€. Sur le cours de la bourse *brut*, il y a un saut de 100€ à 95€, ce qui pourrait être interprétée par des robots tarders comme le début d'une chute de l'entreprise. Mais en réalite, l'entreprise vaut toujours 100€. Le **cours ajusté** règle ce problème pour effacer cette fausse perte de 5€.<br>
+     Idem si une entreprise subdivise ses actions : si une entreprise qui possède 10 actions à 1000€ décide de passer à 100 actions, elles ne vont valoir plus que 100€ chacune mais l'entreprise vaut toujours autant. 
+  </p>
+</div>
+
+### Visualisation de la performance relative
+
+Pour comparer les deux actions malgré leurs niveaux de prix différents, on normalise les séries au début de la période :
+
+~~~python
+import matplotlib.pyplot as plt
+
+normalized_prices = (prices / prices.iloc[0]) * 100 
+
+plt.figure(figsize=(10, 5))
+plt.plot(normalized_prices["TTE.PA"], label="TotalEnergies (TTE.PA)")
+plt.plot(normalized_prices["SHEL.AS"], label="Shell (SHEL.AS)")
+plt.title("Performance relative : TotalEnergies vs Shell (2021 - 2026)")
+plt.xlabel("Date")
+plt.ylabel("Performance relative (Base 100)")
+plt.legend()
+plt.grid(True, linestyle="--", alpha=0.6)
+plt.show()
+~~~
+
+![](images/arb-stat-eng-1.png)
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+## 2. Modélisation et calcul du spread
+
+On cherche à présent à définir et quantifier le **spread**, c'est-à-dire l'écart entre les deux actions.
+
+Si TotalEnergies vaut 60 € et Shell 40 €, un écart naïf serait de $60 - 40 = 20 \text{ €}$. Mais en réalité, une variation de 1% de Total ne correspond pas à une variation de 1% de Shell..
+
+ Comme les deux entreprises ont des activités similaires, on suppose que le pix de leur action est lié par une loi affine, avec un spread $\varepsilon_t$ qui dépend du temps $t$.
+
+$$P_{\text{TTe}, t} = \alpha + \beta P_{\text{Shell}, t} + \varepsilon_t$$ 
+
+Où :
+<ul style="margin: 8px 0 14px 1.5rem; padding: 0; list-style-type: disc; line-height: 0.1;">
+  <li style="margin-bottom: 4px;">$\beta$ désigne le *hedge ratio* : pour chaque action TotalEnergies achetée, il faut vendre $\beta$ actions Shell pour rester neutre au risque</li>
+  <li style="margin-bottom: 4px;">$\alpha$ représente une constante d'ajustement</li>
+  <li style="margin-bottom: 4px;">$\varepsilon_t$ notre *spread* au temps $t$</li>
+</ul>
+
+### Notion de cointégration
+
+Pris individuellement, le cours d'une action $P_t$ est un processus **non stationnaire** (ou intégrée d'ordre 1, notée $I(1)$), couramment modélisé comme mouvement brownien géométrique :
+$$dP_t = \mu P_t dt + \sigma P_t d W_t$$
+Le terme $W_t$ représente un mouvement brownien standard, et $\sigma$ la volatilité. Sa moyenne n'est pas constante et sa variance diverge.<br>
+Dans le cas général, la somme de deux lois $I(1)$ suit toujours une loi $I(1)$ ; mais dans notre cas, il existe peut-être une combinaison linéaire $\alpha, \beta$ telle que le spread $\varepsilon_t$ soit un processus **stationnaire** (noté $I(0)$). Si c'est le cas, on dit que TotalEnergies et Shell sont **cointégrées**.
+
+$$\varepsilon_t = P_{\text{TTE}, t} - (\alpha + \beta P_{\text{SHEL}, t}) \qquad \text{ avec } \quad \mathbb{E}[\varepsilon_t] = 0 \quad \text{et} \quad \operatorname{Var}(\varepsilon_t) = \sigma_{\varepsilon}^2 < +\infty$$
+
+### Comment trouver $\alpha, \beta$ ? Méthode des moindres carrés ordinaire
+
+On va trouver $\alpha, \beta$ qui minimisent $\sum \varepsilon_t^2$. En posant $S(\alpha, \beta) = \sum_t \varepsilon_t^2$ ainsi que $y_t = P_{\text{TTE}, t}$ et $x_t = P_{\text{SHEL}, t}$, on veut minimiser
+$$S(\alpha, \beta) = \sum_{t=1}^N (y_t - (\alpha + \beta x_t))^2$$
+Comme $S$ est une fonction quadraitque, son minimum se trouve là où ses deux dérivées partielles s'annulent 
+$$\frac{\partial S}{\partial \alpha} = 0 \quad \text{et} \quad \frac{\partial S}{\partial \beta} = 0$$
+Or
+$$\frac{\partial S}{\partial \alpha} = \sum_{t=1}^N -2\big(y_t - \alpha - \beta x_t\big) = 0$$
+Et en multipliant par $\frac{1}{-2N}$ on a, avec $\bar{y} = \frac{1}{N}\sum y_t$ et $\bar{x} = \frac{1}{N}\sum x_t$ les moyennes empiriques :
+$$\bar{y} - \alpha - \beta \bar{x} = 0 \implies \boxed{\alpha = \bar{y} - \beta \bar{x}}$$
+Maintenant pour trouver $\beta$, 
+$$\frac{\partial S}{\partial \beta} = \sum_{t=1}^N -2 x_t \big(y_t - \alpha - \beta x_t\big) = 0$$
+et on remplace $\alpha$ par son expression
+$$\sum_{t=1}^N x_t \Big( (y_t - \bar{y}) - \beta (x_t - \bar{x}) \Big) = 0$$
+Or la moyenne de $y_t-\bar y$ est nulle (idem pour $x_t-\bar x$), donc 
+$$\bar{x} \sum_{t=1}^N (y_t - \bar{y}) = 0 \quad \text{ et } \quad  \bar{x} \sum_{t=1}^N (x_t - \bar{x})$$
+ce qui se réécrt
+$$\sum_{t=1}^N (x_t - \bar{x})(y_t - \bar{y}) - \beta \sum_{t=1}^N (x_t - \bar{x})^2 = 0 \quad \Longleftrightarrow \quad \boxed{\beta = \frac{\operatorname{Cov}(x, y)}{\operatorname{Var}(x)}}$$
+
+### Détecter les anomalies
+
+On vient de voir comment déterminer $\alpha, \beta$, c'est-à-dire comment calculer le spread $\varepsilon_t$. À partir de là, on peut calculer le **Z-score**
+$$Z_t = \frac{\varepsilon_t - \mu_{\varepsilon_t}}{\sigma_{\varepsilon_t}}$$
+et si $\varepsilon_t$ suit un régime stationnaire, $Z_t$ suit une loi normale $\mathcal{N}(0, 1)$. Conrètement, $Z_t$ est environ $95,4$% du temps entre $-2$ et $2$. <br>
+Dès lors, si $\abs{Z_t} \gt 2$, c'est qu'il y a une anomalie, et que c'est le moment d'utiliser notre stratégie. Plus précisément :
+<ul style="margin: 8px 0 14px 1.5rem; padding: 0; list-style-type: disc; line-height: 0.1;">
+  <li style="margin-bottom: 4px;">Si $Z_t \gt 2$, le spread est très grand, et Total coûte « trop cher ». On short Total. </li>
+  <li style="margin-bottom: 4px;">Si $Z_t \lt 2$, c'est l'inverse : on short Shell.</li>
+</ul>
+
+### Implémentation
+
+En pratique, comme $\alpha, \beta$ peuvent changer au cours du temps, on les calcule sur une fenêtre glissante de \`W\` jours. Idem, pour avoir une meilleure idée du niveau d'anomalie de la période, on lisse le Z-score sur une période glissante de \`window_z\` jours.
+
+~~~python
+import numpy as np
+import statsmodels.api as sm
+from statsmodels.regression.rolling import RollingOLS
+
+W = 60         # on estime alpha, beta sur W jours
+window_z = 30  # On normalise le Z score sur window_z jours
+
+y = prices["TTE.PA"]
+x = prices["SHELL.AS"]
+x_with_const = sm.add_constant(x)
+
+# Régression linéaire glissante (Rolling OLS)
+rols = RollingOLS(y, x_with_const, window=W)
+rolling_model = rols.fit()
+
+# On décale d'un jour pour éviter le biais d'anticipation (lookahead bias)
+alpha = rolling_model.params["const"].shift(1)
+beta = rolling_model.params["SHELL.AS"].shift(1)
+
+spread = y - (alpha + beta * x)
+
+# Calcul du Z-score (fenêtre glissante)
+spread_mean = spread.rolling(window=window_z).mean()
+spread_std = spread.rolling(window=window_z).std()
+z_score = (spread - spread_mean) / spread_std
+~~~
+Et on peut ensuite tracer l'évolution de $\beta_t$ et du Z-score $Z_t$ :
+~~~python 
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 8), sharex=True)
+
+# hedge ratio
+ax1.plot(beta, label=f"Beta glissant (W = {W} j)", color="purple", lw=1.2)
+ax1.set_title("Évolution Hedge Ratio (Beta)")
+ax1.set_ylabel("Beta")
+ax1.grid(True)
+ax1.legend(loc="upper left")
+
+# Z-score spread
+ax2.plot(z_score, label="Z-score Spread", color="blue", lw=1)
+ax2.axhline(0, color="black", linestyle="--", alpha=0.7)
+ax2.axhline(2.0, color="red", linestyle="--", label="Seuil d'entrée (+-2)")
+ax2.axhline(-2.0, color="red", linestyle="--")
+ax2.axhline(0.5, color="green", linestyle=":", label="Seuil sortie (+-0.5)")
+ax2.axhline(-0.5, color="green", linestyle=":")
+
+ax2.set_title("Z-score du Spread TotalEnergies / Shell")
+ax2.set_xlabel("Date")
+ax2.set_ylabel("Z-score")
+ax2.grid(True)
+ax2.legend(loc="upper left")
+
+plt.tight_layout()
+plt.show()
+~~~
+![](images/arb-stat-eng-2.png)
 `},
  en:{title:'Sudoku solver by constraint propagation',role:'Personal project',status:'Finished',
   blurb:'A solver that almost never guesses: AC-3 to shrink the domains, then backtracking driven by the MRV heuristic.',
