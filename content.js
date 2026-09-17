@@ -173,6 +173,282 @@ data = yf.download(tickers, start="2021-01-01", end="2026-01-01")
    ========================================================= */
 articles:[
 
+  
+// ARTICLE MILLER RABIN
+{slug:'miller-rabin',cat:'math',date:'2026-09-15',read:6,
+ fr: {
+    title: String.raw`Test de Miller-Rabin - Le meilleur test de primalité ?`,
+    blurb: String.raw`Comment déterminer rapidement si un nombre entier est premier ?`,
+    body: String.raw`
+Dans tout l'article, $n$ désigne un entier impair supérieur ou égal à $3$ dont on souhaite tester la primalité.
+
+Le test de **Miller-Rabin** permet de tester la primalité de nombres. Il repose sur deux résultats simples mais fondamentaux :
+
+<div style="background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; padding: 14px 18px; margin: 18px 0; border-radius: 4px;">
+  <strong style="color: #1d4ed8; font-size: 1.05em;">1. Le petit théorème de Fermat</strong><br/>
+  Si $p$ est premier et si $\operatorname{pgcd}(a, p) = 1$, alors :
+  $$a^{p-1} \equiv 1 \pmod p$$
+</div>
+
+<div style="background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; padding: 14px 18px; margin: 18px 0; border-radius: 4px;">
+  <strong style="color: #1d4ed8; font-size: 1.05em;">2. Unicité des racines carrées de l'unité</strong><br/>
+  Dans le corps fini $\mathbb{Z}/p\mathbb{Z}$ (avec $p$ premier), l'équation $x^2 \equiv 1 \pmod p$ admet exactement deux solutions :
+  $$x \equiv 1 \pmod p \quad \text{ou} \quad x \equiv -1 \pmod p$$
+</div>
+*Preuve : $x^2 - 1 \equiv 0 \iff (x-1)(x+1) \equiv 0 \pmod p$. Comme $\mathbb{Z}/p\mathbb{Z}$ est un corps donc intègre, un des deux facteurs est nécessairement nul.* 
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+## L'idée de l'algorithme
+
+Puisque $n$ est impair, $n - 1$ est pair et on l'écrit alors sous la forme :
+$$n - 1 = 2^s \cdot d \qquad \text{avec } d \text{ impair et } s \ge 1$$
+
+Soit $a \in [\![2, n - 2]\!]$. Si $\operatorname{pgcd}(a, n) > 1$, alors $n$ est évidemment composé. Sinon, on construit la suite modulo $n$ :
+$$\langle x_0, x_1, \dots, x_s \rangle = \left(a^d, \; a^{2d}, \; a^{4d}, \; \dots, \; a^{2^s d} \right) \pmod n$$
+
+où $x_{i+1} \equiv x_i^2 \pmod n$ et $x_s \equiv a^{n-1} \pmod n$.
+
+### Que se passe-t-il si $n$ est premier ?
+
+Par le petit théorème de fermat $x_s = a^{n-1} \equiv 1 \pmod n$. 
+
+Mais le terme précédent $x_{s-1}$ vérifie alors $(x_{s-1})^2 = x_s \equiv 1 \pmod n$. Comme $n$ est premier, $x_{s-1}$ ne peut valoir que $1$ ou $-1$ (cf. le deuxième résultat). <br>
+- Si $x_{s-1} \equiv 1$, on itère récursivement sur $x_{s-2}$, et ainsi de suite.<br>
+Ainsi le premier élément différent de $1$ rencontré doit être $-1$. 
+
+Autrement dit, si $n$ est premier, la suite renversée $(x_s, x_{s-1}, \dots, x_0)$ a l'une des deux formes suivantes :<br>
+1. **$x_0 \equiv 1 \pmod n$** : toute la suite est constante égale à $1$.<br>
+2. **Il existe $r \in [\![0, s-1]\!]$ tel que $x_r \equiv -1 \pmod n$** : dès lors, $x_{r+1} \equiv (-1)^2 \equiv 1$, et tous les termes suivants valent $1$.
+
+Si en choisissant un $a$ on trouve une telle suite, $n$ est **probablement premier**. Sinon, si la suite a une forme différente, alors $n$ est **composé**.<br>
+Si 
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+## Exemple $n=561$ :
+
+Considérons $n = 561$ le plus petit nombre de Carmichael. On va chercher si $n$ est premier.<br>
+On choisit $a=2$.
+
+1. **Décomposition de $n - 1$ :**
+   $$561 - 1 = 560 = 2^4 \cdot 35 \implies s = 4, \; d = 35$$
+2. **Calcul du premier terme $x_0 = a^d \pmod n$ :**
+   $$x_0 \equiv 2^{35} \equiv 263 \pmod{561} \quad (\not\equiv 1 \text{ et } \not\equiv -1)$$
+3. <strong>Élévations au carré successives ($r < 4$) :</strong>
+<ul style="margin: 8px 0 14px 1.5rem; padding: 0; list-style-type: disc;">
+  <li style="margin-bottom: 4px;"><strong>$r = 1$ :</strong> $x_1 \equiv (x_0)^2 \equiv 263^2 \equiv 166 \pmod{561} \quad (\not\equiv -1)$</li>
+  <li style="margin-bottom: 4px;"><strong>$r = 2$ :</strong> $x_2 \equiv (x_1)^2 \equiv 166^2 \equiv 67 \pmod{561} \quad (\not\equiv -1)$</li>
+  <li style="margin-bottom: 4px;"><strong>$r = 3$ :</strong> $x_3 \equiv (x_2)^2 \equiv 67^2 \equiv 1 \pmod{561} \quad (\not\equiv -1)$</li>
+</ul>
+4. **Bilan :**<br>
+   On a atteint $1$ sans jamais être passé par $-1$.<br>
+   Le nombre $x_2 = 67$ est une racine carrée non triviale de $1$ modulo $561$ ($67 \not\equiv \pm 1$ mais $67^2 \equiv 1$).<br>
+  $\implies$ **$561$ est composé**. 
+
+<div style="background: rgba(16, 185, 129, 0.06); border-left: 4px solid #10b981; padding: 12px 16px; margin: 14px 0; border-radius: 4px;">
+  <strong>Bonus factorisation :</strong> Dès qu'une racine non triviale $x$ de $1$ est trouvée, $\operatorname{pgcd}(x - 1, n)$ fournit un facteur strict de $n$. Ici :
+  $$\operatorname{pgcd}(67 - 1, 561) = \operatorname{pgcd}(66, 561) = 33 = 3 \times 11$$
+</div>
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+## Comment rendre le test déterministe ?
+
+En pratique, pour des entiers bornés (par exemple des entiers sur 32 bits ou 64 bits), il n'est pas nécessaire de choisir des $a$ aléatoires. Tester un ensemble fini de $a$ suffit à garantir la primalité de façon déterministe.
+
+<div style="overflow-x: auto; margin: 18px 0;">
+  <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95em;">
+    <thead>
+      <tr style="background: rgba(0, 0, 0, 0.05); border-bottom: 2px solid #cbd5e1;">
+        <th style="padding: 10px 14px;">Domaine de $n$</th>
+        <th style="padding: 10px 14px;">Bases $a$ suffisantes</th>
+        <th style="padding: 10px 14px;">Complexité</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom: 1px solid #e2e8f0;">
+        <td style="padding: 10px 14px;">$n < 2^{32} \approx 4{,}29 \times 10^9$</td>
+        <td style="padding: 10px 14px;"><code>{2, 7, 61}</code></td>
+        <td style="padding: 10px 14px;">3 tours</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #e2e8f0;">
+        <td style="padding: 10px 14px;">$n < 2^{64} \approx 1{,}84 \times 10^{19}$</td>
+        <td style="padding: 10px 14px;"><code>{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37}</code></td>
+        <td style="padding: 10px 14px;">12 tours</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px 14px;">$n$ arbitraire (sous <strong>GRH</strong>)</td>
+        <td style="padding: 10px 14px;">Tous les premiers $a \le 2(\ln n)^2$</td>
+        <td style="padding: 10px 14px;">$\mathcal{O}(\log^4 n)$</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div style="background: rgba(168, 85, 247, 0.06); border-left: 4px solid #a855f7; padding: 14px 18px; margin: 18px 0; border-radius: 4px;">
+  <strong style="color: #7e22ce; font-size: 1.05em;">Le théorème de Miller (1976) :</strong><br/>
+  Si l'**Hypothèse de Riemann Généralisée (GRH)** est vraie, le test devient déterministe en temps polynomial pour tout entier $n$ en testant les bases :
+  $$a \leq\lfloor 2(\ln n)^2$$
+</div>
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+## Pourquoi l'algorithme est fiable ?
+
+Lorsque $n$ dépasse par exemple $2^{64}$, notamment en cryptographie, tester toutes les bases n'est plus envisageable. On utilise alors le test sous sa forme probabiliste. Le test repose alors sur ce résultat :
+
+<div style="background: rgba(168, 85, 247, 0.06); border-left: 4px solid #a855f7; padding: 14px 18px; margin: 18px 0; border-radius: 4px;">
+  <strong style="color: #7e22ce; font-size: 1.05em;">Théorème de Monier-Rabin (1980) :</strong><br/>
+  Si $n$ est un entier composé impair, le sous-ensemble des bases $a \in (\mathbb{Z}/n\mathbb{Z})^\times$ pour lesquelles $n$ passe avec succès le test de Miller-Rabin (appelées <em>faux témoins</em>) est de cardinal au plus :
+  $$|\text{Faux témoins}| \le \frac{1}{4}\varphi(n) < \frac{n}{4}$$
+</div>
+
+**Conséquence : ** pour un $a$ choisi aléatoirement premier avec $n$ :
+$$\mathbb{P}(\text{Déclarer } n \text{ premier} \mid n \text{ composé}) \le \frac{1}{4}$$
+
+En répétant le test avec $k$ bases indépendantes tirées au hasard, la probabilité d'erreur chute de manière exponentielle :
+$$\mathbb{P}(\text{Erreur après } k \text{ tours}) \le \left(\frac{1}{4}\right)^k = 2^{-2k}$$
+
+Par exemple avec $k=40$ itérations, la probabilité de déclarer $n$ premier à tort est inférieure à $2^{-80} \approx 10^{-24}$.
+`},
+en: {
+    title: String.raw`The Miller-Rabin Test — The Best Primality Test?`,
+    blurb: String.raw`How can you quickly determine whether an integer is prime?`,
+    body: String.raw`
+Throughout this article, $n$ denotes an odd integer greater than or equal to $3$ whose primality we wish to test.
+
+The **Miller-Rabin** test is used to determine whether a given number is prime. It is built on two simple yet fundamental mathematical results:
+
+<div style="background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; padding: 14px 18px; margin: 18px 0; border-radius: 4px;">
+  <strong style="color: #1d4ed8; font-size: 1.05em;">1. Fermat's Little Theorem</strong><br/>
+  If $p$ is prime and $\gcd(a, p) = 1$, then:
+  $$a^{p-1} \equiv 1 \pmod p$$
+</div>
+
+<div style="background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; padding: 14px 18px; margin: 18px 0; border-radius: 4px;">
+  <strong style="color: #1d4ed8; font-size: 1.05em;">2. Uniqueness of the Square Roots of Unity</strong><br/>
+  In the finite field $\mathbb{Z}/p\mathbb{Z}$ (where $p$ is prime), the equation $x^2 \equiv 1 \pmod p$ has exactly two solutions:
+  $$x \equiv 1 \pmod p \quad \text{or} \quad x \equiv -1 \pmod p$$
+</div>
+*Proof: $x^2 - 1 \equiv 0 \iff (x-1)(x+1) \equiv 0 \pmod p$. Because $\mathbb{Z}/p\mathbb{Z}$ is a field (and thus an integral domain), at least one factor must be zero.* 
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+## The Core Idea
+
+Because $n$ is odd, $n - 1$ is even and can be factored as:
+$$n - 1 = 2^s \cdot d \qquad \text{where } d \text{ is odd and } s \ge 1$$
+
+Pick an integer $a \in [2, n - 2]$. If $\gcd(a, n) > 1$, then $n$ is trivially composite. Otherwise, consider the sequence modulo $n$:
+$$\langle x_0, x_1, \dots, x_s \rangle = \left(a^d, \; a^{2d}, \; a^{4d}, \; \dots, \; a^{2^s d} \right) \pmod n$$
+
+where $x_{i+1} \equiv x_i^2 \pmod n$ and $x_s \equiv a^{n-1} \pmod n$.
+
+### What Happens if $n$ Is Prime?
+
+By Fermat's Little Theorem, $x_s = a^{n-1} \equiv 1 \pmod n$. 
+
+The preceding term $x_{s-1}$ must then satisfy $(x_{s-1})^2 = x_s \equiv 1 \pmod n$. Because $n$ is prime, $x_{s-1}$ can only equal $1$ or $-1$ (by our second result above).<br>
+- If $x_{s-1} \equiv 1$, we step back to $x_{s-2}$, and continue backwards.<br>
+This means the first value encountered that differs from $1$ must be $-1$. 
+
+In other words, if $n$ is prime, the reversed sequence $(x_s, x_{s-1}, \dots, x_0)$ must match one of two patterns:<br>
+1. **$x_0 \equiv 1 \pmod n$**: the entire sequence consists strictly of $1$s.<br>
+2. **There exists an index $r \in [0, s-1]$ such that $x_r \equiv -1 \pmod n$**: from that point on, $x_{r+1} \equiv (-1)^2 \equiv 1$, and all subsequent terms equal $1$.
+
+If a chosen base $a$ generates such a sequence, $n$ is **probably prime**. If the sequence takes any other form, $n$ is definitely **composite**.
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+## Example: $n = 561$
+
+Let's test $n = 561$, the smallest Carmichael number, to see if it is prime.<br>
+Choose $a = 2$.
+
+1. **Factor $n - 1$:**
+   $$561 - 1 = 560 = 2^4 \cdot 35 \implies s = 4, \; d = 35$$
+2. **Compute the base term $x_0 = a^d \pmod n$:**
+   $$x_0 \equiv 2^{35} \equiv 263 \pmod{561} \quad (\not\equiv 1 \text{ and } \not\equiv -1)$$
+3. <strong>Successive squarings ($r < 4$):</strong>
+<ul style="margin: 8px 0 14px 1.5rem; padding: 0; list-style-type: disc;">
+  <li style="margin-bottom: 4px;"><strong>$r = 1$:</strong> $x_1 \equiv (x_0)^2 \equiv 263^2 \equiv 166 \pmod{561} \quad (\not\equiv -1)$</li>
+  <li style="margin-bottom: 4px;"><strong>$r = 2$:</strong> $x_2 \equiv (x_1)^2 \equiv 166^2 \equiv 67 \pmod{561} \quad (\not\equiv -1)$</li>
+  <li style="margin-bottom: 4px;"><strong>$r = 3$:</strong> $x_3 \equiv (x_2)^2 \equiv 67^2 \equiv 1 \pmod{561} \quad (\not\equiv -1)$</li>
+</ul>
+4. **Outcome:**<br>
+   The sequence reached $1$ without ever encountering $-1$.<br>
+   The value $x_2 = 67$ is therefore a non-trivial square root of $1$ modulo $561$ ($67 \not\equiv \pm 1$ yet $67^2 \equiv 1$).<br>
+  $\implies$ **$561$ is composite**. 
+
+<div style="background: rgba(160, 185, 129, 0.06); border-left: 4px solid #10b981; padding: 12px 16px; margin: 14px 0; border-radius: 4px;">
+  <strong>Factorization bonus:</strong> Whenever a non-trivial square root of $1$ (call it $x$) is uncovered, $\gcd(x - 1, n)$ produces a non-trivial factor of $n$. Here:
+  $$\gcd(67 - 1, 561) = \gcd(66, 561) = 33 = 3 \times 11$$
+</div>
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+## Making the Test Deterministic
+
+In practice, for bounded integers (such as standard 32-bit or 64-bit integers), picking bases $a$ at random is unnecessary. Checking a small, fixed set of bases is enough to guarantee primality deterministically.
+
+<div style="overflow-x: auto; margin: 18px 0;">
+  <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95em;">
+    <thead>
+      <tr style="background: rgba(0, 0, 0, 0.05); border-bottom: 2px solid #cbd5e1;">
+        <th style="padding: 10px 14px;">Range of $n$</th>
+        <th style="padding: 10px 14px;">Sufficient bases $a$</th>
+        <th style="padding: 10px 14px;">Complexity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom: 1px solid #e2e8f0;">
+        <td style="padding: 10px 14px;">$n < 2^{32} \approx 4.29 \times 10^9$</td>
+        <td style="padding: 10px 14px;"><code>{2, 7, 61}</code></td>
+        <td style="padding: 10px 14px;">3 rounds</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #e2e8f0;">
+        <td style="padding: 10px 14px;">$n < 2^{64} \approx 1.84 \times 10^{19}$</td>
+        <td style="padding: 10px 14px;"><code>{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37}</code></td>
+        <td style="padding: 10px 14px;">12 rounds</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px 14px;">Arbitrary $n$ (under the <strong>GRH</strong>)</td>
+        <td style="padding: 10px 14px;">All prime bases $a \le 2(\ln n)^2$</td>
+        <td style="padding: 10px 14px;">$\mathcal{O}(\log^4 n)$</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div style="background: rgba(168, 85, 247, 0.06); border-left: 4px solid #a855f7; padding: 14px 18px; margin: 18px 0; border-radius: 4px;">
+  <strong style="color: #7e22ce; font-size: 1.05em;">Miller's Theorem (1976):</strong><br/>
+  If the **Generalized Riemann Hypothesis (GRH)** holds, the algorithm becomes polynomial-time deterministic for every integer $n$ simply by testing all bases:
+  $$a \le 2(\ln n)^2$$
+</div>
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+## Why Is the Algorithm Reliable?
+
+When $n$ exceeds $2^{64}$—such as in cryptography—evaluating a deterministic set of bases is no longer practical. We instead run the test probabilistically, relying on the following bound:
+
+<div style="background: rgba(168, 85, 247, 0.06); border-left: 4px solid #a855f7; padding: 14px 18px; margin: 18px 0; border-radius: 4px;">
+  <strong style="color: #7e22ce; font-size: 1.05em;">Monier-Rabin Theorem (1980):</strong><br/>
+  If $n$ is an odd composite integer, the set of bases $a \in (\mathbb{Z}/n\mathbb{Z})^\times$ for which $n$ passes the Miller-Rabin test (referred to as <em>false witnesses</em> or <em>liars</em>) satisfies:
+  $$|\text{False witnesses}| \le \frac{1}{4}\varphi(n) < \frac{n}{4}$$
+</div>
+
+**Takeaway:** For a randomly chosen base $a$ coprime to $n$:
+$$\mathbb{P}(\text{Declare } n \text{ prime} \mid n \text{ composite}) \le \frac{1}{4}$$
+
+Repeating the test across $k$ independent, uniformly chosen random bases causes the error probability to decay exponentially:
+$$\mathbb{P}(\text{Error after } k \text{ rounds}) \le \left(\frac{1}{4}\right)^k = 2^{-2k}$$
+
+With $k = 40$ iterations, for example, the probability of falsely declaring $n$ prime is less than $2^{-80} \approx 10^{-24}$.
+`}
+ },
+
 // ARTICLE PARTITION
 {slug:'partition-formula',cat:'math',date:'2026-07-30',read:10,
  fr:{title:String.raw`Formule pratique du nombre de partitions d'un entier $p(n)$`,
@@ -180,17 +456,15 @@ articles:[
   body:String.raw`
 En 1918, Hardy et Ramanujan ont montré que 
 $$p(n)\sim \frac{1}{4n\sqrt3}\text{exp}\left(\pi\sqrt{\frac{2n}{3}}\right)$$
-Mais comment calculer efficacement la valeur exacte de $p(n)$ ? Un calcule par force brute serait beaucoup trop long. On se proposer de démontrer
+Mais comment calculer efficacement la valeur exacte de $p(n)$ ? Un calcule par force brute serait beaucoup trop long. On se propose de démontrer
 
-<div style="border-left:3px solid #888; padding-left:12px; margin:12px 0;">
-
-$$\begin{equation*}
-\begin{split}
-p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + \cdots \\
- & = \sum_{k\geq 1}(-1)^{k-1}p(n-k(3k\pm 1)/2)
-\end{split}
-\end{equation*}$$
-
+<div style="background: rgba(239, 68, 68, 0.06); border-left: 4px solid #ef4444; padding: 2px 0px; margin: 18px 0; border-radius: 4px;">
+  $$\begin{equation*}
+  \begin{split}
+  p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + \cdots \\
+  & = \sum_{k\geq 1}(-1)^{k-1}p(n-k(3k\pm 1)/2)
+  \end{split}
+  \end{equation*}$$
 </div>
 
 
@@ -205,13 +479,13 @@ $$\boxed{f(x) = \prod_{n\geq 1}\frac{1}{1-x^n} =  1 + \sum_{n\geq 1} p(n)x^n}$$
 
 ## 2. Théorème des nombres pentagonaux
 
-On va démontrer le théorème des nombres pentagonaux, théorème qu'on doit à Euler :
+On va démontrer le :
 
-<div style="border-left:3px solid #888; padding-left:12px; margin:12px 0;">
-
-$$\prod_{n\geq 1}(1-x^n)=1 + \sum_{k\geq 1} (-1)^k\left(x^{k(3k-1)/2} + x^{k(3k+1)/2}\right)$$
-
-</div> $\underline{\text{Preuve :}}$ On va faire une première constatation : regardons le produit suivant, très légèrement différent :
+<div style="background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; padding: 4px 4px; margin: 18px 0; border-radius: 4px;">
+  <strong style="color: #1d4ed8; font-size: 1.05em;">Théorème des nombres pentagonaux</strong><br/>
+  $$\prod_{n\geq 1}(1-x^n)=1 + \sum_{k\geq 1} (-1)^k\left(x^{k(3k-1)/2} + x^{k(3k+1)/2}\right)$$
+</div>
+ $\underline{\text{Preuve :}}$ On va faire une première constatation : regardons le produit suivant, très légèrement différent :
 $$\prod_{n\geq 1}(1+x^n) = (1+x)(1+x^2)(1+x^3)\cdots$$
 En développant comme on l'a fait dans la partie précédente, on se rend compte devant $x^k$ on a le nombre de manière d'écrire $k$ comme
 $$k = 1\cdot \varepsilon_1 + 2\cdot \varepsilon_2 + \cdots \qquad \text{où } \varepsilon_i \in \{0,1\}$$
@@ -291,12 +565,15 @@ et d'après le théorème des nombres pentagonaux,
 $$ \par{1 + \sum_{n\geq 1} p(n)x^n}\par{1 + \sum_{n\geq 1} (-1)^n\par{x^{n(3n-1)/2} + x^{n(3n+1)/2}}}  = 1$$
 $$ \par{1 + p_1x + p_2x^2 + p_3x^3 + \cdots}\par{1-x-x^2 + x^5 + x^7 - x^{12} + \cdots}  = 1$$
 Comme le coefficient devant $x^n$ est nul, on obtient bien
-$$\boxed{\begin{equation*}
-\begin{split}
-p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + \cdots \\
- & = \sum_{k\geq 1}(-1)^{k+1}p(n-k(3k\pm 1)/2)
-\end{split}
-\end{equation*}}  $$
+<div style="background: rgba(239, 68, 68, 0.06); border-left: 4px solid #ef4444; padding: 2px 0px; margin: 18px 0; border-radius: 4px;">
+  $$\begin{equation*}
+  \begin{split}
+  p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + \cdots \\
+  & = \sum_{k\geq 1}(-1)^{k+1}p(n-k(3k\pm 1)/2)
+  \end{split}
+  \end{equation*}$$
+</div>
+
 
 
 `},
