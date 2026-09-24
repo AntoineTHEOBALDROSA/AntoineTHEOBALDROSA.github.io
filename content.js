@@ -67,7 +67,7 @@ profile:{
     {label:'GitHub',href:'https://github.com/AntoineTHEOBALDROSA',glyph:'↗'},
     {label:'LinkedIn',href:'https://www.linkedin.com/in/antoine-theobald-rosa-696087381/',glyph:'↗'},
     {label:'antoine.theobald-rosa@polytechnique.edu',href:'mailto:antoine.theobald-rosa@polytechnique.edu',glyph:'✉'},
-    {label:{fr:'CV (PDF)',en:'Résumé (PDF)'},href:'#/contact',glyph:'↓'}
+    {label:{fr:'CV (PDF)',en:'Résumé (PDF)'},href:'pdf/Resume_THEOBALD-ROSA_Antoine.pdf',glyph:'↓'}
   ]
 },
 
@@ -93,17 +93,17 @@ domains:['math','cs','physics'],
    ========================================================= */
 cats:[
  {id:'math',
-  fr:{name:'Mathématiques',blurb:'Parce que ça reste la plus belle des sciences...'},
-  en:{name:'Mathematics',blurb:'Because it remains the most beautiful of all sciences...'}},
+  fr:{name:'Mathématiques',blurb:'"Any sufficiently well explained mathematics is indistinguishable from being obivous"'},
+  en:{name:'Mathematics',blurb:'"Any sufficiently well explained mathematics is indistinguishable from being obivous"'}},
  {id:'cs',
-  fr:{name:'Informatique',blurb:String.raw`Des structures de données monstrueuses pour gagner un facteur $\sqrt{n}$ : c'est la beauté de l'informatique!`},
-  en:{name:'Computer science',blurb: String.raw`Monstrous data structures to gain a $\sqrt{n}$ factor: that’s the beauty of computer science!`}},
+  fr:{name:'Informatique',blurb:String.raw``},
+  en:{name:'Computer science',blurb: String.raw``}},
   {id:'finance',
-  fr:{name:'Finance',blurb:'Recherches 100% personnelles.'},
-  en:{name:'Finance',blurb:'100% personnal research.'}},
+  fr:{name:'Finance',blurb:'Existe-t-il des lois économiques aussi inviolables que celles de la physique ? La seule manière de répondre à ces questions est de devenir économiste.'},
+  en:{name:'Finance',blurb:'Are there economic laws as inviolable as those of physics? The only way to answer these questions is to become an economist.'}},
   {id:'physics',
-  fr:{name:'Physique',blurb:'Souvent les articles les plus intuitifs, parce que la physique est la science du quotidien!'},
-  en:{name:'Physics',blurb:'Often the most intuitive articles—because physics is the science of everyday life!'}},
+  fr:{name:'Physique',blurb:'Des articles sur des phénomènes de la vie de tous les jours.'},
+  en:{name:'Physics',blurb:'Articles about everyday phenomena.'}},
 ],
 
 /* =========================================================
@@ -112,7 +112,7 @@ cats:[
 projects:[
 
 {slug:'stat-arb-eng',thumb:'images/pair_trading.png',year:'2026',tags:['Quant', 'Machine-Learning','Python'],
- fr:{title:String.raw`Moteur d'arbitrage statistique & Pair Trading`,role:'Projet personnel',status:'En cours',
+ fr:{title:String.raw`Moteur d'arbitrage statistique & Pair Trading`,role:'Projet personnel',status:'Terminé',
   blurb:String.raw`Comment tester de manière honnête (sans tricher) si une stratégie d'investissement aurait fait gagner de l'argent ? Application au *Pair Trading*.`,
   lead:String.raw`Comment tester de manière honnête (sans tricher) si une stratégie d'investissement aurait fait gagner de l'argent ? <br><br>
   Supposons qu'on ait une idée de stratégie, par exemple : « dès qu'une action baisse trois jours de suite, je l'achète et je la revends le lendemain ». On pourrait prendre l'historique des prix et regarder ce qui se serait passé : c'est ce qu'on appelle un **backtest**. Mais en pratique, un backtest peut prédire une straégie comme gagnante alors qu'elle est perdant. Pourquoi? Parce qu'en réalité il y a des frais, un décalage de prix le temps d'envoyer l'offre, et d'autres facteurs encore.<br><br>
@@ -206,7 +206,7 @@ prices = data["Close"].dropna()
   <p style="margin-top: 0; color: #334155; line-height: 1.55;">
     Une place boursière, c'est comme un grand marché couvert où des gens viennent acheter et vendre des parts d'entreprises. Euronext est l'entreprise privée qui gère les marchés de plusieurs villes européennes.<br>
     TotalEnergies est française, son marché historique principal est donc Paris (.PA) alors que Shell est d'origine anglo-néerlandaise, son marché historique est donc à Amsterdam (.AS). Une entreprise choisit où elle veut être cotée.<br>
-    Une entreprise n'a pas un prix mondial par magie. La côte d'une entreprise est le résultat de la dernière transaction conclue entre deux personnes. Mais si le prix de Total est différent à Paris et à New York, disons 49€ à Paris et 51€ à New York, des arbitragistes acheteraient des actions à Paris pour les revendere instantanément à New York, rééquilibrant le prix vers 50$. C'est ce qui fixe le prix des entreprises.
+    Une entreprise n'a pas un prix mondial par magie. La côte d'une entreprise est le résultat de la dernière transaction conclue entre deux personnes. Mais si le prix de Total est différent à Paris et à New York, disons 49€ à Paris et 51€ à New York, des arbitragistes acheteraient des actions à Paris pour les revendere instantanément à New York, rééquilibrant le prix vers 50€. C'est ce qui fixe le prix des entreprises.
   </p>
 
   <p style="margin-bottom: 6px; margin-top: 14px;"><strong>2. Pourquoi les bourses traditionnelles ferment-elles la nuit à l'ère d'Internet ?</strong></p>
@@ -311,7 +311,7 @@ import statsmodels.api as sm
 from statsmodels.regression.rolling import RollingOLS
 
 W = 60         # on estime alpha, beta sur W jours
-window_z = 30  # On normalise le Z score sur window_z jours
+window_z = 60  # On normalise le Z score sur window_z jours
 
 y = prices["TTE.PA"]
 x = prices["SHELL.AS"]
@@ -361,16 +361,1120 @@ plt.tight_layout()
 plt.show()
 ~~~
 ![](images/arb-stat-eng-2.png)
-`},
- en:{title:'Sudoku solver by constraint propagation',role:'Personal project',status:'Finished',
-  blurb:'A solver that almost never guesses: AC-3 to shrink the domains, then backtracking driven by the MRV heuristic.',
-  lead:'Brute force needs millions of attempts. Treat the grid as a constraint satisfaction problem and you are down to a few dozen branchings.',
-  stack:[['Language','Python 3.12'],['Core','AC-3, MRV, degree'],['Tests','pytest, 4,200 grids'],['Interface','CLI + text trace']],
-  links:[['Code source','https://github.com/aaa']],
-  body:String.raw`
-  english text
-`}},
 
+On peut alors appliquer notre stratégie de Pair Trading
+
+~~~python
+signals = pd.DataFrame(index=z_score.index)
+signals["z_score"] = z_score
+signals["position"] = 0  
+# 0: Pas de position
+# 1: Long spread
+# -1: Short spread
+
+ENTRY_THRESHOLD = 2.0
+EXIT_THRESHOLD = 0.5
+
+current_pos = 0
+positions = []
+
+for z in signals["z_score"]:
+    if pd.isna(z):
+        positions.append(0)
+        continue
+
+    if z >= ENTRY_THRESHOLD: current_pos = -1
+    elif z <= -ENTRY_THRESHOLD: current_pos = 1
+    elif abs(z) <= EXIT_THRESHOLD: current_pos = 0
+    
+    positions.append(current_pos) # sinon on reste dans la position qu'on avait la veille
+
+signals["position"] = positions
+~~~
+
+## 3. Moteur de Backtest
+
+On va maintenant évaluer notre stratégie sur les données que nous avons téléchargés. En particulier, on peut modifier les taux de transaction grâce à la variable \`TRANSACTION_COST\` ainsi que le capital initial grâce à la variable \`INITIAL_CAPITAL\`.
+
+~~~python
+# rendements journaliers
+returns = pd.DataFrame(index=prices.index)
+returns["TTE"] = prices["TTE.PA"].pct_change()
+returns["SHEL"] = prices["SHELL.AS"].pct_change()
+
+returns["beta"] = beta
+
+# rendement
+returns["spread_return"] = (returns["TTE"] - returns["beta"] * returns["SHEL"]) / (1 + returns["beta"])
+
+signals["position_applied"] = signals["position"].shift(1).fillna(0)
+returns["strategy_gross"] = signals["position_applied"] * returns["spread_return"]
+
+# frais de transaction
+# 1 changement de position = 2 ordres (un pour Total, un pour Shell)
+TRANSACTION_COST = 0.0005  # 0.05% par transaction
+trades = signals["position_applied"].diff().abs().fillna(0)
+returns["costs"] = trades * TRANSACTION_COST
+
+# Rendement net
+returns["strategy_net"] = returns["strategy_gross"] - returns["costs"]
+
+INITIAL_CAPITAL = 100_000
+portfolio = pd.DataFrame(index=returns.index)
+portfolio["equity_gross"] = INITIAL_CAPITAL * (1 + returns["strategy_gross"].fillna(0)).cumprod()
+portfolio["equity_net"] = INITIAL_CAPITAL * (1 + returns["strategy_net"].fillna(0)).cumprod()
+~~~
+On peut afficher les résultats de notre stratégie :
+
+![](images/arb-stat-eng-3.png)
+
+## 4. Évaluation des performances   
+
+On voit clairement que la stratégie finit dans le négatif, mais analysons la plus en détail.
+
+<div style="overflow-x: auto; margin: 24px 0;">
+  <table style="width: 100%; border-collapse: collapse; font-family: inherit; font-size: 0.95rem; text-align: left; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+    <thead>
+      <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #1e293b;">
+        <th style="padding: 12px 16px; font-weight: 700;">Métrique</th>
+        <th style="padding: 12px 16px; font-weight: 700;">Description</th>
+        <th style="padding: 12px 16px; font-weight: 700; text-align: right;">Valeur</th>
+      </tr>
+    </thead>
+    <tbody style="color: #334155;">
+      <tr style="border-bottom: 1px solid #e2e8f0;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Période active</td>
+        <td style="padding: 12px 16px;">Durée effective testée (base 252 j/an). <br>Les premiers jours sont exclus comme on en a besoin pour calculer $\beta$.</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">4.6 ans</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Rendement total net</td>
+        <td style="padding: 12px 16px;">Gain cumulé une fois les frais de transaction retirés (ici, 5 bps = 0.05%). <br>$R = \frac{V_T}{V_0} - 1$ avec $V_T, V_0$ les valeurs finales et initiales du portefeuille.</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">-35.68%</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #e2e8f0;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Rendement annualisé</td>
+        <td style="padding: 12px 16px;">Taux composé annuel équivalent (*Compound Annual Growth Rate*).<br> CAGR = $(1+R)^{1/n_{\text{years}}} - 1$</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">-9.14%</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Volatilité annualisée $\sigma_{\text{anuelle}}</td>
+        <td style="padding: 12px 16px;">Mesure l'instabilité et la dispersion des rendements de la stratégie.</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">8.56%</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #e2e8f0;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Sharpe Ratio</td>
+        <td style="padding: 12px 16px;">BLABLA <br> $S=\frac{\mathbb E(R)-R_f}{\sigma_{\text{anuelle}}}$ avec $R_f$ le rendement d'un portefeuille sans risque.<br> $S<0$ : l'investissement perd de l'argent, $0\lt S \lt 1$ : l'investissement est moins rentable qu'un placement sans risque et $S>1$ l'investissement vaut les risques pris</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">-1.10</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Maximum Drawdown (MDD)</td>
+        <td style="padding: 12px 16px;">Perte maximale qu'un investisseur aurait pu subir s'il était entré puis sorti au pire moment possible (rentré au sommet historique pour sortir au creux le plus bas).<br>$\text{MDD} = \min_{t} \left( \frac{V_t - \max_{s \le t} V_s}{\max_{s \le t} V_s} \right)$</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">-39.87%</td>
+      </tr>
+      <tr>
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Taux de jours gagnants</td>
+        <td style="padding: 12px 16px;">Pourcentage de jours où le rendement a été strictement positif, calculé uniquement sur les jours où une position est ouverte.</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">45.59%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+On remarque qu'on obtient de très mauvais résultats. Une raison à cela est que Total et Shell n'ont pas vraiment suivi les même stratégies sur la période 2021-2026 : Shell s'est concentré sur les énergies fossiles alors que Total a massivement investi dans l'électricité et les énergies renouvelables.<br>
+
+On peut refaire la même étude avec par exemple Mastercard et Visa, qui suivent exactement le même modèle économique. On a alors de bien meilleurs résultats :
+
+<div style="overflow-x: auto; margin: 24px 0;">
+  <table style="width: 100%; border-collapse: collapse; font-family: inherit; font-size: 0.95rem; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+    <thead>
+      <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #1e293b;">
+        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Période active</th>
+        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Rendement net</th>
+        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Rendement ann. (CAGR)</th>
+        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Volatilité ann.</th>
+        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Sharpe Ratio</th>
+        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Max Drawdown</th>
+        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Taux jours gagnants</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">4,3 ans</td>
+        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #16a34a; white-space: nowrap;">+6,96 %</td>
+        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #16a34a; white-space: nowrap;">+1,59 %</td>
+        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">5,19 %</td>
+        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">0,34</td>
+        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #dc2626; white-space: nowrap;">-6,31 %</td>
+        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">52,47 %</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+On a toujours un sharpe ratio strictement inférieur à $1$, ce qui montre dans cette application simpliste du Pair Trading, il vaut mieux invesitr sur la dette américaine par exemple. Une raison à cela est que des fonds d'investissement appliquent déjà des stratégies similaires mais affinées, ce qui les rend plus performantes et nous empêche de tirer profit de cette stratégie.
+`},
+en: {
+  title: String.raw`Statistical Arbitrage Engine & Pairs Trading`,
+  role: 'Personal Project',
+  status: 'Completed',
+  blurb: String.raw`How do you test honestly (without cheating) whether an investment strategy would have made money? An application to *Pairs Trading*.`,
+  lead: String.raw`How do you test honestly (without cheating) whether an investment strategy would have made money? <br><br>
+  Suppose you have a strategy idea, such as: "as soon as a stock drops three days in a row, buy it and sell it the next day." You could pull historical prices and check what would have happened: this is called a **backtest**. But in practice, a backtest can easily show a strategy as profitable when it actually loses money in the real world. Why? Because live markets involve broker fees, execution slippage, bid-ask spreads, and various other market frictions.<br><br>
+  In this project, we develop an engine that evaluates whether a strategy *truly* generates profit, and apply it to a **Pairs Trading** strategy.`,
+  links: [['Source Code', 'https://github.com/AntoineTHEOBALDROSA/Statistical-Arbitrage-Engine']],
+  body: String.raw`
+
+  <div style="margin-top: -5.5rem;"></div>
+
+## Project Outline
+
+1. **Pairs Trading Strategy**
+2. **Backtest Engine**
+3. **Strategy Performance Evaluation**
+
+## 1. Pairs Trading
+
+To test our backtest engine, we first need an investment strategy. I chose **Pairs Trading** (statistical arbitrage between two co-moving assets).
+
+### General Principle
+
+Consider two closely related companies, such as **TotalEnergies** and **Shell**. Because their core business models and operations are largely identical, their share prices tend to move in tandem: a spike in crude oil prices will typically benefit both stocks in a similar fashion.
+
+However, temporary liquidity shocks can disrupt this equilibrium: for example, if an institutional fund rapidly liquidates a massive position in one of the two names. During such an event, stock $A$ may temporarily appear undervalued relative to stock $B$.
+
+The foundational premise of Pairs Trading is mean reversion: this divergence in relative valuation is transitory and will eventually close.
+
+<div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-left: 5px solid #0284c7; padding: 18px 22px; margin: 22px 0; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); font-family: inherit;">
+  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+    <strong style="color: #0369a1; font-size: 1.05rem;">Execution: Once a statistically significant spread emerges</strong>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 1px;">
+    <!-- Step 1 -->
+    <div style="display: flex; align-items: flex-start; gap: 8px;">
+      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">1</span>
+      <div style="color: #334155; line-height: 1.55;">
+        <strong>Short Selling:</strong> Borrow shares of the overvalued company ($A$) and sell them immediately at the prevailing elevated market price.
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div style="display: flex; align-items: flex-start; gap: 12px;">
+      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">2</span>
+      <div style="color: #334155; line-height: 1.55;">
+        Using the cash proceeds generated, simultaneously buy shares of the undervalued company ($B$).
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div style="display: flex; align-items: flex-start; gap: 12px;">
+      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">3</span>
+      <div style="color: #334155; line-height: 1.55;">
+        Once the spread reverts to its historical mean, sell shares of $B$, buy back shares of $A$ to return them to the lender, and pocket the net spread difference.
+      </div>
+    </div>
+  </div>
+</div>
+
+The primary advantage of this approach is being *market-neutral*: performance does not depend on whether the overall oil market trends upward or downward, but exclusively on spread convergence.
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+### Implementation
+
+Let's implement the data ingestion step in Python:
+~~~python
+import yfinance as yf
+
+# Stock tickers:
+# TTE.PA  : TotalEnergies on Euronext Paris
+# SHEL.AS : Shell on Euronext Amsterdam
+tickers = ["TTE.PA", "SHEL.AS"]
+
+# Download split- and dividend-adjusted closing prices
+data = yf.download(tickers, start="2021-01-01", end="2026-01-01", auto_adjust=True)
+
+prices = data["Close"].dropna()
+~~~
+**Note:** The \`.dropna()\` call filters out exchange-specific holidays (for example, when the Amsterdam stock exchange is open while Paris is closed).
+
+<div style="background-color: #f8fafc; border-left: 5px solid #2563eb; padding: 18px 20px; margin: 22px 0; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); font-family: inherit;">
+  <h3 style="margin-top: 0; margin-bottom: 14px; color: #1e40af; font-size: 1.15rem; display: flex; align-items: center; gap: 8px;">
+    <span>Frequently Asked Questions: Financial Markets</span>
+  </h3>
+
+  <p style="margin-bottom: 6px;"><strong>1. What is Euronext? Why is TotalEnergies listed in Paris and Shell in Amsterdam?</strong></p>
+  <p style="margin-top: 0; color: #334155; line-height: 1.55;">
+    A stock exchange functions much like a centralized marketplace where buyers and sellers trade ownership shares of companies. Euronext is the private operating company managing securities markets across several European financial centers.<br>
+    TotalEnergies is a French corporation, making Paris (.PA) its primary historical venue, whereas Shell has Anglo-Dutch roots, making Amsterdam (.AS) its primary European home market. Companies deliberately choose their primary listing locations.<br>
+    Asset prices do not exist uniformly across the world by default; a quoted price is merely the outcome of the most recent transaction agreed upon by two market participants. If Total shares traded at €49 in Paris and €51 in New York, arbitrageurs would immediately buy in Paris and sell in New York, collapsing the disparity back toward an equilibrium price of €50. This continuous arbitrage mechanism establishes consistent cross-market pricing.
+  </p>
+
+  <p style="margin-bottom: 6px; margin-top: 14px;"><strong>2. Why do traditional exchanges close at night in the Internet era?</strong></p>
+  <p style="margin-top: 0; color: #334155; line-height: 1.55;">
+    Traditional exchanges enforce defined operating hours to concentrate liquidity in one place at the same time. If trading remained continuous at 3 AM, order books would be extremely thin, and even a modest market order could swing the asset price by 10% simply due to lack of participating counter-parties.
+  </p>
+
+  <p style="margin-bottom: 6px; margin-top: 14px;"><strong>3. What are "adjusted" prices?</strong></p>
+  <p style="margin-top: 0; margin-bottom: 0; color: #334155; line-height: 1.55;">
+    Suppose you buy a share of stock for €100. The following day, the company distributes a €5 cash dividend to shareholders. Mechanically, the underlying share value adjusts down to €95. On a raw price chart, this appears as an abrupt jump from €100 to €95, which quantitative algorithms could mistake for a sudden drop in company fundamentals. In reality, total shareholder wealth is unchanged (€95 share + €5 cash). The **adjusted price** series smooths this artificial gap to remove the false loss.<br>
+    The same principle applies to stock splits: if a firm with 10 shares trading at €1,000 splits 10-for-1 into 100 shares, each share is priced at €100, while the enterprise's aggregate equity value remains identical.
+  </p>
+</div>
+
+### Relative Performance Visualization
+
+To compare both stocks regardless of their nominal share price difference, we rebase each series to 100 at the beginning of the period:
+
+~~~python
+import matplotlib.pyplot as plt
+
+normalized_prices = (prices / prices.iloc[0]) * 100 
+
+plt.figure(figsize=(10, 5))
+plt.plot(normalized_prices["TTE.PA"], label="TotalEnergies (TTE.PA)")
+plt.plot(normalized_prices["SHEL.AS"], label="Shell (SHEL.AS)")
+plt.title("Relative Performance: TotalEnergies vs Shell (2021 - 2026)")
+plt.xlabel("Date")
+plt.ylabel("Relative Performance (Base 100)")
+plt.legend()
+plt.grid(True, linestyle="--", alpha=0.6)
+plt.show()
+~~~
+
+![](images/arb-stat-eng-1.png)
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+## 2. Modeling and Spread Calculation
+
+We now aim to define and mathematically quantify the **spread** between the two equities.
+
+If TotalEnergies trades at €60 and Shell at €40, a naive spread would simply be $60 - 40 = 20 \text{ €}$. However, a 1% move in Total does not necessarily correspond to a 1% move in Shell.
+
+Since both companies operate in identical economic sectors, we model their price relationship via an affine linear model with a time-dependent spread $\varepsilon_t$:
+
+$$P_{\text{TTE}, t} = \alpha + \beta P_{\text{Shell}, t} + \varepsilon_t$$ 
+
+Where:
+<ul style="margin: 8px 0 14px 1.5rem; padding: 0; list-style-type: disc; line-height: 0.1;">
+  <li style="margin-bottom: 4px;">$\beta$ denotes the *hedge ratio*: for each share of TotalEnergies purchased, we must short $\beta$ shares of Shell to maintain market neutrality.</li>
+  <li style="margin-bottom: 4px;">$\alpha$ represents an adjustment constant (intercept).</li>
+  <li style="margin-bottom: 4px;">$\varepsilon_t$ is the residual *spread* at time $t$.</li>
+</ul>
+
+### Cointegration
+
+Individually, a stock price $P_t$ is a **non-stationary** process (integrated of order 1, denoted $I(1)$), commonly modeled as a geometric Brownian motion:
+$$dP_t = \mu P_t dt + \sigma P_t d W_t$$
+where $W_t$ is a standard Brownian motion and $\sigma$ represents volatility. Its mean is time-dependent and its variance diverges indefinitely.<br>
+Generally, a linear combination of two $I(1)$ processes remains $I(1)$. However, in pairs trading, there may exist a specific pair $(\alpha, \beta)$ such that the residual spread $\varepsilon_t$ forms a **stationary** process (denoted $I(0)$). When this condition holds, TotalEnergies and Shell are said to be **cointegrated**.
+
+$$\varepsilon_t = P_{\text{TTE}, t} - (\alpha + \beta P_{\text{SHEL}, t}) \qquad \text{ with } \quad \mathbb{E}[\varepsilon_t] = 0 \quad \text{and} \quad \operatorname{Var}(\varepsilon_t) = \sigma_{\varepsilon}^2 < +\infty$$
+
+### Estimating $\alpha$ and $\beta$: Ordinary Least Squares (OLS)
+
+We determine the parameters $\alpha$ and $\beta$ that minimize the sum of squared residuals $\sum \varepsilon_t^2$. Defining $S(\alpha, \beta) = \sum_t \varepsilon_t^2$ along with $y_t = P_{\text{TTE}, t}$ and $x_t = P_{\text{SHEL}, t}$, we minimize:
+$$S(\alpha, \beta) = \sum_{t=1}^N (y_t - (\alpha + \beta x_t))^2$$
+Because $S$ is a convex quadratic function, its global minimum occurs where both partial derivatives vanish:
+$$\frac{\partial S}{\partial \alpha} = 0 \quad \text{and} \quad \frac{\partial S}{\partial \beta} = 0$$
+Evaluating the first derivative:
+$$\frac{\partial S}{\partial \alpha} = \sum_{t=1}^N -2\big(y_t - \alpha - \beta x_t\big) = 0$$
+Multiplying by $\frac{1}{-2N}$, with sample means $\bar{y} = \frac{1}{N}\sum y_t$ and $\bar{x} = \frac{1}{N}\sum x_t$:
+$$\bar{y} - \alpha - \beta \bar{x} = 0 \implies \boxed{\alpha = \bar{y} - \beta \bar{x}}$$
+Next, taking the partial derivative with respect to $\beta$:
+$$\frac{\partial S}{\partial \beta} = \sum_{t=1}^N -2 x_t \big(y_t - \alpha - \beta x_t\big) = 0$$
+Substituting $\alpha$ into the equation:
+$$\sum_{t=1}^N x_t \Big( (y_t - \bar{y}) - \beta (x_t - \bar{x}) \Big) = 0$$
+Since the sum of zero-centered deviations $\sum_{t=1}^N (y_t - \bar{y}) = 0$ and $\sum_{t=1}^N (x_t - \bar{x}) = 0$, we have $\bar{x} \sum_{t=1}^N (y_t - \bar{y}) = 0$. Subtracting this yields:
+$$\sum_{t=1}^N (x_t - \bar{x})(y_t - \bar{y}) - \beta \sum_{t=1}^N (x_t - \bar{x})^2 = 0 \quad \Longleftrightarrow \quad \boxed{\beta = \frac{\operatorname{Cov}(x, y)}{\operatorname{Var}(x)}}$$
+
+### Detecting Anomalies
+
+Now that we can estimate $\alpha$ and $\beta$ and compute the spread $\varepsilon_t$, we standardize the divergence by calculating the **Z-score**:
+$$Z_t = \frac{\varepsilon_t - \mu_{\varepsilon_t}}{\sigma_{\varepsilon_t}}$$
+If $\varepsilon_t$ is stationary, $Z_t$ approximately follows a standard normal distribution $\mathcal{N}(0, 1)$. In practice, $Z_t$ resides within $[-2, 2]$ roughly $95.4\%$ of the time.<br>
+Consequently, when $|Z_t| > 2$, a statistical anomaly is identified, signaling a trading opportunity:
+<ul style="margin: 8px 0 14px 1.5rem; padding: 0; list-style-type: disc; line-height: 0.1;">
+  <li style="margin-bottom: 4px;">If $Z_t > 2$, the spread is elevated and Total is relatively overvalued: short Total, long Shell.</li>
+  <li style="margin-bottom: 4px;">If $Z_t < -2$, the reverse applies: short Shell, long Total.</li>
+</ul>
+
+### Implementation
+
+Because the relationship parameters $\alpha$ and $\beta$ can drift across changing macroeconomic regimes, we estimate them dynamically over a rolling window of \`W\` days. Similarly, the Z-score is standardized over a rolling window of \`window_z\` days to capture local volatility.
+
+~~~python
+import numpy as np
+import statsmodels.api as sm
+from statsmodels.regression.rolling import RollingOLS
+
+W = 60         # Rolling estimation window for alpha and beta (days)
+window_z = 60  # Rolling standardization window for Z-score (days)
+
+y = prices["TTE.PA"]
+x = prices["SHEL.AS"]
+x_with_const = sm.add_constant(x)
+
+# Rolling Ordinary Least Squares (Rolling OLS)
+rols = RollingOLS(y, x_with_const, window=W)
+rolling_model = rols.fit()
+
+# Shift by 1 day to strictly eliminate lookahead bias
+alpha = rolling_model.params["const"].shift(1)
+beta = rolling_model.params["SHEL.AS"].shift(1)
+
+spread = y - (alpha + beta * x)
+
+# Rolling Z-score calculation
+spread_mean = spread.rolling(window=window_z).mean()
+spread_std = spread.rolling(window=window_z).std()
+z_score = (spread - spread_mean) / spread_std
+~~~
+
+We can now plot the trajectories of the rolling hedge ratio $\beta_t$ and the spread Z-score $Z_t$:
+
+~~~python 
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 8), sharex=True)
+
+# Hedge ratio
+ax1.plot(beta, label=f"Rolling Beta (W = {W} d)", color="purple", lw=1.2)
+ax1.set_title("Hedge Ratio Dynamics (Beta)")
+ax1.set_ylabel("Beta")
+ax1.grid(True)
+ax1.legend(loc="upper left")
+
+# Spread Z-score
+ax2.plot(z_score, label="Spread Z-score", color="blue", lw=1)
+ax2.axhline(0, color="black", linestyle="--", alpha=0.7)
+ax2.axhline(2.0, color="red", linestyle="--", label="Entry threshold (+-2)")
+ax2.axhline(-2.0, color="red", linestyle="--")
+ax2.axhline(0.5, color="green", linestyle=":", label="Exit threshold (+-0.5)")
+ax2.axhline(-0.5, color="green", linestyle=":")
+
+ax2.set_title("TotalEnergies / Shell Spread Z-Score")
+ax2.set_xlabel("Date")
+ax2.set_ylabel("Z-score")
+ax2.grid(True)
+ax2.legend(loc="upper left")
+
+plt.tight_layout()
+plt.show()
+~~~
+![](images/arb-stat-eng-2.png)
+
+We then translate these statistical thresholds into discrete trading signals:
+
+~~~python
+signals = pd.DataFrame(index=z_score.index)
+signals["z_score"] = z_score
+signals["position"] = 0  
+#  0: Flat (no active exposure)
+#  1: Long spread (long Total, short Shell)
+# -1: Short spread (short Total, long Shell)
+
+ENTRY_THRESHOLD = 2.0
+EXIT_THRESHOLD = 0.5
+
+current_pos = 0
+positions = []
+
+for z in signals["z_score"]:
+    if pd.isna(z):
+        positions.append(0)
+        continue
+
+    if z >= ENTRY_THRESHOLD: 
+        current_pos = -1
+    elif z <= -ENTRY_THRESHOLD: 
+        current_pos = 1
+    elif abs(z) <= EXIT_THRESHOLD: 
+        current_pos = 0
+    
+    positions.append(current_pos)  # Otherwise maintain previous day's position
+
+signals["position"] = positions
+~~~
+
+## 3. Backtest Engine
+
+We now simulate the historical performance of the strategy across our dataset. Friction parameters such as per-trade transaction fees can be calibrated via \`TRANSACTION_COST\`, along with portfolio starting capital via \`INITIAL_CAPITAL\`.
+
+~~~python
+# Daily percentage returns
+returns = pd.DataFrame(index=prices.index)
+returns["TTE"] = prices["TTE.PA"].pct_change()
+returns["SHEL"] = prices["SHEL.AS"].pct_change()
+
+returns["beta"] = beta
+
+# Spread returns (weighted by hedge ratio)
+returns["spread_return"] = (returns["TTE"] - returns["beta"] * returns["SHEL"]) / (1 + returns["beta"])
+
+# Lag positions by 1 day to reflect execution at next market open
+signals["position_applied"] = signals["position"].shift(1).fillna(0)
+returns["strategy_gross"] = signals["position_applied"] * returns["spread_return"]
+
+# Transaction costs
+# 1 position reallocation = 2 orders executed (one for Total, one for Shell)
+TRANSACTION_COST = 0.0005  # 0.05% (5 bps) per trade
+trades = signals["position_applied"].diff().abs().fillna(0)
+returns["costs"] = trades * TRANSACTION_COST
+
+# Net strategy returns
+returns["strategy_net"] = returns["strategy_gross"] - returns["costs"]
+
+INITIAL_CAPITAL = 100_000
+portfolio = pd.DataFrame(index=returns.index)
+portfolio["equity_gross"] = INITIAL_CAPITAL * (1 + returns["strategy_gross"].fillna(0)).cumprod()
+portfolio["equity_net"] = INITIAL_CAPITAL * (1 + returns["strategy_net"].fillna(0)).cumprod()
+~~~
+
+We visualize the resulting portfolio equity curve:
+
+![](images/arb-stat-eng-3.png)
+
+## 4. Performance Evaluation
+
+The strategy visibly concludes in negative territory, but let us systematically examine the underlying risk and performance metrics:
+
+<div style="overflow-x: auto; margin: 24px 0;">
+  <table style="width: 100%; border-collapse: collapse; font-family: inherit; font-size: 0.95rem; text-align: left; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+    <thead>
+      <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #1e293b;">
+        <th style="padding: 12px 16px; font-weight: 700;">Metric</th>
+        <th style="padding: 12px 16px; font-weight: 700;">Description</th>
+        <th style="padding: 12px 16px; font-weight: 700; text-align: right;">Value</th>
+      </tr>
+    </thead>
+    <tbody style="color: #334155;">
+      <tr style="border-bottom: 1px solid #e2e8f0;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Active Period</td>
+        <td style="padding: 12px 16px;">Effective duration analyzed (252 trading days/year basis).<br>Initial warm-up days are excluded as they are required to calibrate $\beta$.</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">4.6 years</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Total Net Return</td>
+        <td style="padding: 12px 16px;">Cumulative return after subtracting transaction fees (5 bps = 0.05%).<br>$R = \frac{V_T}{V_0} - 1$, where $V_T, V_0$ denote final and initial portfolio equity.</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">-35.68%</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #e2e8f0;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Annualized Return</td>
+        <td style="padding: 12px 16px;">Compound Annual Growth Rate (CAGR).<br> CAGR = $(1+R)^{1/n_{\text{years}}} - 1$</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">-9.14%</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Annualized Volatility $\sigma_{\text{annual}}$</td>
+        <td style="padding: 12px 16px;">Measures return dispersion and variance across the strategy lifespan.</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">8.56%</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #e2e8f0;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Sharpe Ratio</td>
+        <td style="padding: 12px 16px;">Risk-adjusted excess return metric.<br> $S=\frac{\mathbb E(R)-R_f}{\sigma_{\text{annual}}}$, where $R_f$ is the risk-free rate.<br> $S < 0$: negative excess return; $0 \lt S \lt 1$: strategy underperforms risk-free benchmarks; $S > 1$: excess return adequately compensates for risk.</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">-1.10</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Maximum Drawdown (MDD)</td>
+        <td style="padding: 12px 16px;">Maximum peak-to-trough decline experienced had capital been committed at the worst historical peak and closed at the lowest trough.<br>$\text{MDD} = \min_{t} \left( \frac{V_t - \max_{s \le t} V_s}{\max_{s \le t} V_s} \right)$</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">-39.87%</td>
+      </tr>
+      <tr>
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Win Rate (Days)</td>
+        <td style="padding: 12px 16px;">Percentage of trading days with strictly positive returns, evaluated only on days with open positions.</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">45.59%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+The results are distinctly underwhelming. A major macroeconomic driver is that TotalEnergies and Shell followed diverging business trajectories over the 2021–2026 window: Shell refocused on conventional upstream fossil fuels, whereas Total committed heavily to renewables and clean power distribution.<br>
+
+Replicating this framework on equities sharing virtually identical revenue mechanics—such as Mastercard and Visa—reveals a markedly improved performance profile:
+
+<div style="overflow-x: auto; margin: 24px 0;">
+  <table style="width: 100%; border-collapse: collapse; font-family: inherit; font-size: 0.95rem; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+    <thead>
+      <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #1e293b;">
+        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Active Period</th>
+        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Net Return</th>
+        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Ann. Return (CAGR)</th>
+        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Ann. Volatility</th>
+        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Sharpe Ratio</th>
+        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Max Drawdown</th>
+        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Win Rate (Days)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">4.3 years</td>
+        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #16a34a; white-space: nowrap;">+6.96%</td>
+        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #16a34a; white-space: nowrap;">+1.59%</td>
+        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">5.19%</td>
+        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">0.34</td>
+        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #dc2626; white-space: nowrap;">-6.31%</td>
+        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">52.47%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+Even in this scenario, the Sharpe ratio remains well below $1$, suggesting that under this naive configuration, holding short-duration sovereign debt or cash deposits would have been superior on a risk-adjusted basis. This is largely expected: institutional hedge funds trade much more sophisticated formulations of statistical arbitrage with tick-level microstructure data and co-location, largely exhausting simple retail mispricings.
+`}
+},
+
+// Projet 2
+{slug:'stochastic-vectorisation',thumb:'images/vect-1bis.png',year:'2026',tags:['Genetic-Algorithm','Python'],
+  fr:{title:String.raw`Comment faire un TIPE en moins de 5Mo ?`,role:'Projet TIPE',status:'Terminé',
+  blurb:String.raw`Comment faire tenir une présentation avec plein de photos en 5 Mo ? Exploration d'une approche stochastique de vectorisation d'images.`,
+  lead:String.raw`Nous sommes tenus de rendre un TIPE (projet de fin de prépa) de moins 5 Mo. Comment compresser un TIPE contenant plein d'images pour le faire passer sous la barre des 5 Mo ? <br><br>
+  Face à cette contrainte, le réflexe consiste à compresser les images en JPEG. Mais on peut faire plus amusant. Une image vectorielle (comme un fichier SVG) présente l'avantage d'avoir un poids totalement décorrélé de sa résolution d'affichage tout étant net à n'importe quel niveau de zoom.<br><br>
+  L'objectif de ce projet a été de concevoir et d'implémenter en C un **algorithme génératif stochastique** capable de reconstruire n'importe quelle image à partir d'une superposition de formes géométriques élémentaires (cercles, polygones). Au final, on arrive à réduire le poids des fichiers jusqu'à un facteur 70.`,
+  links:[['Code source & Slides','https://github.com/AntoineTHEOBALDROSA/Image-Vectorialisation']],
+  body:String.raw`
+  <div style="margin-top: -5.5rem;"></div>
+
+<div style="display: flex; gap: 16px; justify-content: center; align-items: center; margin: 24px 0;">
+  <img src="images/vect-1.png" alt="Description 1" style="width: 35%; max-width: 350px; height: auto; border-radius: 6px;" />
+  <img src="images/vect-1bis.png" alt="Description 2" style="width: 35%; max-width: 350px; height: auto; border-radius: 6px;" />
+</div>
+
+## Plan du projet
+
+1. **La contrainte des 5 Mo et vectorialisation**
+2. **Algorithme évolutif**
+3. **Implémentation en C & multi-threading**
+4. **Compression du fichier généré et analyse des performances**
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+## 1. La contrainte des 5 Mo et vectorialisation
+
+La plateforme de dépôt des concours d'entrée aux grandes écoles impose une limite de $5$ Mo pour la présentation de notre projet de fin d'étude.
+
+Le but va être de compresser des images en les vectorialisant, puis d'implémenter l'algorithme avec le module LaTeX TikZ qui permet de tracer des figures véctorialisées dans un document LaTeX.
+
+
+<div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-left: 5px solid #0284c7; padding: 18px 22px; margin: 22px 0; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); font-family: inherit;">
+  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+    <strong style="color: #0369a1; font-size: 1.05rem;">Principe de l'algorithme</strong>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 10px;">
+    <!-- Étape 1 -->
+    <div style="display: flex; align-items: flex-start; gap: 10px;">
+      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">1</span>
+      <div style="color: #334155; line-height: 1.55;">
+        <strong>Initialisation :</strong> On part d'une image vierge $I$ de mêmes dimensions que l'image cible
+      </div>
+    </div>
+
+    <!-- Étape 2 -->
+    <div style="display: flex; align-items: flex-start; gap: 10px;">
+      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">2</span>
+      <div style="color: #334155; line-height: 1.55;">
+        On génère aléatoirement  $N_{\text{it}}$ formes aléatoires (positions, tailles aléatoires). Pour la couleur, on leur attribue la couleur moyenne de la zone sous-jacente de l'image cible.
+      </div>
+    </div>
+
+    <!-- Étape 3 -->
+    <div style="display: flex; align-items: flex-start; gap: 10px;">
+      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">3</span>
+      <div style="color: #334155; line-height: 1.55;">
+        <strong>Mutation et Sélection :</strong> On retient les $N_{\text{selected}}$ meilleures formes réduisant le plus l'écart avec l'image cible, puis on génère des variantes sur plusieurs générations successives. Après plus générations, on garde la meilleure forme trouvée sur l'ensemble des générations et on la dessine sur l'image $I$.
+      </div>
+    </div>
+
+    <!-- Étape 4 -->
+    <div style="display: flex; align-items: flex-start; gap: 10px;">
+      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">4</span>
+      <div style="color: #334155; line-height: 1.55;">
+        On réitère ce proccessus de séléction $N_{\text{shape}} \approx 2000 \text{ à } 8000$ fois.
+      </div>
+    </div>
+  </div>
+</div>
+
+### Exemple d'exécution
+
+On commence par générer $N_{\text{it}} = 10$ formes puis on garde les $N_{\text{selected}}=2$ meilleures, ici les deux de la première colonne (bords rouges).
+
+<img src="images/vect-2.png" alt="Description" style="display: block; margin: 24px auto; max-width: 65%; height: auto; border-radius: 6px;" />
+
+A partir de ces deux formes, on regenère des variations de chacune d'entre elles. C'est la deuxième génération. 
+
+<img src="images/vect-3.png" alt="Description" style="display: block; margin: 24px auto; max-width: 65%; height: auto; border-radius: 6px;" />
+
+On va garder la meilleure, disons que c'est celle-ci :
+
+<img src="images/vect-4.png" alt="Description" style="display: block; margin: 24px auto; max-width: 12%; height: auto; border-radius: 6px;" />
+
+On place alors cette forme sur le canvas blanc $I$ puis on recommence avec ce nouveau canvas :
+
+<img src="images/vect-5.png" alt="Description" style="display: block; margin: 24px auto; max-width: 65%; height: auto; border-radius: 6px;" />
+
+Après $N=6000$ itérations, voilà le résultat : 
+
+<img src="images/vect-6.png" alt="Description" style="display: block; margin: 24px auto; max-width: 30%; height: auto; border-radius: 6px;" />
+
+<div style="background-color: #f8fafc; border-left: 5px solid #2563eb; padding: 0px 20px; margin: 22px 0; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); font-family: inherit;">
+  <p style="margin-bottom: 6px; margin-top: 14px;"><strong>Cercles ou polygones ?</strong></p>
+  <p style="margin-top: 0; margin-bottom: 0; color: #334155; line-height: 1.55;">
+    Le cercle a l'avantage de n'avoir que $3$ paramètres ($x, y, r$), alors qu'un triangle ou en général un polygône à $n$ côtés a $2n$ paramètres. De plus, pour avoir fait des essais, si on autorise les triangles l'algorithme décide de les aplatir un maximum pour conrètement traçer des lignes..
+  </p>
+</div>
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+## 2. Algorithme évolutif
+
+Pour guider l'algorithme vers l'image originale $T$, il faut définir une distance mesurant l'écart entre l'image qu'on construit itérativement $I$ et l'image cible $T$.
+
+Soient $T$ et $B$ deux images de dimensions $W \times H$. Il existe deux distances classiques :
+
+### 1. Distance de Manhattan ($L_1$)
+$$D_{L_1}(T, B) = \sum_{p \in \text{pixels}}\big| T[p] - B[p] \big|$$
+
+### 2. Erreur quadratique / RMS ($L_2$)
+$$D_{L_2}(T, B) = \sqrt{\frac{1}{WH} \sum_{p \in \text{pixels}} \big( T[p] - B[p] \big)^2}$$
+
+En pratique, la distance $L_2$ est beaucoup plus longue à calculer et les résultats sont indistinguables donc dans toute la suite du projet j'utiliserai la distance $L_1$.
+
+### Choix de la couleur
+
+Pour une forme géométrique donnée $\mathcal{S}$ (souvent un cercle) recouvrant un ensemble de pixels $\Omega_{\mathcal{S}}$, la couleur $(R, G, B)$ attribuée à la forme correspond à la couleur moyenne des pixels de l'image cible situés sous cette forme $\mathcal{S}$:
+
+$$\bar{C} = \frac{1}{|\Omega_{\mathcal{S}}|} \sum_{p \in \Omega_{\mathcal{S}}} T(p)$$
+
+Cette heuristique évite d'introduire un nouveau paramètre « couleur » à deviner pour l'algorithme.
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+## 3. Implémentation en C & multi-threading
+
+L'implémentation a été entièrement réalisée en C avec la bibliothèque graphique **Cairo** (\`libcairo\`) pour dessiner les formes géométriques.
+
+### Structures de données
+
+Chaque forme géométrique et chaque image sont représentées par des structures. Par exemple pour le cercle et le triangle :
+
+~~~python
+typedef struct color {
+    uint8_t r, g, b, a;
+} color;
+
+typedef struct Circle {
+    int centerx, centery, radius;
+    color c;
+} Circle;
+
+typedef struct Triangle {
+    int x1, y1, x2, y2, x3, y3;
+    color c;
+} Triangle;
+
+typedef enum { CIRCLE, TRIANGLE } ShapeType;
+
+typedef struct Shape {
+    ShapeType type;
+    union {
+        Circle circle;
+        Triangle triangle;
+    };
+} Shape;
+~~~
+
+### Parallélisation (\`pthread\`)
+
+L'étape la plus coûteuse de l'algorithme est le calcul de la forme optimale parmi les $N_{\text{it}} = 160$ formes aléatoires. Chaque thread se voit confier une copie temporaire du canevas, y dessine une forme, et calcule la distance résultante à l'image cile $T$. Tout ça peut se faire en parallèle :
+
+~~~c
+for (int i = 0; i < Nit; i += NUM_THREADS) {
+    for (int t = 0; t < NUM_THREADS; t++) {
+        thread_args[t].target_im = target_im;
+        thread_args[t].blank     = blank;
+        thread_args[t].shapes    = shapes;
+        thread_args[t].scores    = scores;
+        thread_args[t].i         = i + t;
+
+        pthread_create(&threads[t], NULL, thread_function, &thread_args[t]);
+    }
+    for (int t = 0; t < NUM_THREADS; t++) {
+        pthread_join(threads[t], NULL);
+    }
+}
+// Tri des formes selon leur score pour ne conserver que les meilleures
+sort_im_score(shapes, scores, Nit);
+~~~
+
+Grâce à cette parallélisation sur processeur multi-cœurs (8 à 10 threads), le temps de traitement moyen pour générer une image avec 6000 formes passe d'environ **64 minutes à 21 minutes**, soit une accélération d'un facteur 3.
+
+### Analyse de l'algorithme
+
+Si on regrade la taille des rayons que décide de traçer l'algorithme au cours du temps, on voit qu'ils décroissent rapidement : l'algorithme a compris qu'après avoir commencé à dessiner, ce n'était pas une bonne idée de placer un énorme cercle car cela risque d'effacer tout le dessin produit jusqu'alors.
+
+<img src="images/vect-7.png" alt="Description" style="display: block; margin: 24px auto; max-width: 50%; height: auto; border-radius: 6px;" />
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+## 4. Compression du fichier généré et analyse des performances
+
+Une fois les $N$ formes placées, on obtient un fichier XML qui contient les $N$ formes.
+
+~~~xml
+<circle cx="1005" cy="777" r="1606" fill="rgb(102,74,60)" />
+<circle cx="914" cy="973" r="518" fill="rgb(168,128,107)" />
+~~~
+
+L'idée est qu'on peut compresser ce document, car les informations sont redondantes, à l'excpetion de \`cx, cy, r, fill\` qu'on peut compresser en binaire.
+
+### Bilan comparatif des performances
+
+Sur une image test de référence haute résolution issue de la présentation :
+
+<div style="overflow-x: auto; margin: 24px 0;">
+  <table style="width: 100%; border-collapse: collapse; font-family: inherit; font-size: 0.95rem; text-align: left; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+    <thead>
+      <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #1e293b;">
+        <th style="padding: 12px 16px; font-weight: 700;">Format / Méthode</th>
+        <th style="padding: 12px 16px; font-weight: 700;">Description</th>
+        <th style="padding: 12px 16px; font-weight: 700; text-align: right;">Poids</th>
+        <th style="padding: 12px 16px; font-weight: 700; text-align: right;">Ratio vs PNG</th>
+      </tr>
+    </thead>
+    <tbody style="color: #334155;">
+      <tr style="border-bottom: 1px solid #e2e8f0;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Image originale (PNG)</td>
+        <td style="padding: 12px 16px;">Image de référence</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">4 389 ko</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">1,0x</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">JPEG standard</td>
+        <td style="padding: 12px 16px;">Compression avec perte</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">473 ko</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">9,3x</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #e2e8f0;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Fichier SVG brut</td>
+        <td style="padding: 12px 16px;">Fichier XML content les $6000$ cercles.</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">279 ko</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">15,7x</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Vectoriel compressé (4-bits)</td>
+        <td style="padding: 12px 16px;">Fichier XML compressé.</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #16a34a; white-space: nowrap;">63 ko</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #16a34a; white-space: nowrap;">69,7x</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+Le fichier final compressé est **69,7 fois plus léger** que le PNG d'origine et **7,5 fois plus compact qu'un JPEG**, tout en conservant une image exploitable dans une présentation!
+
+<div style="overflow-x: auto; margin: 24px 0;">
+  <table style="width: 100%; border-collapse: collapse; font-family: inherit; font-size: 0.95rem; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+    <thead>
+      <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #1e293b;">
+        <th style="padding: 12px 14px; font-weight: 700; text-align: left;">Inconvénients</th>
+        <th style="padding: 12px 14px; font-weight: 700; text-align: left;">Avantages</th>
+      </tr>
+    </thead>
+    <tbody style="color: #334155;">
+      <tr style="border-bottom: 1px solid #e2e8f0;">
+        <td style="padding: 12px 14px; vertical-align: top;">
+          • Temps de génération élevé (~20 min sur CPU multi-cœurs).<br>
+          • Dégradation esthétique sur les textures ultra-détaillées ou le texte fin.<br>
+          • Inadapté pour des logos simples (un triangle parfait SVG pèse 0,2 ko vs 27 ko reconstitué par mon algorithme).
+        </td>
+        <td style="padding: 12px 14px; vertical-align: top;">
+          • <strong>Taux de compression exceptionnel</strong> (x$70$).<br>
+          • Image nette quel que soit le niveau de zoom.<br>
+          • <strong>Rendu artistique :</strong> effet d'aquarelle ou de mosaïque très expressif.<br>
+          • Intégration native dans du code source LaTeX / TikZ.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`},en: {
+  title: String.raw`How to Fit a TIPE Project into Under 5 MB?`,
+  role: 'TIPE Project',
+  status: 'Completed',
+  blurb: String.raw`How do you fit a photo-heavy presentation into 5 MB? Exploring a stochastic approach to image vectorization.`,
+  lead: String.raw`We are required to submit a TIPE (end-of-prep-school research project) of less than 5 MB. How can you compress a presentation packed with images to get under the 5 MB threshold? <br><br>
+  Faced with this constraint, the natural reflex is to compress images into JPEG. But we can do something more interesting. A vector image (like an SVG file) has the advantage of having a file size completely decoupled from its display resolution, while remaining crisp at any zoom level.<br><br>
+  The goal of this project was to design and implement in C a **stochastic generative algorithm** capable of reconstructing any image from a superposition of elementary geometric shapes (circles, polygons). In the end, we achieved file size reductions by up to a factor of 70.`,
+  links: [['Source Code & Slides', 'https://github.com/AntoineTHEOBALDROSA/Image-Vectorialisation']],
+  body: String.raw`
+  <div style="margin-top: -5.5rem;"></div>
+
+<div style="display: flex; gap: 16px; justify-content: center; align-items: center; margin: 24px 0;">
+  <img src="images/vect-1.png" alt="Description 1" style="width: 35%; max-width: 350px; height: auto; border-radius: 6px;" />
+  <img src="images/vect-1bis.png" alt="Description 2" style="width: 35%; max-width: 350px; height: auto; border-radius: 6px;" />
+</div>
+
+## Project Outline
+
+1. **The 5 MB Constraint and Vectorization**
+2. **Evolutionary Algorithm**
+3. **C Implementation & Multi-threading**
+4. **Compression of the Generated File & Performance Analysis**
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+## 1. The 5 MB Constraint and Vectorization
+
+The submission platform for the competitive entrance exams to the French Grandes Écoles imposes a $5$ MB limit on final-year research project presentations.
+
+The objective is to compress images by vectorizing them, then integrate the algorithm using the LaTeX TikZ package, which renders vectorized figures natively within a LaTeX document.
+
+<div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-left: 5px solid #0284c7; padding: 18px 22px; margin: 22px 0; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); font-family: inherit;">
+  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+    <strong style="color: #0369a1; font-size: 1.05rem;">Algorithm Overview</strong>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 10px;">
+    <!-- Step 1 -->
+    <div style="display: flex; align-items: flex-start; gap: 10px;">
+      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">1</span>
+      <div style="color: #334155; line-height: 1.55;">
+        <strong>Initialization:</strong> Start with a blank canvas $I$ sharing the same dimensions as the target image.
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div style="display: flex; align-items: flex-start; gap: 10px;">
+      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">2</span>
+      <div style="color: #334155; line-height: 1.55;">
+        Randomly generate $N_{\text{it}}$ candidate shapes (random positions and sizes). For color, assign each the mean color of the underlying area in the target image.
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div style="display: flex; align-items: flex-start; gap: 10px;">
+      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">3</span>
+      <div style="color: #334155; line-height: 1.55;">
+        <strong>Mutation and Selection:</strong> Retain the $N_{\text{selected}}$ best-performing shapes that minimize the difference with the target image the most, then generate variations across successive generations. After several generations, keep the best shape found overall and render it onto canvas $I$.
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div style="display: flex; align-items: flex-start; gap: 10px;">
+      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">4</span>
+      <div style="color: #334155; line-height: 1.55;">
+        Repeat this selection process $N_{\text{shape}} \approx 2000 \text{ to } 8000$ times.
+      </div>
+    </div>
+  </div>
+</div>
+
+### Execution Example
+
+We begin by generating $N_{\text{it}} = 10$ shapes and keep the $N_{\text{selected}} = 2$ best candidates—here, the two in the first column (red borders).
+
+<img src="images/vect-2.png" alt="Description" style="display: block; margin: 24px auto; max-width: 65%; height: auto; border-radius: 6px;" />
+
+From these two shapes, we generate variations of each. This represents the second generation.
+
+<img src="images/vect-3.png" alt="Description" style="display: block; margin: 24px auto; max-width: 65%; height: auto; border-radius: 6px;" />
+
+We select the best candidate—suppose it is this one:
+
+<img src="images/vect-4.png" alt="Description" style="display: block; margin: 24px auto; max-width: 12%; height: auto; border-radius: 6px;" />
+
+We then place this shape onto the white canvas $I$ and repeat the process on this updated canvas:
+
+<img src="images/vect-5.png" alt="Description" style="display: block; margin: 24px auto; max-width: 65%; height: auto; border-radius: 6px;" />
+
+After $N = 6000$ iterations, here is the outcome:
+
+<img src="images/vect-6.png" alt="Description" style="display: block; margin: 24px auto; max-width: 30%; height: auto; border-radius: 6px;" />
+
+<div style="background-color: #f8fafc; border-left: 5px solid #2563eb; padding: 0px 20px; margin: 22px 0; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); font-family: inherit;">
+  <p style="margin-bottom: 6px; margin-top: 14px;"><strong>Circles or Polygons?</strong></p>
+  <p style="margin-top: 0; margin-bottom: 0; color: #334155; line-height: 1.55;">
+    Circles have the distinct advantage of requiring only $3$ parameters ($x, y, r$), whereas a triangle—or generally an $n$-sided polygon—requires $2n$ parameters. Additionally, practical tests showed that when triangles were allowed, the algorithm systematically flattened them as much as possible to effectively draw straight lines.
+  </p>
+</div>
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+## 2. Evolutionary Algorithm
+
+To guide the algorithm toward the original image $T$, we must define a distance metric measuring the discrepancy between the iteratively constructed image $I$ and the target image $T$.
+
+Let $T$ and $B$ be two images of dimensions $W \times H$. Two standard distances are commonly used:
+
+### 1. Manhattan Distance ($L_1$)
+$$D_{L_1}(T, B) = \sum_{p \in \text{pixels}}\big| T[p] - B[p] \big|$$
+
+### 2. Root Mean Square Error / RMS ($L_2$)
+$$D_{L_2}(T, B) = \sqrt{\frac{1}{WH} \sum_{p \in \text{pixels}} \big( T[p] - B[p] \big)^2}$$
+
+In practice, the $L_2$ distance is much more computationally demanding and yields visually indistinguishable results. Therefore, the $L_1$ distance is used throughout the rest of the project.
+
+### Color Selection
+
+For a given geometric shape $\mathcal{S}$ (typically a circle) covering a set of pixels $\Omega_{\mathcal{S}}$, the $(R, G, B)$ color assigned to the shape corresponds to the average color of the target image pixels covered by $\mathcal{S}$:
+
+$$\bar{C} = \frac{1}{|\Omega_{\mathcal{S}}|} \sum_{p \in \Omega_{\mathcal{S}}} T(p)$$
+
+This heuristic eliminates the need for the algorithm to search for an extra "color" parameter.
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+## 3. C Implementation & Multi-threading
+
+The entire implementation was written in C using the **Cairo** graphics library (\`libcairo\`) to render geometric primitives.
+
+### Data Structures
+
+Every geometric shape and image is represented by dedicated structures. For example, for circles and triangles:
+
+~~~python
+typedef struct color {
+    uint8_t r, g, b, a;
+} color;
+
+typedef struct Circle {
+    int centerx, centery, radius;
+    color c;
+} Circle;
+
+typedef struct Triangle {
+    int x1, y1, x2, y2, x3, y3;
+    color c;
+} Triangle;
+
+typedef enum { CIRCLE, TRIANGLE } ShapeType;
+
+typedef struct Shape {
+    ShapeType type;
+    union {
+        Circle circle;
+        Triangle triangle;
+    };
+} Shape;
+~~~
+
+### Parallelization (\`pthread\`)
+
+The computational bottleneck is determining the optimal shape out of the $N_{\text{it}} = 160$ random candidates. Each thread receives a temporary copy of the canvas, draws a shape onto it, and calculates the resulting distance to the target image $T$. All of this executes concurrently:
+
+~~~c
+for (int i = 0; i < Nit; i += NUM_THREADS) {
+    for (int t = 0; t < NUM_THREADS; t++) {
+        thread_args[t].target_im = target_im;
+        thread_args[t].blank     = blank;
+        thread_args[t].shapes    = shapes;
+        thread_args[t].scores    = scores;
+        thread_args[t].i         = i + t;
+
+        pthread_create(&threads[t], NULL, thread_function, &thread_args[t]);
+    }
+    for (int t = 0; t < NUM_THREADS; t++) {
+        pthread_join(threads[t], NULL);
+    }
+}
+// Sort shapes by score to keep only the best ones
+sort_im_score(shapes, scores, Nit);
+~~~
+
+Leveraging this multi-core parallelization (8 to 10 threads), the average processing time to generate an image with 6,000 shapes drops from roughly **64 minutes to 21 minutes**, achieving a 3x speedup.
+
+### Algorithm Analysis
+
+Plotting the radius sizes chosen by the algorithm over time reveals a sharp decrease: the algorithm quickly "realizes" that once the base composition is established, adding large circles risks obliterating fine details drawn in earlier iterations.
+
+<img src="images/vect-7.png" alt="Description" style="display: block; margin: 24px auto; max-width: 50%; height: auto; border-radius: 6px;" />
+
+<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+
+## 4. Compression of the Generated File & Performance Analysis
+
+Once all $N$ shapes are positioned, the output is an XML file containing the $N$ geometric primitives:
+
+~~~xml
+<circle cx="1005" cy="777" r="1606" fill="rgb(102,74,60)" />
+<circle cx="914" cy="973" r="518" fill="rgb(168,128,107)" />
+~~~
+
+Because the structural tags are repetitive, we can substantially compress this document by binary-encoding only the essential attributes: \`cx, cy, r, fill\`.
+
+### Comparative Performance Summary
+
+Evaluated on a high-resolution benchmark image from the presentation:
+
+<div style="overflow-x: auto; margin: 24px 0;">
+  <table style="width: 100%; border-collapse: collapse; font-family: inherit; font-size: 0.95rem; text-align: left; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+    <thead>
+      <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #1e293b;">
+        <th style="padding: 12px 16px; font-weight: 700;">Format / Method</th>
+        <th style="padding: 12px 16px; font-weight: 700;">Description</th>
+        <th style="padding: 12px 16px; font-weight: 700; text-align: right;">Size</th>
+        <th style="padding: 12px 16px; font-weight: 700; text-align: right;">Ratio vs PNG</th>
+      </tr>
+    </thead>
+    <tbody style="color: #334155;">
+      <tr style="border-bottom: 1px solid #e2e8f0;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Original image (PNG)</td>
+        <td style="padding: 12px 16px;">Reference image</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">4,389 kB</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">1.0x</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Standard JPEG</td>
+        <td style="padding: 12px 16px;">Lossy compression</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">473 kB</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">9.3x</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #e2e8f0;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Raw SVG file</td>
+        <td style="padding: 12px 16px;">XML file containing the $6000$ circles.</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">279 kB</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">15.7x</td>
+      </tr>
+      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
+        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Compressed vector (4-bit)</td>
+        <td style="padding: 12px 16px;">Compressed XML file.</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #16a34a; white-space: nowrap;">63 kB</td>
+        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #16a34a; white-space: nowrap;">69.7x</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+The final compressed file is **69.7 times lighter** than the original PNG and **7.5 times more compact than JPEG**, while producing an image fully suitable for slide presentations!
+
+<div style="overflow-x: auto; margin: 24px 0;">
+  <table style="width: 100%; border-collapse: collapse; font-family: inherit; font-size: 0.95rem; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+    <thead>
+      <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #1e293b;">
+        <th style="padding: 12px 14px; font-weight: 700; text-align: left;">Drawbacks</th>
+        <th style="padding: 12px 14px; font-weight: 700; text-align: left;">Advantages</th>
+      </tr>
+    </thead>
+    <tbody style="color: #334155;">
+      <tr style="border-bottom: 1px solid #e2e8f0;">
+        <td style="padding: 12px 14px; vertical-align: top;">
+          • High processing time (~20 min on multi-core CPU).<br>
+          • Visual degradation on fine text or ultra-detailed textures.<br>
+          • Inefficient for basic vector artwork (a clean native SVG triangle is ~0.2 kB vs ~27 kB when reconstructed by this algorithm).
+        </td>
+        <td style="padding: 12px 14px; vertical-align: top;">
+          • <strong>Outstanding compression ratio</strong> (up to 70x).<br>
+          • Infinite resolution and sharpness at any zoom level.<br>
+          • <strong>Distinct artistic style:</strong> creates an expressive watercolor or mosaic effect.<br>
+          • Native integration into LaTeX / TikZ documents.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`}
+}
 ],
 
 /* =========================================================
@@ -494,7 +1598,7 @@ En pratique, pour des entiers bornés (par exemple des entiers sur 32 bits ou 64
 <div style="background: rgba(168, 85, 247, 0.06); border-left: 4px solid #a855f7; padding: 14px 18px; margin: 18px 0; border-radius: 4px;">
   <strong style="color: #7e22ce; font-size: 1.05em;">Le théorème de Miller (1976) :</strong><br/>
   Si l'**Hypothèse de Riemann Généralisée (GRH)** est vraie, le test devient déterministe en temps polynomial pour tout entier $n$ en testant les bases :
-  $$a \leq\lfloor 2(\ln n)^2$$
+  $$a \leq2(\ln n)^2$$
 </div>
 
 <hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
