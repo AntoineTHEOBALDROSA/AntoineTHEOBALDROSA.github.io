@@ -37,13 +37,13 @@ profile:{
     en:'Student at École Polytechnique, Paris, France<br>Mathematics, Computer Science & Finance'},
   bio:{
     fr:[
-     'Bienvenue sur ma page personnelle.<br>Étudiant en école d’ingénieur, je suis particulièrement passionné de mathématiques, d’informatique et de finance. Mes centres d’intérêt scientifiques sont plus précisément l’algèbre et l’arithmétique, l’algorithmique et le trading haute-fréquence. De manière tout à fait personnelle, je m’intéresse à la psychologie, aux actualités technologiques et, peut-être par nostalgie, je suis également fasciné par l’histoire des dinosaures.',
+     'Bienvenue sur ma page personnelle.<br>Étudiant en école d’ingénieur, je suis particulièrement passionné de mathématiques, d’informatique et de finance. Mes centres d’intérêt scientifiques sont plus précisément l’algèbre et l’arithmétique, l’algorithmique et le trading à haute fréquence. De manière tout à fait personnelle, je m’intéresse à la psychologie, aux actualités technologiques et, peut-être par nostalgie, je suis également fasciné par l’histoire des dinosaures.',
      'Ce site rassemble trois choses : les [projets](#/projets) que je construis, des [articles](#/articles) où j’essaye de rendre clairs des sujets peu traités mais tout à fait passionnants, ainsi qu’une collection de [problèmes](#/problemes) sur lesquels j’ai aimé me casser la tête.',
      'Vous trouverez mon parcours et mon contact sur ce site. Je suis joignable à tout moment.'],
     en:[
-     'Welcome to my personal page.<br>I am an engineering student with a strong passion for mathematics, computer science, and finance. My main scientific interests focus more specifically on algebra and number theory, algorithms, and high-frequency trading. On a more personal level, I am interested in psychology, technological news, and — perhaps out of nostalgia — I am also fascinated by the history of dinosaurs.',
-     'This site brings together three things: the [projects](#/projets) I build, [articles](#/articles) where I try to make lesser-known yet fascinating topics clear, and a collection of [problems](#/problemes) that I have enjoyed working through.',
-     'You will also find my background and contact information here. I am available to be reached at any time.']},
+     'Welcome to my personal page.<br>I study at École Polytechnique and enjoy mathematics, computer science and finance. I’m especially interested in algebra, number theory, algorithms and high-frequency trading. Outside my studies, I read about psychology, technology and dinosaurs.',
+     'Here you’ll find the [projects](#/projets) I build, [articles](#/articles) about topics I find interesting, and [problems](#/problemes) I enjoyed solving.',
+     'You can also find my background and contact details here. Feel free to get in touch.']},
   formation:[
     {y:'2025—2029',
     fr:{t:'École Polytechnique',s:'Cycle ingénieur polytechnicien<br>Mathématiques, Informatique, Physique & Économie'},
@@ -115,7 +115,7 @@ projects:[
  fr:{title:String.raw`Moteur d'arbitrage statistique & Pair Trading`,role:'Projet personnel',status:'Terminé',
   blurb:String.raw`Comment tester de manière honnête (sans tricher) si une stratégie d'investissement aurait fait gagner de l'argent ? Application au *Pair Trading*.`,
   lead:String.raw`Comment tester de manière honnête (sans tricher) si une stratégie d'investissement aurait fait gagner de l'argent ? <br><br>
-  Supposons qu'on ait une idée de stratégie, par exemple : « dès qu'une action baisse trois jours de suite, je l'achète et je la revends le lendemain ». On pourrait prendre l'historique des prix et regarder ce qui se serait passé : c'est ce qu'on appelle un **backtest**. Mais en pratique, un backtest peut présenter une stratégie comme gagnante alors qu'elle est perdante. Pourquoi? Parce qu'en réalité il y a des frais, un décalage de prix le temps d'envoyer l'offre, et d'autres facteurs encore.<br><br>
+  Supposons qu'on ait une idée de stratégie, par exemple : « dès qu'une action baisse trois jours de suite, je l'achète et je la revends le lendemain ». On pourrait prendre l'historique des prix et regarder ce qui se serait passé : c'est ce qu'on appelle un **backtest**. Mais en pratique, un backtest peut présenter une stratégie comme gagnante alors qu'elle est perdante. Pourquoi ? Parce qu'en réalité il y a des frais, un décalage de prix le temps d'envoyer l'offre, et d'autres facteurs encore.<br><br>
   On va développer un moteur qui calcule si une stratégie gagne *vraiment* de l'argent, et on l'essayera sur la stratégie de **Pair Trading**.`,
   links:[['Code source','https://github.com/AntoineTHEOBALDROSA/Statistical-Arbitrage-Engine']],
   body:String.raw` 
@@ -205,7 +205,7 @@ prices = data["Close"].dropna()
   <p class="explanation explanation--flush">
     Une place boursière, c'est comme un grand marché couvert où des gens viennent acheter et vendre des parts d'entreprises. Euronext est l'entreprise privée qui gère les marchés de plusieurs villes européennes.<br>
     TotalEnergies est française, son marché historique principal est donc Paris (.PA) alors que Shell est d'origine anglo-néerlandaise, son marché historique est donc à Amsterdam (.AS). Une entreprise choisit où elle veut être cotée.<br>
-    Une entreprise n'a pas un prix mondial par magie. La côte d'une entreprise est le résultat de la dernière transaction conclue entre deux personnes. Mais si le prix de Total est différent à Paris et à New York, disons 49€ à Paris et 51€ à New York, des arbitragistes acheteraient des actions à Paris pour les revendre instantanément à New York, rééquilibrant le prix vers 50€. C'est ce qui fixe le prix des entreprises.
+    Une entreprise n'a pas un prix mondial par magie. La cote d'une entreprise est le résultat de la dernière transaction conclue entre deux personnes. Mais si le prix de Total est différent à Paris et à New York, disons 49€ à Paris et 51€ à New York, des arbitragistes acheteraient des actions à Paris pour les revendre instantanément à New York, rééquilibrant le prix vers 50€. C'est ce qui fixe le prix des entreprises.
   </p>
 
   <p class="faq-question faq-question--next"><strong>2. Pourquoi les bourses traditionnelles ferment-elles la nuit à l'ère d'Internet ?</strong></p>
@@ -250,7 +250,7 @@ On cherche à présent à définir et quantifier le **spread**, c'est-à-dire l'
 
 Si TotalEnergies vaut 60 € et Shell 40 €, un écart naïf serait de $60 - 40 = 20 \text{ €}$. Mais en réalité, une variation de 1% de Total ne correspond pas à une variation de 1% de Shell..
 
- Comme les deux entreprises ont des activités similaires, on suppose que le pix de leur action est lié par une loi affine, avec un spread $\varepsilon_t$ qui dépend du temps $t$.
+ Comme les deux entreprises ont des activités similaires, on suppose que le prix de leurs actions est lié par une loi affine, avec un spread $\varepsilon_t$ qui dépend du temps $t$.
 
 $$P_{\text{TTe}, t} = \alpha + \beta P_{\text{Shell}, t} + \varepsilon_t$$ 
 
@@ -263,14 +263,14 @@ Où :
 
 ### Notion de cointégration
 
-Pris individuellement, le cours d'une action $P_t$ est un processus **non stationnaire** (ou intégrée d'ordre 1, notée $I(1)$), couramment modélisé comme mouvement brownien géométrique :
+Pris individuellement, le cours d'une action $P_t$ est un processus **non stationnaire** (ou intégré d'ordre 1, noté $I(1)$), couramment modélisé comme mouvement brownien géométrique :
 $$dP_t = \mu P_t dt + \sigma P_t d W_t$$
 Le terme $W_t$ représente un mouvement brownien standard, et $\sigma$ la volatilité. Sa moyenne n'est pas constante et sa variance diverge.<br>
 Dans le cas général, la somme de deux lois $I(1)$ suit toujours une loi $I(1)$ ; mais dans notre cas, il existe peut-être une combinaison linéaire $\alpha, \beta$ telle que le spread $\varepsilon_t$ soit un processus **stationnaire** (noté $I(0)$). Si c'est le cas, on dit que TotalEnergies et Shell sont **cointégrées**.
 
 $$\varepsilon_t = P_{\text{TTE}, t} - (\alpha + \beta P_{\text{SHEL}, t}) \qquad \text{ avec } \quad \mathbb{E}[\varepsilon_t] = 0 \quad \text{et} \quad \operatorname{Var}(\varepsilon_t) = \sigma_{\varepsilon}^2 < +\infty$$
 
-### Comment trouver $\alpha, \beta$ ? Méthode des moindres carrés ordinaire
+### Comment trouver $\alpha, \beta$ ? Méthode des moindres carrés ordinaires
 
 On va trouver $\alpha, \beta$ qui minimisent $\sum \varepsilon_t^2$. En posant $S(\alpha, \beta) = \sum_t \varepsilon_t^2$ ainsi que $y_t = P_{\text{TTE}, t}$ et $x_t = P_{\text{SHEL}, t}$, on veut minimiser
 $$S(\alpha, \beta) = \sum_{t=1}^N (y_t - (\alpha + \beta x_t))^2$$
@@ -393,7 +393,7 @@ signals["position"] = positions
 
 ## 3. Moteur de Backtest
 
-On va maintenant évaluer notre stratégie sur les données que nous avons téléchargés. En particulier, on peut modifier les taux de transaction grâce à la variable \`TRANSACTION_COST\` ainsi que le capital initial grâce à la variable \`INITIAL_CAPITAL\`.
+On va maintenant évaluer notre stratégie sur les données que nous avons téléchargées. En particulier, on peut modifier les taux de transaction grâce à la variable \`TRANSACTION_COST\` ainsi que le capital initial grâce à la variable \`INITIAL_CAPITAL\`.
 
 ~~~python
 # rendements journaliers
@@ -429,7 +429,7 @@ On peut afficher les résultats de notre stratégie :
 
 ## 4. Évaluation des performances   
 
-On voit clairement que la stratégie finit dans le négatif, mais analysons la plus en détail.
+On voit clairement que la stratégie finit dans le négatif, mais analysons-la plus en détail.
 
 <div class="table-scroll">
   <table class="data-table">
@@ -457,13 +457,13 @@ On voit clairement que la stratégie finit dans le négatif, mais analysons la p
         <td class="metric">-9.14%</td>
       </tr>
       <tr class="table-row table-row--shaded">
-        <td class="table-cell table-cell--label">Volatilité annualisée $\sigma_{\text{anuelle}}</td>
+        <td class="table-cell table-cell--label">Volatilité annualisée $\sigma_{\text{annuelle}}$</td>
         <td class="table-cell">Mesure l'instabilité et la dispersion des rendements de la stratégie.</td>
         <td class="metric">8.56%</td>
       </tr>
       <tr class="table-row">
         <td class="table-cell table-cell--label">Sharpe Ratio</td>
-        <td class="table-cell">BLABLA <br> $S=\frac{\mathbb E(R)-R_f}{\sigma_{\text{anuelle}}}$ avec $R_f$ le rendement d'un portefeuille sans risque.<br> $S<0$ : l'investissement perd de l'argent, $0\lt S \lt 1$ : l'investissement est moins rentable qu'un placement sans risque et $S>1$ l'investissement vaut les risques pris</td>
+        <td class="table-cell">Rendement excédentaire rapporté au risque. <br> $S=\frac{\mathbb E(R)-R_f}{\sigma_{\text{anuelle}}}$ avec $R_f$ le rendement d'un portefeuille sans risque.<br> $S<0$ : l'investissement perd de l'argent, $0\lt S \lt 1$ : l'investissement est moins rentable qu'un placement sans risque et $S>1$ l'investissement vaut les risques pris</td>
         <td class="metric">-1.10</td>
       </tr>
       <tr class="table-row table-row--shaded">
@@ -480,7 +480,7 @@ On voit clairement que la stratégie finit dans le négatif, mais analysons la p
   </table>
 </div>
 
-On remarque qu'on obtient de très mauvais résultats. Une raison à cela est que Total et Shell n'ont pas vraiment suivi les même stratégies sur la période 2021-2026 : Shell s'est concentré sur les énergies fossiles alors que Total a massivement investi dans l'électricité et les énergies renouvelables.<br>
+On remarque qu'on obtient de très mauvais résultats. Une raison à cela est que Total et Shell n'ont pas vraiment suivi les mêmes stratégies sur la période 2021-2026 : Shell s'est concentrée sur les énergies fossiles alors que Total a massivement investi dans l'électricité et les énergies renouvelables.<br>
 
 On peut refaire la même étude avec par exemple Mastercard et Visa, qui suivent exactement le même modèle économique. On a alors de bien meilleurs résultats :
 
@@ -511,7 +511,7 @@ On peut refaire la même étude avec par exemple Mastercard et Visa, qui suivent
   </table>
 </div>
 
-On a toujours un sharpe ratio strictement inférieur à $1$, ce qui montre dans cette application simpliste du Pair Trading, il vaut mieux invesitr sur la dette américaine par exemple. Une raison à cela est que des fonds d'investissement appliquent déjà des stratégies similaires mais affinées, ce qui les rend plus performantes et nous empêche de tirer profit de cette stratégie.
+On a toujours un sharpe ratio strictement inférieur à $1$, ce qui montre que, dans cette application simpliste du Pair Trading, il vaut mieux investir sur la dette américaine par exemple. Une raison à cela est que des fonds d'investissement appliquent déjà des stratégies similaires mais affinées, ce qui les rend plus performantes et nous empêche de tirer profit de cette stratégie.
 `},
 en: {
   title: String.raw`Statistical Arbitrage Engine & Pairs Trading`,
@@ -519,8 +519,8 @@ en: {
   status: 'Completed',
   blurb: String.raw`How do you test honestly (without cheating) whether an investment strategy would have made money? An application to *Pairs Trading*.`,
   lead: String.raw`How do you test honestly (without cheating) whether an investment strategy would have made money? <br><br>
-  Suppose you have a strategy idea, such as: "as soon as a stock drops three days in a row, buy it and sell it the next day." You could pull historical prices and check what would have happened: this is called a **backtest**. But in practice, a backtest can easily show a strategy as profitable when it actually loses money in the real world. Why? Because live markets involve broker fees, execution slippage, bid-ask spreads, and various other market frictions.<br><br>
-  In this project, we develop an engine that evaluates whether a strategy *truly* generates profit, and apply it to a **Pairs Trading** strategy.`,
+  Suppose you have a strategy idea, such as: "as soon as a stock drops three days in a row, buy it and sell it the next day." You could pull historical prices and check what would have happened: this is called a **backtest**. A backtest may show a profit even when the strategy would lose money in practice. Why? Because there are transaction fees, prices can move while an order is being sent, and other costs need to be taken into account.<br><br>
+  I built an engine to check whether a strategy *really* makes money, then tested it on **pairs trading**.`,
   links: [['Source Code', 'https://github.com/AntoineTHEOBALDROSA/Statistical-Arbitrage-Engine']],
   body: String.raw`
 
@@ -532,19 +532,19 @@ en: {
 
 ## 1. Pairs Trading
 
-To test our backtest engine, we first need an investment strategy. I chose **Pairs Trading** (statistical arbitrage between two co-moving assets).
+To test the backtest engine, I needed a strategy. I chose **pairs trading**.
 
 ### General Principle
 
-Consider two closely related companies, such as **TotalEnergies** and **Shell**. Because their core business models and operations are largely identical, their share prices tend to move in tandem: a spike in crude oil prices will typically benefit both stocks in a similar fashion.
+Take two similar companies, such as **TotalEnergies** and **Shell**. Their share prices tend to move together: a rise in oil prices usually benefits both.
 
-However, temporary liquidity shocks can disrupt this equilibrium: for example, if an institutional fund rapidly liquidates a massive position in one of the two names. During such an event, stock $A$ may temporarily appear undervalued relative to stock $B$.
+Temporary liquidity shocks can push the prices apart. For example, a fund might sell a large position in one company, making stock $A$ look undervalued relative to stock $B$.
 
-The foundational premise of Pairs Trading is mean reversion: this divergence in relative valuation is transitory and will eventually close.
+Pairs trading assumes that the price gap is temporary and will eventually close.
 
 <div class="steps-panel">
   <div class="steps-heading">
-    <strong class="steps-title">Execution: Once a statistically significant spread emerges</strong>
+    <strong class="steps-title">When a statistically significant gap appears</strong>
   </div>
 
   <div class="steps-list">
@@ -552,7 +552,7 @@ The foundational premise of Pairs Trading is mean reversion: this divergence in 
     <div class="step">
       <span class="step-number">1</span>
       <div class="explanation">
-        <strong>Short Selling:</strong> Borrow shares of the overvalued company ($A$) and sell them immediately at the prevailing elevated market price.
+        <strong>Short Selling:</strong> Borrow shares of the overvalued company ($A$) and sell them at the current price.
       </div>
     </div>
 
@@ -560,7 +560,7 @@ The foundational premise of Pairs Trading is mean reversion: this divergence in 
     <div class="step step--wide">
       <span class="step-number">2</span>
       <div class="explanation">
-        Using the cash proceeds generated, simultaneously buy shares of the undervalued company ($B$).
+        Use the proceeds to buy shares of the undervalued company ($B$).
       </div>
     </div>
 
@@ -568,19 +568,19 @@ The foundational premise of Pairs Trading is mean reversion: this divergence in 
     <div class="step step--wide">
       <span class="step-number">3</span>
       <div class="explanation">
-        Once the spread reverts to its historical mean, sell shares of $B$, buy back shares of $A$ to return them to the lender, and pocket the net spread difference.
+        When the gap returns to its mean, sell $B$ and buy back $A$ to return it to the lender. The difference is the profit.
       </div>
     </div>
   </div>
 </div>
 
-The primary advantage of this approach is being *market-neutral*: performance does not depend on whether the overall oil market trends upward or downward, but exclusively on spread convergence.
+The aim is to remain *market-neutral*: the strategy relies on the spread closing, rather than on oil prices rising or falling.
 
 <hr class="content-rule" />
 
 ### Implementation
 
-Let's implement the data ingestion step in Python:
+Let’s start by downloading the prices in Python:
 ~~~python
 import yfinance as yf
 
@@ -603,26 +603,26 @@ prices = data["Close"].dropna()
 
   <p class="faq-question"><strong>1. What is Euronext? Why is TotalEnergies listed in Paris and Shell in Amsterdam?</strong></p>
   <p class="explanation explanation--flush">
-    A stock exchange functions much like a centralized marketplace where buyers and sellers trade ownership shares of companies. Euronext is the private operating company managing securities markets across several European financial centers.<br>
-    TotalEnergies is a French corporation, making Paris (.PA) its primary historical venue, whereas Shell has Anglo-Dutch roots, making Amsterdam (.AS) its primary European home market. Companies deliberately choose their primary listing locations.<br>
-    Asset prices do not exist uniformly across the world by default; a quoted price is merely the outcome of the most recent transaction agreed upon by two market participants. If Total shares traded at €49 in Paris and €51 in New York, arbitrageurs would immediately buy in Paris and sell in New York, collapsing the disparity back toward an equilibrium price of €50. This continuous arbitrage mechanism establishes consistent cross-market pricing.
+    A stock exchange is a market where people buy and sell shares in companies. Euronext runs exchanges in several European cities.<br>
+    TotalEnergies is French and has historically been listed in Paris (.PA). Shell has Anglo-Dutch roots and is listed in Amsterdam (.AS). Companies choose where to list their shares.<br>
+    A quoted price comes from the latest trade. If Total shares cost €49 in Paris and €51 in New York, traders could buy in Paris and sell in New York. Those trades would bring the two prices closer together, towards €50.
   </p>
 
   <p class="faq-question faq-question--next"><strong>2. Why do traditional exchanges close at night in the Internet era?</strong></p>
   <p class="explanation explanation--flush">
-    Traditional exchanges enforce defined operating hours to concentrate liquidity in one place at the same time. If trading remained continuous at 3 AM, order books would be extremely thin, and even a modest market order could swing the asset price by 10% simply due to lack of participating counter-parties.
+    Fixed opening hours bring buyers and sellers together at the same time. At 3 a.m., there might be so few traders that even a small order could move the price sharply.
   </p>
 
   <p class="faq-question faq-question--next"><strong>3. What are "adjusted" prices?</strong></p>
   <p class="explanation explanation--flush explanation--last">
-    Suppose you buy a share of stock for €100. The following day, the company distributes a €5 cash dividend to shareholders. Mechanically, the underlying share value adjusts down to €95. On a raw price chart, this appears as an abrupt jump from €100 to €95, which quantitative algorithms could mistake for a sudden drop in company fundamentals. In reality, total shareholder wealth is unchanged (€95 share + €5 cash). The **adjusted price** series smooths this artificial gap to remove the false loss.<br>
-    The same principle applies to stock splits: if a firm with 10 shares trading at €1,000 splits 10-for-1 into 100 shares, each share is priced at €100, while the enterprise's aggregate equity value remains identical.
+    Suppose you buy a share for €100 and the company pays a €5 dividend the next day. The share price falls to €95, but you also have €5 in cash. A raw price chart shows a drop that a trading algorithm might mistake for a loss. **Adjusted prices** account for the dividend.<br>
+    The same applies to stock splits: 10 shares worth €1,000 each become 100 shares worth €100 each. The total value stays the same.
   </p>
 </div>
 
 ### Relative Performance Visualization
 
-To compare both stocks regardless of their nominal share price difference, we rebase each series to 100 at the beginning of the period:
+To compare the two stocks despite their different prices, we set both series to 100 at the start of the period:
 
 ~~~python
 import matplotlib.pyplot as plt
@@ -646,11 +646,11 @@ plt.show()
 
 ## 2. Modeling and Spread Calculation
 
-We now aim to define and mathematically quantify the **spread** between the two equities.
+We now need to define the **spread**, or price gap, between the two stocks.
 
 If TotalEnergies trades at €60 and Shell at €40, a naive spread would simply be $60 - 40 = 20 \text{ €}$. However, a 1% move in Total does not necessarily correspond to a 1% move in Shell.
 
-Since both companies operate in identical economic sectors, we model their price relationship via an affine linear model with a time-dependent spread $\varepsilon_t$:
+Since the companies have similar businesses, we model their prices with an affine relationship and a spread $\varepsilon_t$ that varies over time:
 
 $$P_{\text{TTE}, t} = \alpha + \beta P_{\text{Shell}, t} + \varepsilon_t$$ 
 
@@ -674,7 +674,7 @@ $$\varepsilon_t = P_{\text{TTE}, t} - (\alpha + \beta P_{\text{SHEL}, t}) \qquad
 
 We determine the parameters $\alpha$ and $\beta$ that minimize the sum of squared residuals $\sum \varepsilon_t^2$. Defining $S(\alpha, \beta) = \sum_t \varepsilon_t^2$ along with $y_t = P_{\text{TTE}, t}$ and $x_t = P_{\text{SHEL}, t}$, we minimize:
 $$S(\alpha, \beta) = \sum_{t=1}^N (y_t - (\alpha + \beta x_t))^2$$
-Because $S$ is a convex quadratic function, its global minimum occurs where both partial derivatives vanish:
+Since $S$ is quadratic, we find its minimum by setting both partial derivatives to zero:
 $$\frac{\partial S}{\partial \alpha} = 0 \quad \text{and} \quad \frac{\partial S}{\partial \beta} = 0$$
 Evaluating the first derivative:
 $$\frac{\partial S}{\partial \alpha} = \sum_{t=1}^N -2\big(y_t - \alpha - \beta x_t\big) = 0$$
@@ -700,7 +700,7 @@ Consequently, when $|Z_t| > 2$, a statistical anomaly is identified, signaling a
 
 ### Implementation
 
-Because the relationship parameters $\alpha$ and $\beta$ can drift across changing macroeconomic regimes, we estimate them dynamically over a rolling window of \`W\` days. Similarly, the Z-score is standardized over a rolling window of \`window_z\` days to capture local volatility.
+Since $\alpha$ and $\beta$ can change over time, we estimate them over a rolling window of \`W\` days. We also calculate the Z-score over a rolling window of \`window_z\` days.
 
 ~~~python
 import numpy as np
@@ -730,7 +730,7 @@ spread_std = spread.rolling(window=window_z).std()
 z_score = (spread - spread_mean) / spread_std
 ~~~
 
-We can now plot the trajectories of the rolling hedge ratio $\beta_t$ and the spread Z-score $Z_t$:
+We can now plot the rolling hedge ratio $\beta_t$ and the Z-score $Z_t$:
 
 ~~~python 
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 8), sharex=True)
@@ -761,7 +761,7 @@ plt.show()
 ~~~
 ![](images/arb-stat-eng-2.png)
 
-We then translate these statistical thresholds into discrete trading signals:
+We can now apply the pairs trading strategy:
 
 ~~~python
 signals = pd.DataFrame(index=z_score.index)
@@ -796,7 +796,7 @@ signals["position"] = positions
 
 ## 3. Backtest Engine
 
-We now simulate the historical performance of the strategy across our dataset. Friction parameters such as per-trade transaction fees can be calibrated via \`TRANSACTION_COST\`, along with portfolio starting capital via \`INITIAL_CAPITAL\`.
+We can now test the strategy on the downloaded data. Use \`TRANSACTION_COST\` to change the transaction fees and \`INITIAL_CAPITAL\` to change the starting capital.
 
 ~~~python
 # Daily percentage returns
@@ -828,13 +828,13 @@ portfolio["equity_gross"] = INITIAL_CAPITAL * (1 + returns["strategy_gross"].fil
 portfolio["equity_net"] = INITIAL_CAPITAL * (1 + returns["strategy_net"].fillna(0)).cumprod()
 ~~~
 
-We visualize the resulting portfolio equity curve:
+Here is the portfolio’s value over time:
 
 ![](images/arb-stat-eng-3.png)
 
 ## 4. Performance Evaluation
 
-The strategy visibly concludes in negative territory, but let us systematically examine the underlying risk and performance metrics:
+The strategy loses money over this period. Let’s look at the results in more detail.
 
 <div class="table-scroll">
   <table class="data-table">
@@ -853,7 +853,7 @@ The strategy visibly concludes in negative territory, but let us systematically 
       </tr>
       <tr class="table-row table-row--shaded">
         <td class="table-cell table-cell--label">Total Net Return</td>
-        <td class="table-cell">Cumulative return after subtracting transaction fees (5 bps = 0.05%).<br>$R = \frac{V_T}{V_0} - 1$, where $V_T, V_0$ denote final and initial portfolio equity.</td>
+        <td class="table-cell">Cumulative return after subtracting transaction fees (5 bps = 0.05%). <br>$R = \frac{V_T}{V_0} - 1$, where $V_T, V_0$ denote final and initial portfolio equity.</td>
         <td class="metric">-35.68%</td>
       </tr>
       <tr class="table-row">
@@ -885,9 +885,9 @@ The strategy visibly concludes in negative territory, but let us systematically 
   </table>
 </div>
 
-The results are distinctly underwhelming. A major macroeconomic driver is that TotalEnergies and Shell followed diverging business trajectories over the 2021–2026 window: Shell refocused on conventional upstream fossil fuels, whereas Total committed heavily to renewables and clean power distribution.<br>
+The results are poor. One possible reason is that TotalEnergies and Shell followed different strategies between 2021 and 2026: Shell focused on fossil fuels, while Total invested heavily in electricity and renewables.<br>
 
-Replicating this framework on equities sharing virtually identical revenue mechanics—such as Mastercard and Visa—reveals a markedly improved performance profile:
+We can repeat the test with Mastercard and Visa, which have similar business models. The results are better:
 
 <div class="table-scroll">
   <table class="data-table data-table--metrics">
@@ -916,16 +916,16 @@ Replicating this framework on equities sharing virtually identical revenue mecha
   </table>
 </div>
 
-Even in this scenario, the Sharpe ratio remains well below $1$, suggesting that under this naive configuration, holding short-duration sovereign debt or cash deposits would have been superior on a risk-adjusted basis. This is largely expected: institutional hedge funds trade much more sophisticated formulations of statistical arbitrage with tick-level microstructure data and co-location, largely exhausting simple retail mispricings.
+The Sharpe ratio is still below $1$. In this simple version of pairs trading, US government debt would have been a better choice. One possible reason is that investment funds already use more refined versions of this strategy, leaving fewer opportunities for a simple model.
 `}
 },
 
 // Projet 2
 {slug:'stochastic-vectorisation',thumb:'images/vect-1bis.png',year:'2026',tags:['Genetic-Algorithm','Python'],
-  fr:{title:String.raw`Comment faire un TIPE en moins de 5Mo ?`,role:'Projet TIPE',status:'Terminé',
+  fr:{title:String.raw`Comment faire un TIPE en moins de 5 Mo ?`,role:'Projet TIPE',status:'Terminé',
   blurb:String.raw`Comment faire tenir une présentation avec plein de photos en 5 Mo ? Exploration d'une approche stochastique de vectorisation d'images.`,
-  lead:String.raw`Nous sommes tenus de rendre un TIPE (projet de fin de prépa) de moins 5 Mo. Comment compresser un TIPE contenant plein d'images pour le faire passer sous la barre des 5 Mo ? <br><br>
-  Face à cette contrainte, le réflexe consiste à compresser les images en JPEG. Mais on peut faire plus amusant. Une image vectorielle (comme un fichier SVG) présente l'avantage d'avoir un poids totalement décorrélé de sa résolution d'affichage tout en étant net à n'importe quel niveau de zoom.<br><br>
+  lead:String.raw`Nous sommes tenus de rendre un TIPE (projet de fin de prépa) de moins de 5 Mo. Comment compresser un TIPE contenant plein d'images pour le faire passer sous la barre des 5 Mo ? <br><br>
+  Face à cette contrainte, le réflexe consiste à compresser les images en JPEG. Mais on peut faire plus amusant. Une image vectorielle (comme un fichier SVG) présente l'avantage d'avoir un poids totalement décorrélé de sa résolution d'affichage tout en restant nette à n'importe quel niveau de zoom.<br><br>
   L'objectif de ce projet a été de concevoir et d'implémenter en C un **algorithme génératif stochastique** capable de reconstruire n'importe quelle image à partir d'une superposition de formes géométriques élémentaires (cercles, polygones). Au final, on arrive à réduire le poids des fichiers jusqu'à un facteur 70.`,
   links:[['Code source & Slides','https://github.com/AntoineTHEOBALDROSA/Image-Vectorialisation']],
   body:String.raw`
@@ -937,18 +937,18 @@ Even in this scenario, the Sharpe ratio remains well below $1$, suggesting that 
 
 ## Plan du projet
 
-1. **La contrainte des 5 Mo et vectorialisation**
+1. **La contrainte des 5 Mo et vectorisation**
 2. **Algorithme évolutif**
 3. **Implémentation en C & multi-threading**
 4. **Compression du fichier généré et analyse des performances**
 
 <hr class="content-rule" />
 
-## 1. La contrainte des 5 Mo et vectorialisation
+## 1. La contrainte des 5 Mo et vectorisation
 
 La plateforme de dépôt des concours d'entrée aux grandes écoles impose une limite de $5$ Mo pour la présentation de notre projet de fin d'étude.
 
-Le but va être de compresser des images en les vectorialisant, puis d'implémenter l'algorithme avec le module LaTeX TikZ qui permet de tracer des figures véctorialisées dans un document LaTeX.
+Le but va être de compresser des images en les vectorisant, puis d'implémenter l'algorithme avec le module LaTeX TikZ qui permet de tracer des figures vectorisées dans un document LaTeX.
 
 
 <div class="steps-panel">
@@ -977,7 +977,7 @@ Le but va être de compresser des images en les vectorialisant, puis d'implémen
     <div class="step step--medium">
       <span class="step-number">3</span>
       <div class="explanation">
-        <strong>Mutation et Sélection :</strong> On retient les $N_{\text{selected}}$ meilleures formes réduisant le plus l'écart avec l'image cible, puis on génère des variantes sur plusieurs générations successives. Après plus générations, on garde la meilleure forme trouvée sur l'ensemble des générations et on la dessine sur l'image $I$.
+        <strong>Mutation et Sélection :</strong> On retient les $N_{\text{selected}}$ meilleures formes réduisant le plus l'écart avec l'image cible, puis on génère des variantes sur plusieurs générations successives. Après plusieurs générations, on garde la meilleure forme trouvée sur l'ensemble des générations et on la dessine sur l'image $I$.
       </div>
     </div>
 
@@ -1082,7 +1082,7 @@ typedef struct Shape {
 
 ### Parallélisation (\`pthread\`)
 
-L'étape la plus coûteuse de l'algorithme est le calcul de la forme optimale parmi les $N_{\text{it}} = 160$ formes aléatoires. Chaque thread se voit confier une copie temporaire du canevas, y dessine une forme, et calcule la distance résultante à l'image cile $T$. Tout ça peut se faire en parallèle :
+L'étape la plus coûteuse de l'algorithme est le calcul de la forme optimale parmi les $N_{\text{it}} = 160$ formes aléatoires. Chaque thread se voit confier une copie temporaire du canevas, y dessine une forme, et calcule la distance résultante à l'image cible $T$. Tout ça peut se faire en parallèle :
 
 ~~~c
 for (int i = 0; i < Nit; i += NUM_THREADS) {
@@ -1122,7 +1122,7 @@ Une fois les $N$ formes placées, on obtient un fichier XML qui contient les $N$
 <circle cx="914" cy="973" r="518" fill="rgb(168,128,107)" />
 ~~~
 
-L'idée est qu'on peut compresser ce document, car les informations sont redondantes, à l'excpetion de \`cx, cy, r, fill\` qu'on peut compresser en binaire.
+L'idée est qu'on peut compresser ce document, car les informations sont redondantes, à l'exception de \`cx, cy, r, fill\` qu'on peut compresser en binaire.
 
 ### Bilan comparatif des performances
 
@@ -1153,7 +1153,7 @@ Sur une image test de référence haute résolution issue de la présentation :
       </tr>
       <tr class="table-row">
         <td class="table-cell table-cell--label">Fichier SVG brut</td>
-        <td class="table-cell">Fichier XML content les $6000$ cercles.</td>
+        <td class="table-cell">Fichier XML contenant les $6000$ cercles.</td>
         <td class="metric">279 ko</td>
         <td class="metric">15,7x</td>
       </tr>
@@ -1167,7 +1167,7 @@ Sur une image test de référence haute résolution issue de la présentation :
   </table>
 </div>
 
-Le fichier final compressé est **69,7 fois plus léger** que le PNG d'origine et **7,5 fois plus compact qu'un JPEG**, tout en conservant une image exploitable dans une présentation!
+Le fichier final compressé est **69,7 fois plus léger** que le PNG d'origine et **7,5 fois plus compact qu'un JPEG**, tout en conservant une image exploitable dans une présentation !
 
 <div class="table-scroll">
   <table class="data-table data-table--metrics">
@@ -1200,8 +1200,8 @@ Le fichier final compressé est **69,7 fois plus léger** que le PNG d'origine e
   status: 'Completed',
   blurb: String.raw`How do you fit a photo-heavy presentation into 5 MB? Exploring a stochastic approach to image vectorization.`,
   lead: String.raw`We are required to submit a TIPE (end-of-prep-school research project) of less than 5 MB. How can you compress a presentation packed with images to get under the 5 MB threshold? <br><br>
-  Faced with this constraint, the natural reflex is to compress images into JPEG. But we can do something more interesting. A vector image (like an SVG file) has the advantage of having a file size completely decoupled from its display resolution, while remaining crisp at any zoom level.<br><br>
-  The goal of this project was to design and implement in C a **stochastic generative algorithm** capable of reconstructing any image from a superposition of elementary geometric shapes (circles, polygons). In the end, we achieved file size reductions by up to a factor of 70.`,
+  Faced with this constraint, the natural reflex is to compress images into JPEG. But we can do something more interesting. A vector image, such as an SVG, stays sharp when zoomed in, and its file size does not depend on the display resolution.<br><br>
+  I wrote a **stochastic generative algorithm** in C that reconstructs images by layering simple shapes, such as circles and polygons. It reduced file sizes by up to a factor of 70.`,
   links: [['Source Code & Slides', 'https://github.com/AntoineTHEOBALDROSA/Image-Vectorialisation']],
   body: String.raw`
 
@@ -1223,7 +1223,7 @@ Le fichier final compressé est **69,7 fois plus léger** que le PNG d'origine e
 
 The submission platform for the competitive entrance exams to the French Grandes Écoles imposes a $5$ MB limit on final-year research project presentations.
 
-The objective is to compress images by vectorizing them, then integrate the algorithm using the LaTeX TikZ package, which renders vectorized figures natively within a LaTeX document.
+The idea is to compress images by turning them into shapes, then draw those shapes in LaTeX with TikZ.
 
 <div class="steps-panel">
   <div class="steps-heading">
@@ -1251,7 +1251,7 @@ The objective is to compress images by vectorizing them, then integrate the algo
     <div class="step step--medium">
       <span class="step-number">3</span>
       <div class="explanation">
-        <strong>Mutation and Selection:</strong> Retain the $N_{\text{selected}}$ best-performing shapes that minimize the difference with the target image the most, then generate variations across successive generations. After several generations, keep the best shape found overall and render it onto canvas $I$.
+        <strong>Mutation and selection:</strong> Retain the $N_{\text{selected}}$ shapes that bring the image closest to the target, then generate variations across successive generations. After several generations, draw the best shape on canvas $I$.
       </div>
     </div>
 
@@ -1267,15 +1267,15 @@ The objective is to compress images by vectorizing them, then integrate the algo
 
 ### Execution Example
 
-We begin by generating $N_{\text{it}} = 10$ shapes and keep the $N_{\text{selected}} = 2$ best candidates—here, the two in the first column (red borders).
+We generate $N_{\text{it}} = 10$ shapes and keep the $N_{\text{selected}} = 2$ best ones: here, the two in the first column, outlined in red.
 
 <img src="images/vect-2.png" alt="First generation of candidate shapes" class="content-image" />
 
-From these two shapes, we generate variations of each. This represents the second generation.
+From these two shapes, we generate variations of each. This is the second generation.
 
 <img src="images/vect-3.png" alt="Second generation of candidate shapes" class="content-image" />
 
-We select the best candidate—suppose it is this one:
+We keep the best shape, shown here:
 
 <img src="images/vect-4.png" alt="Best selected shape" class="content-image content-image--tiny" />
 
@@ -1283,14 +1283,14 @@ We then place this shape onto the white canvas $I$ and repeat the process on thi
 
 <img src="images/vect-5.png" alt="Image reconstruction by layering shapes" class="content-image" />
 
-After $N = 6000$ iterations, here is the outcome:
+After $N = 6000$ iterations, we get this image:
 
 <img src="images/vect-6.png" alt="Image reconstructed after 6,000 iterations" class="content-image content-image--small" />
 
 <div class="faq faq--compact">
   <p class="faq-question faq-question--next"><strong>Circles or Polygons?</strong></p>
   <p class="explanation explanation--flush explanation--last">
-    Circles have the distinct advantage of requiring only $3$ parameters ($x, y, r$), whereas a triangle—or generally an $n$-sided polygon—requires $2n$ parameters. Additionally, practical tests showed that when triangles were allowed, the algorithm systematically flattened them as much as possible to effectively draw straight lines.
+    A circle needs only $3$ parameters ($x, y, r$), while an $n$-sided polygon needs $2n$. In my tests, allowing triangles mostly led the algorithm to flatten them into lines.
   </p>
 </div>
 
@@ -1298,9 +1298,9 @@ After $N = 6000$ iterations, here is the outcome:
 
 ## 2. Evolutionary Algorithm
 
-To guide the algorithm toward the original image $T$, we must define a distance metric measuring the discrepancy between the iteratively constructed image $I$ and the target image $T$.
+To guide the algorithm, we need a distance that measures how far the current image $I$ is from the target image $T$.
 
-Let $T$ and $B$ be two images of dimensions $W \times H$. Two standard distances are commonly used:
+Let $T$ and $B$ be two images of dimensions $W \times H$. Two common choices are:
 
 ### 1. Manhattan Distance ($L_1$)
 $$D_{L_1}(T, B) = \sum_{p \in \text{pixels}}\big| T[p] - B[p] \big|$$
@@ -1308,7 +1308,7 @@ $$D_{L_1}(T, B) = \sum_{p \in \text{pixels}}\big| T[p] - B[p] \big|$$
 ### 2. Root Mean Square Error / RMS ($L_2$)
 $$D_{L_2}(T, B) = \sqrt{\frac{1}{WH} \sum_{p \in \text{pixels}} \big( T[p] - B[p] \big)^2}$$
 
-In practice, the $L_2$ distance is much more computationally demanding and yields visually indistinguishable results. Therefore, the $L_1$ distance is used throughout the rest of the project.
+In my tests, $L_2$ took longer to calculate without a visible improvement. I used $L_1$ for the rest of the project.
 
 ### Color Selection
 
@@ -1316,17 +1316,17 @@ For a given geometric shape $\mathcal{S}$ (typically a circle) covering a set of
 
 $$\bar{C} = \frac{1}{|\Omega_{\mathcal{S}}|} \sum_{p \in \Omega_{\mathcal{S}}} T(p)$$
 
-This heuristic eliminates the need for the algorithm to search for an extra "color" parameter.
+This avoids having to search for a colour as another parameter.
 
 <hr class="content-rule" />
 
 ## 3. C Implementation & Multi-threading
 
-The entire implementation was written in C using the **Cairo** graphics library (\`libcairo\`) to render geometric primitives.
+I wrote the implementation in C and used **Cairo** (\`libcairo\`) to draw the shapes.
 
 ### Data Structures
 
-Every geometric shape and image is represented by dedicated structures. For example, for circles and triangles:
+Each shape and image has its own structure. Here are the structures for circles and triangles:
 
 ~~~python
 typedef struct color {
@@ -1356,7 +1356,7 @@ typedef struct Shape {
 
 ### Parallelization (\`pthread\`)
 
-The computational bottleneck is determining the optimal shape out of the $N_{\text{it}} = 160$ random candidates. Each thread receives a temporary copy of the canvas, draws a shape onto it, and calculates the resulting distance to the target image $T$. All of this executes concurrently:
+The slowest step is finding the best of the $N_{\text{it}} = 160$ random shapes. Each thread gets a copy of the canvas, draws one shape and calculates the distance to the target image $T$. These calculations can run in parallel:
 
 ~~~c
 for (int i = 0; i < Nit; i += NUM_THREADS) {
@@ -1377,11 +1377,11 @@ for (int i = 0; i < Nit; i += NUM_THREADS) {
 sort_im_score(shapes, scores, Nit);
 ~~~
 
-Leveraging this multi-core parallelization (8 to 10 threads), the average processing time to generate an image with 6,000 shapes drops from roughly **64 minutes to 21 minutes**, achieving a 3x speedup.
+With 8 to 10 threads, generating an image with 6,000 shapes takes about **21 minutes instead of 64**: roughly three times faster.
 
 ### Algorithm Analysis
 
-Plotting the radius sizes chosen by the algorithm over time reveals a sharp decrease: the algorithm quickly "realizes" that once the base composition is established, adding large circles risks obliterating fine details drawn in earlier iterations.
+The circle radii decrease quickly over time. Once the image starts to take shape, a large circle would cover what has already been drawn, so smaller circles work better.
 
 <img src="images/vect-7.png" alt="Evolution of circle radii over the iterations" class="content-image content-image--medium" />
 
@@ -1389,18 +1389,18 @@ Plotting the radius sizes chosen by the algorithm over time reveals a sharp decr
 
 ## 4. Compression of the Generated File & Performance Analysis
 
-Once all $N$ shapes are positioned, the output is an XML file containing the $N$ geometric primitives:
+Once the $N$ shapes are drawn, we have an XML file describing them:
 
 ~~~xml
 <circle cx="1005" cy="777" r="1606" fill="rgb(102,74,60)" />
 <circle cx="914" cy="973" r="518" fill="rgb(168,128,107)" />
 ~~~
 
-Because the structural tags are repetitive, we can substantially compress this document by binary-encoding only the essential attributes: \`cx, cy, r, fill\`.
+Most of the XML is repetitive. We can compress it by storing \`cx, cy, r, fill\` in binary.
 
 ### Comparative Performance Summary
 
-Evaluated on a high-resolution benchmark image from the presentation:
+Here are the results for a high-resolution image from the presentation:
 
 <div class="table-scroll">
   <table class="data-table">
@@ -1441,7 +1441,7 @@ Evaluated on a high-resolution benchmark image from the presentation:
   </table>
 </div>
 
-The final compressed file is **69.7 times lighter** than the original PNG and **7.5 times more compact than JPEG**, while producing an image fully suitable for slide presentations!
+The final file is **69.7 times smaller** than the original PNG and **7.5 times smaller than the JPEG**, while still looking good enough for a presentation.
 
 <div class="table-scroll">
   <table class="data-table data-table--metrics">
@@ -1459,9 +1459,9 @@ The final compressed file is **69.7 times lighter** than the original PNG and **
           • Inefficient for basic vector artwork (a clean native SVG triangle is ~0.2 kB vs ~27 kB when reconstructed by this algorithm).
         </td>
         <td class="table-cell table-cell--top">
-          • <strong>Outstanding compression ratio</strong> (up to 70x).<br>
-          • Infinite resolution and sharpness at any zoom level.<br>
-          • <strong>Distinct artistic style:</strong> creates an expressive watercolor or mosaic effect.<br>
+          • <strong>Compression</strong> by up to a factor of 70.<br>
+          • The image stays sharp when zoomed in.<br>
+          • <strong>Artistic look:</strong> similar to watercolour or a mosaic.<br>
           • Native integration into LaTeX / TikZ documents.
         </td>
       </tr>
@@ -1515,7 +1515,7 @@ où $x_{i+1} \equiv x_i^2 \pmod n$ et $x_s \equiv a^{n-1} \pmod n$.
 
 ### Que se passe-t-il si $n$ est premier ?
 
-Par le petit théorème de fermat $x_s = a^{n-1} \equiv 1 \pmod n$. 
+Par le petit théorème de Fermat $x_s = a^{n-1} \equiv 1 \pmod n$.
 
 Mais le terme précédent $x_{s-1}$ vérifie alors $(x_{s-1})^2 = x_s \equiv 1 \pmod n$. Comme $n$ est premier, $x_{s-1}$ ne peut valoir que $1$ ou $-1$ (cf. le deuxième résultat). <br>
 - Si $x_{s-1} \equiv 1$, on itère récursivement sur $x_{s-2}$, et ainsi de suite.<br>
@@ -1526,7 +1526,6 @@ Autrement dit, si $n$ est premier, la suite renversée $(x_s, x_{s-1}, \dots, x_
 2. **Il existe $r \in [\![0, s-1]\!]$ tel que $x_r \equiv -1 \pmod n$** : dès lors, $x_{r+1} \equiv (-1)^2 \equiv 1$, et tous les termes suivants valent $1$.
 
 Si en choisissant un $a$ on trouve une telle suite, $n$ est **probablement premier**. Sinon, si la suite a une forme différente, alors $n$ est **composé**.<br>
-Si 
 
 <hr class="content-rule" />
 
@@ -1592,7 +1591,7 @@ En pratique, pour des entiers bornés (par exemple des entiers sur 32 bits ou 64
 
 <div class="theorem theorem--purple">
   <strong class="theorem-title theorem-title--purple">Le théorème de Miller (1976) :</strong><br/>
-  Si l'**Hypothèse de Riemann Généralisée (GRH)** est vraie, le test devient déterministe en temps polynomial pour tout entier $n$ en testant les bases :
+  Si l'**hypothèse de Riemann généralisée (GRH)** est vraie, le test devient déterministe en temps polynomial pour tout entier $n$ en testant les bases :
   $$a \leq2(\ln n)^2$$
 </div>
 
@@ -1608,7 +1607,7 @@ Lorsque $n$ dépasse par exemple $2^{64}$, notamment en cryptographie, tester to
   $$|\text{Faux témoins}| \le \frac{1}{4}\varphi(n) < \frac{n}{4}$$
 </div>
 
-**Conséquence : ** pour un $a$ choisi aléatoirement premier avec $n$ :
+**Conséquence :** pour un $a$ choisi aléatoirement premier avec $n$ :
 $$\mathbb{P}(\text{Déclarer } n \text{ premier} \mid n \text{ composé}) \le \frac{1}{4}$$
 
 En répétant le test avec $k$ bases indépendantes tirées au hasard, la probabilité d'erreur chute de manière exponentielle :
@@ -1620,9 +1619,9 @@ en: {
     title: String.raw`The Miller-Rabin Test — The Best Primality Test?`,
     blurb: String.raw`How can you quickly determine whether an integer is prime?`,
     body: String.raw`
-Throughout this article, $n$ denotes an odd integer greater than or equal to $3$ whose primality we wish to test.
+Throughout this article, $n$ is an odd integer greater than or equal to $3$. We want to find out whether it is prime.
 
-The **Miller-Rabin** test is used to determine whether a given number is prime. It is built on two simple yet fundamental mathematical results:
+The **Miller-Rabin** test uses two results: Fermat’s little theorem and the fact that a prime modulus has only two square roots of $1$.
 
 <div class="theorem">
   <strong class="theorem-title">1. Fermat's Little Theorem</strong><br/>
@@ -1639,12 +1638,12 @@ The **Miller-Rabin** test is used to determine whether a given number is prime. 
 
 <hr class="content-rule" />
 
-## The Core Idea
+## How the algorithm works
 
-Because $n$ is odd, $n - 1$ is even and can be factored as:
+Since $n$ is odd, we can write:
 $$n - 1 = 2^s \cdot d \qquad \text{where } d \text{ is odd and } s \ge 1$$
 
-Pick an integer $a \in [2, n - 2]$. If $\gcd(a, n) > 1$, then $n$ is trivially composite. Otherwise, consider the sequence modulo $n$:
+Pick an integer $a \in [2, n - 2]$. If $\gcd(a, n) > 1$, then $n$ is composite. Otherwise, consider the sequence modulo $n$:
 $$\langle x_0, x_1, \dots, x_s \rangle = \left(a^d, \; a^{2d}, \; a^{4d}, \; \dots, \; a^{2^s d} \right) \pmod n$$
 
 where $x_{i+1} \equiv x_i^2 \pmod n$ and $x_s \equiv a^{n-1} \pmod n$.
@@ -1655,13 +1654,13 @@ By Fermat's Little Theorem, $x_s = a^{n-1} \equiv 1 \pmod n$.
 
 The preceding term $x_{s-1}$ must then satisfy $(x_{s-1})^2 = x_s \equiv 1 \pmod n$. Because $n$ is prime, $x_{s-1}$ can only equal $1$ or $-1$ (by our second result above).<br>
 - If $x_{s-1} \equiv 1$, we step back to $x_{s-2}$, and continue backwards.<br>
-This means the first value encountered that differs from $1$ must be $-1$. 
+The first value different from $1$ must therefore be $-1$.
 
 In other words, if $n$ is prime, the reversed sequence $(x_s, x_{s-1}, \dots, x_0)$ must match one of two patterns:<br>
-1. **$x_0 \equiv 1 \pmod n$**: the entire sequence consists strictly of $1$s.<br>
+1. **$x_0 \equiv 1 \pmod n$**: every term is $1$.<br>
 2. **There exists an index $r \in [0, s-1]$ such that $x_r \equiv -1 \pmod n$**: from that point on, $x_{r+1} \equiv (-1)^2 \equiv 1$, and all subsequent terms equal $1$.
 
-If a chosen base $a$ generates such a sequence, $n$ is **probably prime**. If the sequence takes any other form, $n$ is definitely **composite**.
+If a chosen base $a$ generates such a sequence, $n$ is **probably prime**. Otherwise, $n$ is **composite**.
 
 <hr class="content-rule" />
 
@@ -1686,7 +1685,7 @@ Choose $a = 2$.
   $\implies$ **$561$ is composite**. 
 
 <div class="theorem theorem--success">
-  <strong>Factorization bonus:</strong> Whenever a non-trivial square root of $1$ (call it $x$) is uncovered, $\gcd(x - 1, n)$ produces a non-trivial factor of $n$. Here:
+  <strong>Factorization bonus:</strong> If we find a non-trivial square root $x$ of $1$, $\gcd(x - 1, n)$ produces a non-trivial factor of $n$. Here:
   $$\gcd(67 - 1, 561) = \gcd(66, 561) = 33 = 3 \times 11$$
 </div>
 
@@ -1694,7 +1693,7 @@ Choose $a = 2$.
 
 ## Making the Test Deterministic
 
-In practice, for bounded integers (such as standard 32-bit or 64-bit integers), picking bases $a$ at random is unnecessary. Checking a small, fixed set of bases is enough to guarantee primality deterministically.
+For bounded integers, such as 32-bit or 64-bit integers, we do not need random bases. A fixed set of bases is enough to make the test deterministic.
 
 <div class="table-scroll table-scroll--compact">
   <table class="data-table data-table--plain">
@@ -1735,7 +1734,7 @@ In practice, for bounded integers (such as standard 32-bit or 64-bit integers), 
 
 ## Why Is the Algorithm Reliable?
 
-When $n$ exceeds $2^{64}$—such as in cryptography—evaluating a deterministic set of bases is no longer practical. We instead run the test probabilistically, relying on the following bound:
+For larger numbers, such as those used in cryptography, testing all the required bases is no longer practical. We use the probabilistic test and the following bound:
 
 <div class="theorem theorem--purple">
   <strong class="theorem-title theorem-title--purple">Monier-Rabin Theorem (1980):</strong><br/>
@@ -1743,10 +1742,10 @@ When $n$ exceeds $2^{64}$—such as in cryptography—evaluating a deterministic
   $$|\text{False witnesses}| \le \frac{1}{4}\varphi(n) < \frac{n}{4}$$
 </div>
 
-**Takeaway:** For a randomly chosen base $a$ coprime to $n$:
+**Consequence:** For a randomly chosen base $a$ coprime to $n$:
 $$\mathbb{P}(\text{Declare } n \text{ prime} \mid n \text{ composite}) \le \frac{1}{4}$$
 
-Repeating the test across $k$ independent, uniformly chosen random bases causes the error probability to decay exponentially:
+After $k$ independent tests with uniformly chosen random bases, the error probability is at most:
 $$\mathbb{P}(\text{Error after } k \text{ rounds}) \le \left(\frac{1}{4}\right)^k = 2^{-2k}$$
 
 With $k = 40$ iterations, for example, the probability of falsely declaring $n$ prime is less than $2^{-80} \approx 10^{-24}$.
@@ -1755,20 +1754,18 @@ With $k = 40$ iterations, for example, the probability of falsely declaring $n$ 
 
 // ARTICLE PARTITION
 {slug:'partition-formula',cat:'math',date:'2026-07-30',read:10,
- fr:{title:String.raw`Formule pratique du nombre de partitions d'un entier $p(n)$`,
-  blurb:String.raw`Comment calculer efficacement le nombre de partitions d'un entier $p(n)$ ?`,
+ fr:{title:String.raw`Formule pratique pour le nombre de partitions $p(n)$`,
+  blurb:String.raw`Comment calculer efficacement le nombre de partitions d'un entier $n$ ?`,
   body:String.raw`
 En 1918, Hardy et Ramanujan ont montré que 
 $$p(n)\sim \frac{1}{4n\sqrt3}\text{exp}\left(\pi\sqrt{\frac{2n}{3}}\right)$$
-Mais comment calculer efficacement la valeur exacte de $p(n)$ ? Un calcule par force brute serait beaucoup trop long. On se propose de démontrer
+Mais comment calculer efficacement la valeur exacte de $p(n)$ ? Un calcul par force brute serait beaucoup trop long. On se propose de démontrer
 
 <div class="theorem theorem--warning">
-  $$\begin{equation*}
-  \begin{split}
+  $$\begin{aligned}
   p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + \cdots \\
   & = \sum_{k\geq 1}(-1)^{k-1}p(n-k(3k\pm 1)/2)
-  \end{split}
-  \end{equation*}$$
+  \end{aligned}$$
 </div>
 
 
@@ -1776,9 +1773,9 @@ Mais comment calculer efficacement la valeur exacte de $p(n)$ ? Un calcule par f
 
 Pour $\lvert x \rvert\lt 1$, on pose 
 $$f(x)=\prod_{n\geq 1}\frac{1}{1-x^n} = \prod_{n\geq 1}\sum_{i\geq 0}x^{ni} = \prod_{n\geq 1}(1+ x^n + x^{2n} + \cdots)$$
-Essayons de trouver le coefficient devant $x^k$ pour $k\geq 1$ : quand on développe le produit, on choisit dans chaque facteur $(1+ x^n + x^{2n} + \cdots)$ un $x^{i\cdot n}$ ; on l'interprète comme « je choisis $i$ fois le nombre $n$ ». Ainsi on choisit un certain nombre de fois le nombre $1$, un certain nombre de fois le nombre $2$, $\ldots$ Au final le coefficient devant $x^k$ est le nombre de manières de choisir $(i_1, i_2, \ldots)$ telle que :
+Essayons de trouver le coefficient devant $x^k$ pour $k\geq 1$ : quand on développe le produit, on choisit dans chaque facteur $(1+ x^n + x^{2n} + \cdots)$ un $x^{i\cdot n}$ ; on l'interprète comme « je choisis $i$ fois le nombre $n$ ». Ainsi on choisit un certain nombre de fois le nombre $1$, un certain nombre de fois le nombre $2$, $\ldots$ Au final le coefficient devant $x^k$ est le nombre de manières de choisir $(i_1, i_2, \ldots)$ tels que :
 $$i_1\cdot 1 + i_2 \cdot 2 + i_3 \cdot 3 + \cdots = k$$
-Ce nombre de manière, c'est exactement $p(k)$. D'où
+Ce nombre de manières, c'est exactement $p(k)$. D'où
 $$\boxed{f(x) = \prod_{n\geq 1}\frac{1}{1-x^n} =  1 + \sum_{n\geq 1} p(n)x^n}$$ 
 
 ## 2. Théorème des nombres pentagonaux
@@ -1791,9 +1788,9 @@ On va démontrer le :
 </div>
  $\underline{\text{Preuve :}}$ On va faire une première constatation : regardons le produit suivant, très légèrement différent :
 $$\prod_{n\geq 1}(1+x^n) = (1+x)(1+x^2)(1+x^3)\cdots$$
-En développant comme on l'a fait dans la partie précédente, on se rend compte devant $x^k$ on a le nombre de manière d'écrire $k$ comme
+En développant comme on l'a fait dans la partie précédente, on se rend compte que devant $x^k$ on a le nombre de manières d'écrire $k$ comme
 $$k = 1\cdot \varepsilon_1 + 2\cdot \varepsilon_2 + \cdots \qquad \text{où } \varepsilon_i \in \{0,1\}$$
-Concrètement, on a la série génératrice du nombre de partitions avec des entiers distincts. Par exemple, la parition $7=5+1+1$ n'est pas comptée, alors que $7=5+2$ l'est.$\\$
+Concrètement, on a la série génératrice du nombre de partitions avec des entiers distincts. Par exemple, la partition $7=5+1+1$ n'est pas comptée, alors que $7=5+2$ l'est.$\\$
 Mais notre produit comporte un signe moins, donc :
 
 $$\prod_{n\geq 1}(1-x^n) = \sum_{\varepsilon_1, \varepsilon_2, \ldots} (-1)^{\varepsilon_1 + \cdots + \varepsilon_s} x^{1\varepsilon_1 + 2\varepsilon_2 + \cdots + s\varepsilon_s}$$
@@ -1802,8 +1799,8 @@ Si on regarde les premiers termes, on a
 
 $$\prod_{n\geq 1}(1-x^n) = 1-x-x^2 + x^5 + x^7 - x^{12} + \cdots$$
 
-ce qui laisse penser que pour beaucoup de $n$ (par exemple $n=3, 4, 6, 8, 9, \ldots$) le nombre de partition utilisant des nombres distincts avec un nombre pair de termes est exactement le nombre de partition utilisant des nombres distincts avec un nombre impair de termes, et que dans les autres cas la différence est de $\pm1$ seulement.$\\$
-On va expliquer quand ces paritions peuvent s'appairer, ce qui nous donnera la formule attendue.
+ce qui laisse penser que pour beaucoup de $n$ (par exemple $n=3, 4, 6, 8, 9, \ldots$) le nombre de partitions utilisant des nombres distincts avec un nombre pair de termes est exactement le nombre de partitions utilisant des nombres distincts avec un nombre impair de termes, et que dans les autres cas la différence est de $\pm1$ seulement.$\\$
+On va expliquer quand ces partitions peuvent s'appairer, ce qui nous donnera la formule attendue.
 
 Prenons un exemple; on représente la partition $20 = 7 + 6 + 4 + 3$
 $$
@@ -1816,7 +1813,7 @@ $$
 $$
 Disons que la ligne du bas (en bleu) possède $a$ points, et que la diagonale sur la droite (en rouge) possède $b$ points. <br>
 Si on veut bouger la ligne du bas et la juxtaposer aux points rouges, il faut $a\leq b$ pour ne pas avoir de point flottant. Pour déplacer la diagonale rouge en dessous de la ligne bleue et obtenir une ligne plus petite, il faut $a\gt b$.<br>
-On se rend compte aisément que ces deux opérations sont inverses l'une de l'autre, et qu'en partant d'une partition avec des nombres distincts avec un nombre pair de termes on en obtient une avec un nombre impair de termes, et inversement. Leur contribution dans notre produit est est donc nul.<br>
+On se rend compte aisément que ces deux opérations sont inverses l'une de l'autre, et qu'en partant d'une partition avec des nombres distincts avec un nombre pair de termes on en obtient une avec un nombre impair de termes, et inversement. Leur contribution dans notre produit est donc nulle.<br>
 Mais il y a des cas limites quand ces deux lignes contiennent un point commun (le point violet) :
 $$
 \begin{array}{ccccc}
@@ -1827,8 +1824,8 @@ $$
 $$
 Comme bouger une des deux lignes décrémente de $1$ la taille de l'autre:
 <ul class="content-list content-list--compact">
-  <li>pour bouger la ligne ligne rouge en dessous de la bleue et obtenir un nombre strictement plus petit, il faut $a-1 \gt b$ </li>
-  <li>pour bouger la ligne ligne bleue à côté de la rouge et ne pas avoir de points flottant, il faut  il faut $b-1 \geq a$ </li>
+  <li>pour bouger la ligne rouge en dessous de la bleue et obtenir un nombre strictement plus petit, il faut $a-1 \gt b$ </li>
+  <li>pour bouger la ligne bleue à côté de la rouge et ne pas avoir de points flottants, il faut $b-1 \geq a$ </li>
 </ul> 
 Les cas limites sont donc $a=b$ (première ligne) et $a = b+1$ (deuxième ligne) : 
 $$
@@ -1859,7 +1856,7 @@ $$
 \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{purple}{\bullet}
 \end{array}
 $$
-On vérifie que ces nombres sont de la forme $\frac{k(3k-1)}{2}$ et $\frac{k(3k+1)}{2}$ où $k$ le nombre de lignes c'est-à dire le nombre de facteurs distincts la partition, ce qui donne le théorème. $\square$ 
+On vérifie que ces nombres sont de la forme $\frac{k(3k-1)}{2}$ et $\frac{k(3k+1)}{2}$ où $k$ est le nombre de lignes c'est-à-dire le nombre de termes distincts de la partition, ce qui donne le théorème. $\square$
 
 ## 3. Démonstration de la formule
 
@@ -1870,84 +1867,64 @@ $$ \par{1 + \sum_{n\geq 1} p(n)x^n}\par{1 + \sum_{n\geq 1} (-1)^n\par{x^{n(3n-1)
 $$ \par{1 + p_1x + p_2x^2 + p_3x^3 + \cdots}\par{1-x-x^2 + x^5 + x^7 - x^{12} + \cdots}  = 1$$
 Comme le coefficient devant $x^n$ est nul, on obtient bien
 <div class="theorem theorem--warning">
-  $$\begin{equation*}
-  \begin{split}
+  $$\begin{aligned}
   p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + \cdots \\
   & = \sum_{k\geq 1}(-1)^{k+1}p(n-k(3k\pm 1)/2)
-  \end{split}
-  \end{equation*}$$
+  \end{aligned}$$
 </div>
 
 
 
 `},
-en:{title:String.raw`Practical formula for the number of partitions of an integer $p(n)$`,
-  blurb:String.raw`How can we efficiently compute the number of partitions of an integer $p(n)$?`,
+en:{title:String.raw`A practical formula for the partition number $p(n)$`,
+  blurb:String.raw`How can we efficiently compute the number of partitions of an integer $n$?`,
   body:String.raw`
 In 1918, Hardy and Ramanujan showed that 
 $$p(n)\sim \frac{1}{4n\sqrt3}\text{exp}\left(\pi\sqrt{\frac{2n}{3}}\right)$$
-But how can we efficiently compute the exact value of $p(n)$? A brute-force computation would take far too long. We propose to prove
+But how can we calculate the exact value of $p(n)$ efficiently? Brute force would take too long. We will prove the following formula:
 
-
-<div class="content-note">
-
-
-$$\begin{equation*}
-\begin{split}
-p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + \cdots \\
- & = \sum_{k\geq 1}(-1)^{k-1}p(n-k(3k\pm 1)/2)
-\end{split}
-\end{equation*}$$
-
-
+<div class="theorem theorem--warning">
+  $$\begin{aligned}
+  p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + \cdots \\
+  & = \sum_{k\geq 1}(-1)^{k-1}p(n-k(3k\pm 1)/2)
+  \end{aligned}$$
 </div>
 
 
-
-## 1. Generating series of $p(n)$
-
+## 1. Generating function for $p(n)$
 
 For $\lvert x \rvert\lt 1$, let 
 $$f(x)=\prod_{n\geq 1}\frac{1}{1-x^n} = \prod_{n\geq 1}\sum_{i\geq 0}x^{ni} = \prod_{n\geq 1}(1+ x^n + x^{2n} + \cdots)$$
-Let's try to find the coefficient in front of $x^k$ for $k\geq 1$: when we expand the product, in each factor $(1+ x^n + x^{2n} + \cdots)$ we pick a term $x^{i\cdot n}$; we interpret this as "I choose the number $n$, $i$ times." Thus we choose the number $1$ a certain number of times, the number $2$ a certain number of times, $\ldots$ In the end, the coefficient in front of $x^k$ is the number of ways to choose $(i_1, i_2, \ldots)$ such that:
+To find the coefficient of $x^k$ for $k\geq 1$, expand the product. Choosing $x^{i\cdot n}$ from a factor $(1+ x^n + x^{2n} + \cdots)$ means choosing the number $n$ exactly $i$ times. We choose the number $1$ some number of times, then $2$, and so on. The coefficient of $x^k$ counts the choices $(i_1, i_2, \ldots)$ such that:
 $$i_1\cdot 1 + i_2 \cdot 2 + i_3 \cdot 3 + \cdots = k$$
-This number of ways is exactly $p(k)$. Hence
+There are exactly $p(k)$ such choices. Therefore,
 $$\boxed{f(x) = \prod_{n\geq 1}\frac{1}{1-x^n} =  1 + \sum_{n\geq 1} p(n)x^n}$$ 
 
+## 2. The pentagonal number theorem
 
-## 2. Pentagonal number theorem
+We will prove the following theorem:
 
-
-We will prove the pentagonal number theorem, a theorem due to Euler:
-
-
-<div class="content-note">
-
-
-$$\prod_{n\geq 1}(1-x^n)=1 + \sum_{k\geq 1} (-1)^k\left(x^{k(3k-1)/2} + x^{k(3k+1)/2}\right)$$
-
-
-</div> $\underline{\text{Proof:}}$ Let's start with an observation: consider the following product, which is very slightly different:
+<div class="theorem theorem--compact">
+  <strong class="theorem-title">Pentagonal number theorem</strong><br/>
+  $$\prod_{n\geq 1}(1-x^n)=1 + \sum_{k\geq 1} (-1)^k\left(x^{k(3k-1)/2} + x^{k(3k+1)/2}\right)$$
+</div>
+ $\underline{\text{Proof:}}$ Start with a slightly different product:
 $$\prod_{n\geq 1}(1+x^n) = (1+x)(1+x^2)(1+x^3)\cdots$$
-Expanding it as we did in the previous section, we see that in front of $x^k$ we have the number of ways to write $k$ as
+Expanding it as in the previous section, the coefficient of $x^k$ counts the ways to write $k$ as
 $$k = 1\cdot \varepsilon_1 + 2\cdot \varepsilon_2 + \cdots \qquad \text{where } \varepsilon_i \in \{0,1\}$$
-Concretely, this is the generating series for the number of partitions into distinct integers. For example, the partition $7=5+1+1$ is not counted, whereas $7=5+2$ is.$\\$
-But our product has a minus sign, so:
-
+This is the generating function for partitions into distinct integers. For example, $7=5+1+1$ is not counted, but $7=5+2$ is.$\\$
+Our product has a minus sign, so:
 
 $$\prod_{n\geq 1}(1-x^n) = \sum_{\varepsilon_1, \varepsilon_2, \ldots} (-1)^{\varepsilon_1 + \cdots + \varepsilon_s} x^{1\varepsilon_1 + 2\varepsilon_2 + \cdots + s\varepsilon_s}$$
-We count positively a partition into distinct numbers with an even number of terms, and negatively if such a partition has an odd number of terms.$\\$
-If we look at the first few terms, we get 
-
+A partition into distinct integers contributes positively if it has an even number of terms, and negatively if it has an odd number.$\\$
+The first few terms are
 
 $$\prod_{n\geq 1}(1-x^n) = 1-x-x^2 + x^5 + x^7 - x^{12} + \cdots$$
 
+This suggests that for many values of $n$, such as $n=3, 4, 6, 8, 9, \ldots$, the even and odd partitions cancel out. In the other cases, the difference is just $\pm1$.$\\$
+To prove the formula, we need to see when these partitions can be paired.
 
-which suggests that for many $n$ (for example $n=3, 4, 6, 8, 9, \ldots$) the number of partitions into distinct numbers with an even number of terms is exactly the number of partitions into distinct numbers with an odd number of terms, and that in the other cases the difference is only $\pm1$.$\\$
-We will explain when such partitions can be paired up, which will give us the expected formula.
-
-
-Let's take an example; we represent the partition $20 = 7 + 6 + 4 + 3$
+Take the partition $20 = 7 + 6 + 4 + 3$, drawn here:
 $$
 \begin{array}{ccccc}
 \bullet & \bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
@@ -1956,10 +1933,10 @@ $$
 \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet}
 \end{array}
 $$
-Let's say the bottom row (in blue) has $a$ dots, and the diagonal on the right (in red) has $b$ dots. <br>
-If we want to move the bottom row and place it next to the red dots, we need $a\leq b$ so as not to have a floating dot. To move the red diagonal below the blue row and obtain a smaller row, we need $a\gt b$.<br>
-It's easy to see that these two operations are inverse to one another, and that starting from a partition into distinct numbers with an even number of terms we get one with an odd number of terms, and vice versa. Their contribution in our product is therefore zero.<br>
-But there are edge cases when these two rows contain a common dot (the purple dot):
+Let the bottom row, in blue, have $a$ dots, and the diagonal on the right, in red, have $b$ dots. <br>
+To place the bottom row alongside the red diagonal without leaving a floating dot, we need $a\leq b$. To move the red diagonal below the blue row and make a shorter row, we need $a\gt b$.<br>
+These operations undo each other. They pair a partition with an even number of distinct terms with one that has an odd number, so their contributions cancel.<br>
+There are exceptions when the two rows share a dot, shown in purple:
 $$
 \begin{array}{ccccc}
 \bullet & \bullet & \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
@@ -1967,12 +1944,12 @@ $$
 \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{purple}{\bullet} \\
 \end{array}
 $$
-Since moving one of the two rows decreases the size of the other by $1$:
+Moving either row reduces the other’s length by $1$:
 <ul class="content-list content-list--compact">
-  <li>to move the red row below the blue one and obtain a strictly smaller number, we need $a-1 \gt b$ </li>
-  <li>to move the blue row next to the red one without any floating dots, we need $b-1 \geq a$ </li>
+  <li>to move the red row below the blue row and make it strictly shorter, we need $a-1 \gt b$ </li>
+  <li>to move the blue row alongside the red row without leaving floating dots, we need $b-1 \geq a$ </li>
 </ul> 
-The edge cases are therefore $a=b$ (first row) and $a = b+1$ (second row): 
+The exceptions are therefore $a=b$ in the first row and $a = b+1$ in the second:
 $$
 \begin{array}{ccccc}
 \bullet & \bullet & \bullet & \bullet & \textcolor{red}{\bullet} \\
@@ -2001,34 +1978,35 @@ $$
 \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{blue}{\bullet} & \textcolor{purple}{\bullet}
 \end{array}
 $$
-We check that these numbers are of the form $\frac{k(3k-1)}{2}$ and $\frac{k(3k+1)}{2}$ where $k$ is the number of rows, that is, the number of distinct terms in the partition, which gives the theorem. $\square$ 
-
+These numbers have the form $\frac{k(3k-1)}{2}$ and $\frac{k(3k+1)}{2}$, where $k$ is the number of rows, or distinct terms in the partition. This gives the theorem. $\square$
 
 ## 3. Proof of the formula
-
 
 We have 
 $$ f(x)\prod_{n\geq 1}(1-x^n) = 1$$
 and by the pentagonal number theorem,
 $$ \par{1 + \sum_{n\geq 1} p(n)x^n}\par{1 + \sum_{n\geq 1} (-1)^n\par{x^{n(3n-1)/2} + x^{n(3n+1)/2}}}  = 1$$
 $$ \par{1 + p_1x + p_2x^2 + p_3x^3 + \cdots}\par{1-x-x^2 + x^5 + x^7 - x^{12} + \cdots}  = 1$$
-Since the coefficient in front of $x^n$ is zero, we indeed obtain
-$$\boxed{\begin{equation*}
-\begin{split}
-p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + \cdots \\
- & = \sum_{k\geq 1}(-1)^{k+1}p(n-k(3k\pm 1)/2)
-\end{split}
-\end{equation*}}$$
+Since the coefficient of $x^n$ is zero, we obtain
+<div class="theorem theorem--warning">
+  $$\begin{aligned}
+  p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + \cdots \\
+  & = \sum_{k\geq 1}(-1)^{k+1}p(n-k(3k\pm 1)/2)
+  \end{aligned}$$
+</div>
+
+
+
 `}
  },
 
 {slug:'how-to-set-call-option-price',cat:'finance',date:'2026-08-04',read:15,
  fr:{title:String.raw`Comment fixer le prix d'une option ?`,
-  blurb:String.raw`Comment les banques vous vendent des *options* sans jouer à la lotterie ?`,
+  blurb:String.raw`Comment les banques vous vendent des *options* sans jouer à la loterie ?`,
   body:String.raw`
 <p class="text-justify">
 **1. Introduction**<br>
-  Imaginons la situation suivante : vous êtes boulanger, et un client vient vous voir pour prévoir une énorme commande de $1000$ croissants. Mais ce client est prévoyant : il ne veut ses croissants que dans un an. Comme vous ne pouvez pas faire les croissants aujourd'hui, vous devrez acheter les matières premières (par exemple la farine) dans un an. Mais peut-être que d'ici là le prix de la farine aura bien augmenté. Et votre client veut un devis maintenant!<br>
+  Imaginons la situation suivante : vous êtes boulanger, et un client vient vous voir pour prévoir une énorme commande de $1000$ croissants. Mais ce client est prévoyant : il ne veut ses croissants que dans un an. Comme vous ne pouvez pas faire les croissants aujourd'hui, vous devrez acheter les matières premières (par exemple la farine) dans un an. Mais peut-être que d'ici là le prix de la farine aura bien augmenté. Et votre client veut un devis maintenant !<br>
   Dans ce cas, vous allez voir la banque et elle vous propose une assurance : elle vous promet de vous vendre de la farine à 1€ le kg, peu importe le prix du marché dans un an, même si la farine vaudra 10€ le kg.<br>
   Un an plus tard, si le prix de la farine a baissé et ne coûte plus que 0,5€ le kg, vous l'achetez au supermarché. Mais si le prix a augmenté à 2€ le kg, vous l'achetez auprès de la banque. Dans tous les cas, vous ne payez jamais plus de 1€ le kg.<br>
   Évidemment, ce service n'est pas gratuit et vous devrez payer la banque le prix de l'assurance.<br>
@@ -2043,7 +2021,7 @@ La question centrale est simple en apparence : *combien ce contrat doit-il coût
 
 **2. Une question pas si triviale...**<br>
 On pourrait penser que la question a une réponse simple. <br>
-Imaginons une action qui vaut 100€ aujourd'hui, et qui dans un an vaudra soit 150€, soit 50€. Maintenant on vous propose le pari suivant : si l'action finit à 150€ on vous donne 50€, si elle finit à 50€ on ne vous donne rien. Ce pari, c'est exactement une option call avec un strike à 100€. Combien seriez vous prêt à payer pour ce pari ?<br>
+Imaginons une action qui vaut 100€ aujourd'hui, et qui dans un an vaudra soit 150€, soit 50€. Maintenant on vous propose le pari suivant : si l'action finit à 150€ on vous donne 50€, si elle finit à 50€ on ne vous donne rien. Ce pari, c'est exactement une option call avec un strike à 100€. Combien seriez-vous prêt à payer pour ce pari ?<br>
 
 Si je considère que chaque possibilité a une chance sur deux d'arriver, alors en moyenne je gagne 25€. Si la banque me prête à taux $r$, comme 25€ dans un an valent 25€$\cdot e^{-r\Delta t}$ aujourd'hui (avec $\Delta t=1\text{ an}$), alors je suis prêt à payer cette option :
 $$25\cdot e^{-r\Delta t}€$$
@@ -2051,7 +2029,7 @@ $$25\cdot e^{-r\Delta t}€$$
 
 Mais maintenant si mon ami est optimiste et pense que l'action a 70% de chance de monter et 30% de chance de descendre, alors  il pense gagner en moyenne $50\cdot \frac{70}{100} + 0 \cdot \frac{30}{100} = 35€$ et il est donc prêt à payer $35\cdot e^{-r\Delta t}€$...
 
-Mais en finance on a besoin d'un prix unique, qui ne dépend pas de ce que pensent chacun des acteurs! <br>
+Mais en finance on a besoin d'un prix unique, qui ne dépend pas de ce que pense chacun des acteurs ! <br>
 En l'absence de prix unique, par exemple si une action s'échange à 20€ chez le Crédit Mutuel et 10€ à la Société Générale, alors j'achète plein d'actions à la Société Générale et je les revends au Crédit Mutuel, en empochant *immédiatement* et *sans risque* 10€ pour chaque transaction : c'est ce qu'on appelle l'**arbitrage**.
 
 On va voir comment construire un portefeuille (un mélange d'actions et d'argent à la banque) dont la valeur à la maturité égale exactement le payoff de l'option. Si une telle « machine » existe, le prix de l'option **doit** être égal au prix pour construire cette machine (ce portefeuille), ce sans quoi il y aura de l'arbitrage.
@@ -2079,7 +2057,7 @@ $$\Delta = \frac{C_u - C_d}{S(u - d)}\qquad\text{ et }\qquad
 En général, on trouve $\Gamma \lt 0$, ce qui signifie qu'« on » *emprunte* de l'argent (« on » signifie celui qui promet l'argent du call, c'est-à-dire la banque bien souvent).$\\$
 Le coût $C$ de l'option est finalement
 $$\boxed{C=\Delta \cdot S + \Gamma}$$
-On remarquera qu'à **aucun moment** on n'a fait intervenir les probabilité pour l'action de monter ou de descendre! Le prix ne dépend pas de ces probabilités.
+On remarquera qu'à **aucun moment** on n'a fait intervenir les probabilités pour l'action de monter ou de descendre ! Le prix ne dépend pas de ces probabilités.
 
 **4. Ce que fait la banque en pratique**<p class="text-justify">
 Concrètement, ce que fait la banque (le vendeur de l'option) :
@@ -2095,16 +2073,16 @@ En pratique, la banque gagne de l'argent en vendant l'option plus chère que le 
 
 **5. La probabilité risque neutre**
 
-On a vu que les probabilité de up et down sont inconnues. Mais on aimerait bien créer une *fausse* probabilité $q$ qui ferait que *tout se passe comme si $S$ avait probabilité $q$ de monter et probabilité $1-q$ de descendre*, c'est-à-dire :
+On a vu que les probabilités de up et down sont inconnues. Mais on aimerait bien créer une *fausse* probabilité $q$ qui ferait que *tout se passe comme si $S$ avait probabilité $q$ de monter et probabilité $1-q$ de descendre*, c'est-à-dire :
 $$e^{r\Delta t}S = qSu + (1-q)Sd$$
 on trouve alors
 $$q = \frac{e^{r\Delta t} - d}{u - d}$$
-Comme $d\lt e^{r\Delta t}\lt u$, on a bien $0\lt q \lt 1$ et on peut *interpréter* $q$ comme une probabilité : la **probabilité de risque neutre** (attention! $q$ ne représente pas du tout la vraie probabilité pour $S$ de monter).<br>
+Comme $d\lt e^{r\Delta t}\lt u$, on a bien $0\lt q \lt 1$ et on peut *interpréter* $q$ comme une probabilité : la **probabilité de risque neutre** (attention ! $q$ ne représente pas du tout la vraie probabilité pour $S$ de monter).<br>
 Sous la probabilité $q$, on a 
 $$\mathbb{E}^q(S_{\Delta t})=qSu + (1-q)Sd = e^{r\Delta t}S \qquad \text{ donc } \qquad S = e^{-r\Delta t}\mathbb{E}^q(S_{\Delta t})$$
 On remarque aussi qu'on a 
 $$C = e^{-r\Delta t}(qC_u + (1-q)C_d)$$
-ce qui signifie qu'en calculant les payoff $C_u, C_d$ ainsi que $q$ on peut remonter au prix du call $C$, ce qui évite de calculer $\Delta$ et $\Gamma$. 
+ce qui signifie qu'en calculant les payoffs $C_u, C_d$ ainsi que $q$ on peut remonter au prix du call $C$, ce qui évite de calculer $\Delta$ et $\Gamma$.
 </p>
 `},
 en:{title:String.raw`How do you price an option?`,
@@ -2113,7 +2091,7 @@ en:{title:String.raw`How do you price an option?`,
 <p class="text-justify">
 **1. Introduction**<br>
   Imagine the following situation: you are a baker, and a customer comes to you to place a huge order for $1000$ croissants. But this customer is cautious: they only want their croissants in a year. Since you can't make the croissants today, you'll need to buy the raw materials (flour, say) a year from now. But maybe by then the price of flour will have gone up a lot. And your customer wants a quote now!<br>
-  In that case, you go to the bank and it offers you an insurance: it promises to sell you flour at €1 per kg, no matter what the market price is in a year, even if flour is worth €10 per kg by then.<br>
+  You go to the bank, which offers you insurance: it promises to sell you flour at €1 per kg, no matter what the market price is in a year, even if flour is worth €10 per kg by then.<br>
   A year later, if the price of flour has dropped and now only costs €0.5 per kg, you buy it at the supermarket. But if the price has risen to €2 per kg, you buy it from the bank. In any case, you never pay more than €1 per kg.<br>
   Obviously, this service isn't free and you'll have to pay the bank the price of the insurance.<br>
   The question is: **how much should the bank charge you for this insurance?**<br><br>
@@ -2159,7 +2137,7 @@ Today, the stock is worth $S$ and at time $\Delta t$, it can only take two value
 </ul> 
 I'll let you check that $0\lt d \lt e^{r\Delta t} \lt u$, otherwise arbitrage is possible.<br>
 We assume we can buy a fraction of a share and that we can lend or borrow at rate $r$.
-We of course consider a European call option with strike $K$ and payoff
+Consider a European call option with strike $K$ and payoff
 $$C_u =  \max\par{Su-K, 0}, \qquad C_d =  \max\par{Sd-K, 0}$$
 We look for a quantity of stock $\Delta$ and an amount at the bank $\Gamma$ (i.e. an amount to lend or borrow), such that at time $\Delta t$, the portfolio is worth exactly the payoff in both scenarios:
 $$\begin{cases}
@@ -2176,7 +2154,7 @@ Notice that **at no point** did we bring in the probabilities of the stock going
 
 
 **4. What the bank does in practice**<p class="text-justify">
-Concretely, here's what the bank (the option seller) does:
+Here is what the bank, which sells the option, does:
 <ul class="content-list content-list--compact">
   <li> the customer buys a call option at price $C$; the bank therefore receives $C$
   <li> the bank borrows $-\Gamma$ (if $\Gamma\lt 0$)  
@@ -2185,8 +2163,8 @@ Concretely, here's what the bank (the option seller) does:
 </ul> 
 
 
-The bank replicates the customer's bet: if the customer won their bet, so did the bank, and it pays them back out of its own pocket at no extra cost; if the customer lost, so did the bank, but it owes them nothing.<br>
-In practice, the bank makes money by selling the option for more than its theoretical price, along with service fees or services around the option. 
+The bank replicates the customer’s bet. If the customer wins, the bank’s portfolio pays for what it owes them, without any extra money from the bank. If the customer loses, the bank owes them nothing.<br>
+In practice, the bank charges more than the theoretical price, through fees or related services.
 
 
 **5. The risk-neutral probability**
@@ -2271,7 +2249,7 @@ $$\int_{[-R,R]\setminus[-\varepsilon, \varepsilon]}f(x)\,dx + \int_{\Gamma_R} f 
 $$\left|\int_{\Gamma_R}f\right|\leq \frac{\pi R}{R(R^2-\pi^2)}\xrightarrow[R\to\infty]{}0$$
 
 **Petit arc $\Gamma_\varepsilon$ :** dans un voisinage de $0$, $f(z) = \frac{1}{z\pi^2} + g(z)$ avec $g$ holomorphe. </br>
-$\Gamma_\varepsilon$ se parametrise avec $\gamma(\theta) = e^{i\theta}$ pour $\theta$ variant de $\pi$ à $0$ donc
+$\Gamma_\varepsilon$ se paramètre avec $\gamma(\theta) = e^{i\theta}$ pour $\theta$ variant de $\pi$ à $0$ donc
 $$\int_{\Gamma_\varepsilon}f = \int_\pi^0 \par{\frac{1}{\pi^2\varepsilon e^{i\theta}} + g(\varepsilon e^{i\theta})}i\varepsilon e^{i\theta}\, d\theta = \frac{-i\pi}{\pi^2} + \mathcal O (\varepsilon) = \frac{-i}{\pi} + \mathcal O (\varepsilon)$$
 
 **Conclusion :** on pose $\varepsilon = \frac{1}{R}$, alors $\int_{[-R,R]\setminus[-\varepsilon, \varepsilon]}f(x)\,dx \xrightarrow[R\to+\infty]{} I$ et donc en faisant tendre $R\to+\infty$ dans le théorème des résidus,
@@ -2293,7 +2271,7 @@ $$\int_{-\infty}^{+\infty}\frac{e^{ix}}{x(\pi^2+x^2)}\,dx$$
 so set $f(z)=\frac{e^{iz}}{z(\pi^2+z^2)}$. Integrate along a contour containing only one pole, indenting around $0$.
 `,
   solution: String.raw`
-The convergence of the integral is readily verified: the integrand is continuous on $\R^*$, extends by continuity at $0$, and is $\mathcal O\par{x^{-3}}$ at $\pm\infty$.
+To check convergence, note that the integrand is continuous on $\R^*$, extends by continuity at $0$, and is $\mathcal O\par{x^{-3}}$ at $\pm\infty$.
 
 1. Let $f(z)=\frac{e^{iz}}{z(\pi^2+z^2)}$, which has poles at $0$ and $\pm i\pi$. We integrate along the following contour $\gamma$: 
 
@@ -2353,7 +2331,7 @@ $$\boxed{I=\int_{-\infty}^{+\infty}\frac{\sin x}{x\,(\pi^2+x^2)}\,dx = \frac{1-e
   // P-002
 {id:'P-002',slug:'harmonic-prime',date:'2026-07-30',level:2,tags:['math','numbertheory'],
  fr:{title:'Divisibilité et série harmonique',
-  blurb:'Que peut-on dire de la divisiblité de la différence du numérateur par la dénominateur de la série harmonique ?',
+  blurb:'Que peut-on dire de la divisibilité de la différence entre le numérateur et le dénominateur de la série harmonique ?',
   statement:String.raw`
 Soit $p$ premier impair et $r, s$ tels que
 $$H_p = 1 + \cdots + \frac{1}{p} = \frac{r}{ps}$$
@@ -2361,18 +2339,18 @@ Démontrer que $r-s$ est divisible par $p^3$.
 `,
   hint:String.raw`
 Essayer de mettre du $p$ en facteur dès que possible. $\\$
-Regrouper les termes deux-par-deux.$\\$
+Regrouper les termes deux par deux.$\\$
 Travailler modulo $p$ autant que possible.
 `,
   solution:String.raw`
 On peut réécrire
 $$H_p = \frac{\frac{p!}1 + \cdots + \frac{p!}{p}}{p\cdot (p-1)!}$$
-Comme le numérateur n'est pas divisible par $p$, un diviseur commun du dénominateur et du dénominateur est strictement inférieur à $p$ et on peut donc considérer
+Comme le numérateur n'est pas divisible par $p$, un diviseur commun du numérateur et du dénominateur est strictement inférieur à $p$ et on peut donc considérer
 $$r = \frac{p!}1 + \cdots + \frac{p!}{p}, \qquad s = (p-1)!$$
 (peut-être qu'on n'a pas réduit entièrement $r$ et $s$ en les posant comme tels, mais au moins on n'a pas introduit de facteurs $p$ qui fausseraient le résultat).$\\$
 On a 
 $$r - s = p\left(\frac{(p-1)!}{1} + \cdots + \frac{(p-1)!}{p-1}\right)$$
-D'où le premier facteur $p$. De plus en regroupant deux-par-deux les termes extrémaux de la somme, on trouve que
+D'où le premier facteur $p$. De plus en regroupant deux par deux les termes extrémaux de la somme, on trouve que
 $$\frac{(p-1)!}1 + \cdots + \frac{(p-1)!}{p-1} = \sum_{k=1}^{(p-1)/2}\frac{(p-1)!}{k(p-k)}(k + (p-k)) = p\sum_{k=1}^{(p-1)/2}\frac{(p-1)!}{k(p-k)}$$
 D'où le deuxième facteur $p$. Enfin, comme $x\mapsto x^{-1}$ est une bijection de $(\Z/p\Z)^\times$,
 $$\sum_{k=1}^{(p-1)/2}\frac{(p-1)!}{k(p-k)} \equiv \sum_{k=1}^{(p-1)/2}(p-1)!(k(p-k))^{-1} \equiv \sum_{k=1}^{(p-1)/2}(p-1)!k(p-k) \pmod p$$
@@ -2435,9 +2413,9 @@ Donc $181$ est un facteur premier impair de $a_{2015}$.
 **2.** On raisonne sur $F_n=2^{2^n}+1$ pour trouver une condition sur $p$ dans le cas général.
 
 Si $p$ est un facteur premier de $F_n = 2^{2^n}+1$, alors $2^{2^n}\equiv -1\pmod p$ ce qui montre que l'ordre de $2$ dans $(\Z/p\Z)^\times$ est $2^{n+1}$.
-$\\ \emph{En effet}, \ 2^{2^{n+1}}\equiv1\pmod p$, donc l'ordre de $2$ est un diviseur de $2^{n+1}$ c'est à dire un $2^k$ et $2^{2^k} \neq 1 \pmod p$ pour $k \lt 2^{n+1}$ car on aurait $2^{2^n}\equiv 1 \pmod p$.
+$\\ \emph{En effet}, \ 2^{2^{n+1}}\equiv1\pmod p$, donc l'ordre de $2$ est un diviseur de $2^{n+1}$ c'est-à-dire un $2^k$ et $2^{2^k} \neq 1 \pmod p$ pour $k \lt 2^{n+1}$ car on aurait $2^{2^n}\equiv 1 \pmod p$.
 
-Comme l'ordre d'un élément divise le cardinal du groupe, $2^{n+1}$ divise $p-1$, c'est à dire 
+Comme l'ordre d'un élément divise le cardinal du groupe, $2^{n+1}$ divise $p-1$, c'est-à-dire
 $$p = k2^{n+1} + 1\quad \text{pour un } k\in \N$$
 Pour $n=5$, un diviseur premier de $F_5$ est de la forme $p=64k +1$.
 On essaye $p = 65, 129, 193, 257, 321, 385, 449, 513, 577, 641$ (en évitant $65, 129, 321, 385, 513$ qui ne sont pas premiers) pour finalement trouver que $641$ divise $F_5$.
@@ -2446,10 +2424,10 @@ $\underline{Bonus:}$ On peut faire mieux comme critère de divisibilité si on s
 $$\text{Si } 8 \mid p-1, \quad\text{ alors } 2 \text{ est un carré modulo }p$$ 
 Supposons $n\geq 2$, de sorte que $2^{n+1}\geq 8$. Comme $p=k2^{n+1}+1$, alors $8 \mid p-1$ et donc $2$ est un carré modulo $p$, donc $2^{\frac{p-1}{2}}\equiv 1 \pmod p$ par le petit théorème de Fermat donc l'ordre de $2$, qui est $2^{n+1}$, divise $\frac{p-1}{2}$, donc $p$ est de la forme
 $$p = k2^{n+2} + 1$$
-Pour $n=5$, il faut tester $p=128k + 1$, soit en retirant les $p$ composés, il suffit de tester $p=257$ et $p=641$ seulement!
+Pour $n=5$, il faut tester $p=128k + 1$, soit en retirant les $p$ composés, il suffit de tester $p=257$ et $p=641$ seulement !
 `},
  en:{title:'Prime factors of large numbers',
-  blurb:'How can one exhibit prime factors of gigantic numbers?',
+  blurb:'How can we find prime factors of very large numbers?',
   statement:String.raw`
 The first exercise is Putnam 2015 A2. The second exercise concerns Fermat numbers.
 
@@ -2484,7 +2462,7 @@ $$p = k2^{n+1} + 1\quad \text{for some } k\in \N$$
 For $n=5$, a prime divisor of $F_5$ is of the form $p=64k +1$.
 We try $p = 65, 129, 193, 257, 321, 385, 449, 513, 577, 641$ (excluding $65, 129, 321, 385, 513$ which are not prime) and finally find that $641$ divides $F_5$.
 
-$\underline{Bonus:}$ One can do better as a divisibility criterion using the following fact:
+$\underline{Bonus:}$ We can narrow down the possible divisors using the following fact:
 $$\text{If } 8 \mid p-1, \quad\text{ then } 2 \text{ is a quadratic residue modulo }p$$ 
 Assume $n\geq 2$, so that $2^{n+1}\geq 8$. Since $p=k2^{n+1}+1$, then $8 \mid p-1$ and hence $2$ is a square modulo $p$, so $2^{\frac{p-1}{2}}\equiv 1 \pmod p$ by Fermat's little theorem. Thus the order of $2$, which is $2^{n+1}$, divides $\frac{p-1}{2}$, so $p$ is of the form
 $$p = k2^{n+2} + 1$$

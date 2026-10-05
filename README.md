@@ -21,7 +21,23 @@ python3 -m http.server 8000
 
 Puis ouvrir `http://localhost:8000`. Sur le site publié, la copie de l’adresse utilise l’API presse-papiers du navigateur et nécessite HTTPS ; un refus est signalé sans bloquer la page.
 
+
 ---
+
+# Rédiger avec l’atelier
+
+Ouvrir `http://localhost:8000/editor.html` après avoir lancé le serveur local ci-dessus. L’atelier est une page séparée du site public, sans serveur supplémentaire ni compte à créer.
+
+1. Choisir **Articles**, **Projets** ou **Problèmes**, puis sélectionner un contenu existant ou cliquer sur **+ Nouveau**.
+2. Remplir les informations communes (date, catégorie, technologies, difficulté…) et rédiger les versions **Français** et **English** dans les onglets correspondants. Un champ anglais vide reprend le français sur le site.
+3. Utiliser les boutons de mise en forme pour insérer titres, listes, code, images et formules. L’aperçu affiche le contenu avec le véritable rendu du site ; une largeur mobile est disponible.
+4. Cliquer sur **Enregistrer le contenu**. Dans un navigateur qui permet l’enregistrement direct, sélectionner le `content.js` du projet. Sinon, remplacer ce fichier par le `content.js` téléchargé. Recharger ensuite le site.
+
+Les brouillons sont sauvegardés automatiquement dans ce navigateur. **Sauvegarder les brouillons** télécharge une copie JSON ; **Importer des brouillons** permet de la récupérer, y compris dans un autre navigateur. Si le fichier du site a changé depuis la dernière rédaction, l’atelier propose de récupérer le brouillon précédent ou de garder le contenu actuel.
+
+Les boutons **Dupliquer** et **Supprimer** agissent sur le brouillon. Le site ne change qu’au moment où son fichier `content.js` est remplacé. L’export conserve également le profil, les catégories, les tags et les champs qui ne sont pas édités dans le formulaire. Il génère un fichier JavaScript valide à partir des données ; les commentaires du fichier d’origine ne sont pas reproduits.
+
+Les fichiers `editor.html`, `editor.css` et `editor.js` doivent rester à côté des quatre fichiers du site. L’atelier n’est pas lié dans la navigation publique.
 
 # Écrire un nouvel article
 

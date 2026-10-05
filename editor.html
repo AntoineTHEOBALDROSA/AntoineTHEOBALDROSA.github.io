@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Atelier — Antoine THEOBALD--ROSA</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="editor.css">
+  <script defer src="content.js"></script>
+  <script defer src="editor.js"></script>
+</head>
+<body class="editor-page">
+  <header class="editor-header">
+    <a class="editor-brand" href="index.html">AT<span aria-hidden="true"> / </span><span>Atelier</span></a>
+    <p class="editor-status" id="save-status" role="status" aria-live="polite">Chargement du contenu…</p>
+    <div class="editor-actions">
+      <button class="editor-button" id="backup" type="button">Sauvegarder les brouillons</button>
+      <button class="editor-button editor-button--primary" id="export" type="button">Enregistrer le contenu</button>
+    </div>
+  </header>
+  <div class="draft-notice" id="draft-notice" hidden>
+    <p>Un brouillon d’une ancienne version du site est disponible. Le contenu actuel a été chargé.</p>
+    <button class="editor-button" id="restore-draft" type="button">Récupérer ce brouillon</button>
+    <button class="editor-button" id="discard-draft" type="button">Garder le contenu actuel</button>
+  </div>
+  <main class="editor-layout">
+    <aside class="editor-sidebar" aria-label="Contenu à modifier">
+      <div class="sidebar-heading"><h1>Ton carnet</h1><button class="editor-button editor-button--primary" id="new-item" type="button">+ Nouveau</button></div>
+      <label class="editor-search">Rechercher<input id="item-search" type="search" placeholder="Un titre, un sujet…"></label>
+      <nav class="kind-tabs" aria-label="Type de contenu">
+        <button type="button" data-kind="articles" aria-pressed="true">Articles</button>
+        <button type="button" data-kind="projects" aria-pressed="false">Projets</button>
+        <button type="button" data-kind="problems" aria-pressed="false">Problèmes</button>
+      </nav>
+      <div id="item-list" class="item-list"></div>
+      <div class="sidebar-foot">
+        <p>Les brouillons restent dans ce navigateur. Enregistre le contenu pour mettre à jour le site.</p>
+        <button class="editor-button" id="import" type="button">Importer des brouillons</button>
+        <input type="file" id="import-file" accept=".json,application/json" hidden>
+        <a href="index.html" target="_blank" rel="noopener">Ouvrir le site ↗</a>
+      </div>
+    </aside>
+    <section class="editor-compose" aria-label="Rédaction">
+      <header class="compose-heading"><div><p class="eyebrow" id="item-kind">ARTICLE</p><h2 id="item-heading">Choisir un contenu</h2></div><button class="editor-button" id="duplicate" type="button">Dupliquer</button></header>
+      <div id="validation" class="validation" role="status" aria-live="polite" hidden></div>
+      <form id="editor-form" novalidate></form>
+      <div class="editor-empty" id="empty-state" hidden><p>Une page blanche, une idée.</p><button class="editor-button editor-button--primary" id="empty-new" type="button">Créer un contenu</button></div>
+      <footer class="compose-foot"><p>Markdown, LaTeX et HTML sont acceptés. L’aperçu reprend le rendu du site.</p><button class="editor-button editor-button--danger" id="delete-item" type="button">Supprimer ce contenu</button></footer>
+    </section>
+    <section class="editor-preview" aria-label="Aperçu du site">
+      <header><div><p class="eyebrow">APERÇU</p><span id="preview-status" role="status">Chargement…</span></div><label>Largeur<select id="preview-size"><option value="auto">Disponible</option><option value="390">Mobile</option></select></label></header>
+      <div class="preview-scroll"><iframe id="preview" src="index.html" title="Aperçu du contenu en cours de rédaction"></iframe></div>
+    </section>
+  </main>
+  <dialog id="new-dialog"><form method="dialog"><p class="eyebrow">UNE NOUVELLE PAGE</p><h2>Que veux-tu écrire ?</h2><label>Type<select name="kind"><option value="articles">Un article</option><option value="projects">Un projet</option><option value="problems">Un problème</option></select></label><div class="dialog-actions"><button class="editor-button" value="cancel">Annuler</button><button class="editor-button editor-button--primary" value="create">Créer</button></div></form></dialog>
+  <dialog id="delete-dialog"><form method="dialog"><h2>Supprimer ce contenu ?</h2><p>Il sera retiré du brouillon. Le fichier du site ne change qu’au prochain enregistrement.</p><div class="dialog-actions"><button class="editor-button" value="cancel">Annuler</button><button class="editor-button editor-button--danger" value="delete">Supprimer</button></div></form></dialog>
+  <dialog id="image-dialog"><form method="dialog"><h2>Ajouter une image</h2><label>Image<input name="image-path" placeholder="images/mon-image.png" required></label><label>Légende<input name="image-caption" placeholder="Ce que montre l’image"></label><p>Place ton image dans le dossier « images » du projet.</p><div class="dialog-actions"><button class="editor-button" value="cancel" formnovalidate>Annuler</button><button class="editor-button editor-button--primary" value="insert">Insérer</button></div></form></dialog>
+  <noscript><p>L’atelier a besoin de JavaScript pour fonctionner.</p></noscript>
+</body>
+</html>

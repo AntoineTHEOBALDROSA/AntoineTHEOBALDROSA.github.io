@@ -59,23 +59,23 @@ en:{
   home:{recent:'Recently added',kinds:{article:'Article',problem:'Problem',project:'Project'},
     edu:'Education',skills:'Skills',elsewhere:'Elsewhere',
     doors: [
-      "The projects I have worked on, whether for coursework, because the tools did not exist yet, or simply out of curiosity. Because the best way to learn is by doing!",
-      "Articles I write about what I find fascinating. They are organized by field: mathematics, computer science, finance, and physics.",
-      "A collection of the finest problems I have come across. Come challenge yourself with exercises that are not always easy!"
+      "Projects I built for classes, for my own use, or just out of curiosity. I learn by building things.",
+      "Articles about topics I find interesting, grouped into mathematics, computer science, finance and physics.",
+      "Some of my favourite problems. Give them a try: a few are quite challenging!"
     ]},
-  projects:{h1:'Projects',lead:'Here you will find a list of the projects I have worked on. These projects were sometimes carried out for coursework, but more often they were undertaken to address needs I had. For most projects, you will find the motivation behind the project, the features of the final product, the challenges encountered, and what I learned during its development.<br><br>As most projects are freely available on my GitHub, feel free to install them and play around with them!',
+  projects:{h1:'Projects',lead:'These are projects I built for classes or to solve problems of my own. I explain what I wanted to do, how the project works, what went wrong and what I learned.<br><br>Most are on GitHub. Feel free to download them and try them out.',
     sheet:'Tech sheet',links:'Links',stack:'Stack',prev:'Previous project',next:'Next project'},
   articles:{h1:'Articles',lead:n=>'“Study hard what interests you the most in the most undisciplined, irreverent and original manner possible.” Feynman<br><br>There are currently '+n+' articles: happy reading!',
     allCats:'All categories',prev:'Previous article',next:'Next article'},
-  problems:{h1:'Problems',lead:'Here you will find a collection of problems and exercises, among the most elegant and surprising I have encountered during my studies and personal reading.<br><br>Each comes with a hint, followed by a detailed solution. But take the time to search for a solution, or at least a starting point, so that the problem becomes useful to you, so that you can appreciate its elegance at the very least. Most importantly, take pleasure in thinking through these beautiful problems… have fun!',
+  problems:{h1:'Problems',lead:'These are problems I enjoyed during my studies or found in my own reading.<br><br>Each has a hint and a full solution. Try working on it before opening either: even finding a starting point makes the solution more rewarding. Above all, have fun!',
     domain:'Field',theme:'Topic',search:'Search a word, a topic, an identifier…',clear:'Clear search',
     results:(n,t)=>n+' of '+t+' problem'+(t>1?'s':''),none:'no result',reset:'Reset',
     empty:'No problem matches. Filters combine: a problem must carry <em>all</em> selected tags.',
     showAll:'Show all',hint:'Hint',solution:'Full solution',written:'written on',
     difficulty:n=>'Difficulty '+n+' out of 3',all:'All problems',prev:'Previous',next:'Next'},
   contact:{h1:'Contact',
-    lead:'I am currently seeking a 3-month internship in Machine Learning and Quantitative Finance, between June 2027 and September 2027.',
-    p:['Please feel free to reach out if you have any questions.'],
+    lead:'I am looking for a three-month internship in machine learning and quantitative finance between June and September 2027.',
+    p:['Feel free to get in touch if you have any questions.'],
     copy:'Copy address',copied:'Copied',copyFail:'Copy failed',
     elsewhere:'Elsewhere',recent:'Recent projects',avail:'Availability',
     rows:[['Internship','From June 2027'],['Topics','Artificial Intelligence, Finance'],['Location','Anywhere']]},
@@ -347,10 +347,12 @@ function viewHome(){
   ];
   return '<div class="wrap view">' +
         '<section class="hero"><div class="hero__main">' +
+      '<div class="hero__identity"><div class="hero__name">' +
+      '<p class="eyebrow">' + loc(p.location) + '</p>' +
+      '<h1>' + p.first + ' <em>' + p.last + '</em></h1></div>' +
       (p.photo ? '<figure class="portrait"><img src="' + esc(p.photo) + '" alt="' +
         esc(p.first + ' ' + p.last) + '" width="248" height="248" decoding="async"></figure>' : '') +
-      '<p class="eyebrow">' + loc(p.location) + '</p>' +
-      '<h1>' + p.first + ' <em>' + p.last + '</em></h1>' +
+      '</div>' +
       '<p class="hero__title">' + inline(loc(p.title)) + '</p>' +
       '<div class="hero__bio prose">' + loc(p.bio).map(x => '<p>'+inline(x)+'</p>').join('') + '</div>' +
     '</div><aside class="rail">' +
