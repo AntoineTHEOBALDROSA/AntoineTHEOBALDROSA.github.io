@@ -1,6 +1,6 @@
-# Site personnel — Antoine C.
+# Site personnel — Antoine THEOBALD--ROSA
 
-Site statique, sans build, sans framework. Quatre fichiers, HTML/CSS/JS séparés, LaTeX rendu par KaTeX.
+Site statique, sans build, sans framework. Quatre fichiers HTML/CSS/JS séparés, formules rendues par KaTeX et figures TikZ rendues par TikZJax. Les images et le CV sont conservés dans `images/` et `pdf/`.
 
 ```
 index.html     coquille : <head>, barre de nav, pied de page, chargement des scripts
@@ -13,7 +13,13 @@ Les quatre fichiers doivent rester **dans le même dossier**.
 
 ## Lancer en local
 
-Ouvrir `index.html` suffit.
+Ouvrir `index.html` suffit pour parcourir le site. Une connexion Internet est nécessaire pour charger les bibliothèques et les polices externes. Pour vérifier les figures TikZ et le bouton de copie dans les conditions d’un site hébergé, privilégier un serveur local :
+
+```sh
+python3 -m http.server 8000
+```
+
+Puis ouvrir `http://localhost:8000`. Sur le site publié, la copie de l’adresse utilise l’API presse-papiers du navigateur et nécessite HTTPS ; un refus est signalé sans bloquer la page.
 
 ---
 
@@ -48,9 +54,9 @@ Same thing, in English.
 `}},
 ```
 
-Trois champs obligatoires : `slug`, `cat` (`math`, `cs` ou `physics`), `date` (ISO `AAAA-MM-JJ`). `read` est le temps de lecture en minutes.
+Trois champs obligatoires : `slug`, `cat` (`math`, `cs`, `finance` ou `physics`, ou une catégorie ajoutée à `cats`), `date` (ISO `AAAA-MM-JJ`). `read` est le temps de lecture en minutes.
 
-L'article apparaît automatiquement dans sa catégorie, dans le compteur du carnet, dans la navigation précédent/suivant, et sur la page d'accueil s'il est le plus récent. Rien d'autre à toucher.
+L'article apparaît automatiquement dans sa catégorie, dans le compteur des articles, dans la navigation précédent/suivant, et sur la page d'accueil s'il est le plus récent. Rien d'autre à toucher.
 
 ## Nouvelle catégorie
 
@@ -62,7 +68,7 @@ Ajouter une entrée au tableau `cats` de `content.js` :
  en:{name:'Chemistry', blurb:'Category tagline.'}},
 ```
 
-Puis utiliser `cat:'chemistry'` dans les articles. L'URL devient `#/carnet/chemistry/mon-slug`.
+Puis utiliser `cat:'chemistry'` dans les articles. L'URL devient `#/articles/chemistry/mon-slug`.
 
 ---
 
@@ -105,14 +111,13 @@ Les filtres de la page Problèmes se construisent automatiquement à partir des 
 
 # Écrire un nouveau projet
 
-Tableau `projects`. Même principe, avec deux champs supplémentaires pour la colonne de droite :
+Tableau `projects`. Les projets sont affichés dans l’ordre du tableau ; le premier est également mis en avant sur l’accueil avec son statut réel. Les champs `role`, `status`, `lead`, `tags` et `links` alimentent l’en-tête de la page de détail :
 
 ```js
 {slug:'mon-projet', thumb:'orbit', year:'2026', tags:['Rust','WASM'],
  fr:{title:'Titre du projet', role:'Projet personnel', status:'En cours',
   blurb:'Résumé pour la liste.',
   lead:'La phrase d’accroche de la page de détail.',
-  stack:[['Langage','Rust 1.86'],['Rendu','WebGPU']],
   links:[['Code source','https://github.com/...']],
   body:String.raw`
 ## Contexte
@@ -142,17 +147,52 @@ Markdown + LaTeX. Le moteur se trouve dans `md()` et `inline()`, fichier `app.js
 | `**gras**` `*italique*` | emphase |
 | `` \`code\` `` | code en ligne |
 | `[texte](url)` | lien (externe = nouvel onglet) |
-| `#/carnet/math/slug` en url | lien interne vers une autre page du site |
+| `#/articles/math/slug` en url | lien interne vers une autre page du site |
 | `$x^2$` | maths en ligne |
 | `$$ ... $$` | maths centrées |
 | `~~~` ... `~~~` | bloc de code |
 | `![Légende](fig:bars)` | figure générée + légende |
 
+## Figures TikZ
+
+Un bloc `~~~tikz` est compilé en SVG. Sa première ligne peut déclarer les bibliothèques TikZ avec `%libs`. Le texte placé après `tikz` devient la légende :
+
+````text
+~~~tikz Légende de la figure
+%libs arrows.meta
+\begin{tikzpicture}
+  \draw[-{Stealth}] (0,0) -- (2,0);
+\end{tikzpicture}
+~~~
+````
+
+## Composants visuels réutilisables
+
+Le HTML est accepté dans les textes longs. Utiliser les classes de `styles.css` plutôt que recopier des attributs `style` :
+
+- `theorem`, avec `theorem--purple`, `theorem--warning` ou `theorem--success` : encadrés ; `theorem-title` : titre.
+- `faq`, `faq-heading`, `faq-question` et `explanation` : questions et explications.
+- `steps-panel`, `steps-list`, `step` et `step-number` : étapes numérotées.
+- `table-scroll`, `data-table`, `table-heading`, `table-row` et `table-cell` : tableaux défilants ; `metric`, `metric--positive` et `metric--negative` : valeurs numériques.
+- `image-pair`, `image-pair__image` et `content-image` : illustrations. Les variantes `content-image--tiny`, `--small` et `--medium` règlent leur largeur.
+- `content-rule` : séparateur ; `content-list` : liste avec interligne lisible ; `content-note` : note.
+
+Par exemple :
+
+```html
+<div class="theorem">
+  <strong class="theorem-title">Propriété</strong><br>
+  Le texte, avec une formule $x^2$ si nécessaire.
+</div>
+```
+
+L’apparence d’un composant se modifie désormais une seule fois dans `styles.css`, pour les deux langues. Les pages de projet utilisent un espacement partagé : aucun bloc vide à marge négative n’est nécessaire.
+
 ## LaTeX
 
 C'est du vrai LaTeX, rendu par [KaTeX](https://katex.org) : `\frac`, `\sum`, `\int`, `\binom`, `\begin{pmatrix}`, `\mathbb{R}`, `\xrightarrow`, les environnements d'alignement, etc. La [liste des commandes supportées](https://katex.org/docs/support_table.html).
 
-Quatre macros sont déjà définies dans `app.js` (fonction `tex()`) : `\R`, `\N`, `\Z`, `\eps`. En ajouter est une ligne :
+Sept macros sont définies dans `app.js` (fonction `tex()`) : `\R`, `\N`, `\Z`, `\eps`, ainsi que `\par{...}`, `\abs{...}` et `\norm{...}` pour les parenthèses, la valeur absolue et la norme. En ajouter est une ligne :
 
 ```js
 macros:{'\\R':'\\mathbb{R}', '\\P':'\\mathbb{P}'}
@@ -180,7 +220,10 @@ Le bouton `FR | EN` en haut à droite bascule toute l'interface. Le choix est m�
 
 # Dépendances
 
-Deux, toutes deux chargées par CDN dans `index.html` :
+Les bibliothèques sont chargées par CDN dans `index.html` :
 
-- **KaTeX 0.16** pour les formules. Sans lui, les formules s'affichent en source LaTeX monospace au lieu de casser la page.
+- **KaTeX 0.16.11** pour les formules. Sans lui, les formules s'affichent en source LaTeX monospace au lieu de casser la page.
 - **Lucide** pour les quelques icônes. Sans lui, les libellés textuels restent lisibles.
+- **TikZJax 1.6.0** (`@rod2ik/tikzjax`) pour convertir les figures TikZ en SVG dans le navigateur.
+- **Highlight.js 11.9.0** pour colorer les blocs de code ; sans lui, le code reste lisible.
+- **Google Fonts** pour Newsreader et IBM Plex Mono, avec des polices de repli dans `styles.css`.

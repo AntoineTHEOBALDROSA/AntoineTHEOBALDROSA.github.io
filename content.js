@@ -28,7 +28,7 @@ window.SITE = {
 profile:{
   first:'Antoine', last:'THEOBALD--ROSA',
   email:'antoine.theobald-rosa@polytechnique.edu',
-    photo:'images/portrait.jpg',      // laisse '' tant que le fichier n'existe pas
+    photo:'images/portrait.jpg',      // chemin relatif au dossier du site
   location:{fr:'Paris · Mathématiques, Informatique & Finance',
     
             en:'Paris · Mathematics, Computer Science & Finance'},
@@ -37,8 +37,8 @@ profile:{
     en:'Student at École Polytechnique, Paris, France<br>Mathematics, Computer Science & Finance'},
   bio:{
     fr:[
-     'Bienvenue sur ma page personnelle.<br>Étudiant en école d’ingénieur, je suis particulièrement passionné de mathématiques, d’informatique et de finance. Mes centres d’intérêts scientifiques sont plus précisément l’algèbre et l’arithmétique, l’algorithmique et le trading haute-fréquence. De manière tout à fait personnel, je m’intéresse à la psychologie, aux actualités technologiques et, peut-être par nostalgie, je suis également fasciné par l’histoire des dinosaures.',
-     'Ce site rassemble trois choses : les [projets](#/projets) que je construis, des [articles](#/articles) où j’essaye de rendre clair des sujets peu traités mais tout à fait passionnant, ainsi qu’une collection de [problèmes](#/problemes) sur lesquels j’ai aimé me casser la tête.',
+     'Bienvenue sur ma page personnelle.<br>Étudiant en école d’ingénieur, je suis particulièrement passionné de mathématiques, d’informatique et de finance. Mes centres d’intérêt scientifiques sont plus précisément l’algèbre et l’arithmétique, l’algorithmique et le trading haute-fréquence. De manière tout à fait personnelle, je m’intéresse à la psychologie, aux actualités technologiques et, peut-être par nostalgie, je suis également fasciné par l’histoire des dinosaures.',
+     'Ce site rassemble trois choses : les [projets](#/projets) que je construis, des [articles](#/articles) où j’essaye de rendre clairs des sujets peu traités mais tout à fait passionnants, ainsi qu’une collection de [problèmes](#/problemes) sur lesquels j’ai aimé me casser la tête.',
      'Vous trouverez mon parcours et mon contact sur ce site. Je suis joignable à tout moment.'],
     en:[
      'Welcome to my personal page.<br>I am an engineering student with a strong passion for mathematics, computer science, and finance. My main scientific interests focus more specifically on algebra and number theory, algorithms, and high-frequency trading. On a more personal level, I am interested in psychology, technological news, and — perhaps out of nostalgia — I am also fascinated by the history of dinosaurs.',
@@ -61,7 +61,7 @@ profile:{
     fr:{t:'Lycée Fabert (Metz)',s:'Mathématiques, Physique, Informatique<br>Baccalauréat Mention Très Bien'},
     en:{t:'Lycée Fabert (Metz)',s:'Mathematics, Physics, Computer Science<br>French Baccalaureate with highest honors (Très Bien)'}}
       ],
-  skills:['Python', 'C', 'C++','OCaml','Java','SQL','NumPy / SciPy','LaTeX','Git / Github',
+  skills:['Python', 'C', 'C++','OCaml','Java','SQL','NumPy / SciPy','LaTeX','Git / GitHub',
           {fr:'Data Science',en:'Data Science'}, {fr:'IA',en:'AI'}, {fr:'Algorithmique',en:'Algorithms'},{fr:'Informatique Graphique',en:'Computer Graphics'}],
   socials:[
     {label:'GitHub',href:'https://github.com/AntoineTHEOBALDROSA',glyph:'↗'},
@@ -93,8 +93,8 @@ domains:['math','cs','physics'],
    ========================================================= */
 cats:[
  {id:'math',
-  fr:{name:'Mathématiques',blurb:'"Any sufficiently well explained mathematics is indistinguishable from being obivous"'},
-  en:{name:'Mathematics',blurb:'"Any sufficiently well explained mathematics is indistinguishable from being obivous"'}},
+  fr:{name:'Mathématiques',blurb:'"Any sufficiently well explained mathematics is indistinguishable from being obvious"'},
+  en:{name:'Mathematics',blurb:'"Any sufficiently well explained mathematics is indistinguishable from being obvious"'}},
  {id:'cs',
   fr:{name:'Informatique',blurb:String.raw``},
   en:{name:'Computer science',blurb: String.raw``}},
@@ -115,11 +115,10 @@ projects:[
  fr:{title:String.raw`Moteur d'arbitrage statistique & Pair Trading`,role:'Projet personnel',status:'Terminé',
   blurb:String.raw`Comment tester de manière honnête (sans tricher) si une stratégie d'investissement aurait fait gagner de l'argent ? Application au *Pair Trading*.`,
   lead:String.raw`Comment tester de manière honnête (sans tricher) si une stratégie d'investissement aurait fait gagner de l'argent ? <br><br>
-  Supposons qu'on ait une idée de stratégie, par exemple : « dès qu'une action baisse trois jours de suite, je l'achète et je la revends le lendemain ». On pourrait prendre l'historique des prix et regarder ce qui se serait passé : c'est ce qu'on appelle un **backtest**. Mais en pratique, un backtest peut prédire une straégie comme gagnante alors qu'elle est perdant. Pourquoi? Parce qu'en réalité il y a des frais, un décalage de prix le temps d'envoyer l'offre, et d'autres facteurs encore.<br><br>
+  Supposons qu'on ait une idée de stratégie, par exemple : « dès qu'une action baisse trois jours de suite, je l'achète et je la revends le lendemain ». On pourrait prendre l'historique des prix et regarder ce qui se serait passé : c'est ce qu'on appelle un **backtest**. Mais en pratique, un backtest peut présenter une stratégie comme gagnante alors qu'elle est perdante. Pourquoi? Parce qu'en réalité il y a des frais, un décalage de prix le temps d'envoyer l'offre, et d'autres facteurs encore.<br><br>
   On va développer un moteur qui calcule si une stratégie gagne *vraiment* de l'argent, et on l'essayera sur la stratégie de **Pair Trading**.`,
   links:[['Code source','https://github.com/AntoineTHEOBALDROSA/Statistical-Arbitrage-Engine']],
   body:String.raw` 
-  <div style="margin-top: -5.5rem;"></div>
 
 ## Plan du projet
 
@@ -129,7 +128,7 @@ projects:[
 
 ## 1. Le Pair Trading
 
-Pour essayer le moteur de backtest, il nous faut déjà une stratégie d'investissement. J'ai choisis le **Pair Trading** (arbitrage de pairs).
+Pour essayer le moteur de backtest, il nous faut déjà une stratégie d'investissement. J'ai choisi le **Pair Trading** (arbitrage de pairs).
 
 ### Principe général
 
@@ -139,32 +138,32 @@ Cependant, des chocs temporaires de liquidité peuvent survenir : par exemple, s
 
 L'hypothèse centrale du Pairs Trading est le retour à la moyenne : l'écart de valorisation est transitoire et finira par se refermer.
 
-<div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-left: 5px solid #0284c7; padding: 18px 22px; margin: 22px 0; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); font-family: inherit;">
-  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
-    <strong style="color: #0369a1; font-size: 1.05rem;">Exécution : Dès qu'un écart statistiquement significatif apparaît</strong>
+<div class="steps-panel">
+  <div class="steps-heading">
+    <strong class="steps-title">Exécution : Dès qu'un écart statistiquement significatif apparaît</strong>
   </div>
 
-  <div style="display: flex; flex-direction: column; gap: 1px;">
+  <div class="steps-list">
     <!-- Étape 1 -->
-    <div style="display: flex; align-items: flex-start; gap: 8px;">
-      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">1</span>
-      <div style="color: #334155; line-height: 1.55;">
+    <div class="step">
+      <span class="step-number">1</span>
+      <div class="explanation">
         <strong> Vente à découvert (Short) :</strong> On emprunte des actions de l'entreprise surévaluée ($A$) pour les vendre immédiatement au prix fort.
       </div>
     </div>
 
     <!-- Étape 2 -->
-    <div style="display: flex; align-items: flex-start; gap: 12px;">
-      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">2</span>
-      <div style="color: #334155; line-height: 1.55;">
+    <div class="step step--wide">
+      <span class="step-number">2</span>
+      <div class="explanation">
         Avec les liquidités générées, on achète simultanément des actions de l'entreprise sous-évaluée ($B$).
       </div>
     </div>
 
     <!-- Étape 3 -->
-    <div style="display: flex; align-items: flex-start; gap: 12px;">
-      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">3</span>
-      <div style="color: #334155; line-height: 1.55;">
+    <div class="step step--wide">
+      <span class="step-number">3</span>
+      <div class="explanation">
         Lorsque l'écart revient à sa moyenne, on revend l'action $B$, on rachète l'action $A$ pour la restituer au prêteur, et on empoche la différence.
       </div>
     </div>
@@ -173,7 +172,7 @@ L'hypothèse centrale du Pairs Trading est le retour à la moyenne : l'écart de
 
 L'intérêt majeur de cette approche est d'être *neutre au marché* (*market-neutral*) : la performance ne dépend pas de la hausse ou de la baisse globale du pétrole, mais uniquement de la convergence du spread.
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ### Implémentation
 
@@ -196,27 +195,27 @@ prices = data["Close"].dropna()
 **Remarque :** la méthode \`.dropna()\` permet d'éliminer les jours fériés spécifiques à une seule place boursière (par exemple si la bourse d'Amsterdam est ouverte alors que celle de Paris est fermée).
 
 
-<div style="background-color: #f8fafc; border-left: 5px solid #2563eb; padding: 18px 20px; margin: 22px 0; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); font-family: inherit;">
-  <h3 style="margin-top: 0; margin-bottom: 14px; color: #1e40af; font-size: 1.15rem; display: flex; align-items: center; gap: 8px;">
+<div class="faq">
+  <h3 class="faq-heading">
     <span>Foire aux questions : les marchés financiers</span>
   </h3>
 
 
-  <p style="margin-bottom: 6px;"><strong>1. Qu'est-ce qu'Euronext ? Pourquoi TotalEnergies est-elle cotée à Paris et Shell à Amsterdam ?</strong></p>
-  <p style="margin-top: 0; color: #334155; line-height: 1.55;">
+  <p class="faq-question"><strong>1. Qu'est-ce qu'Euronext ? Pourquoi TotalEnergies est-elle cotée à Paris et Shell à Amsterdam ?</strong></p>
+  <p class="explanation explanation--flush">
     Une place boursière, c'est comme un grand marché couvert où des gens viennent acheter et vendre des parts d'entreprises. Euronext est l'entreprise privée qui gère les marchés de plusieurs villes européennes.<br>
     TotalEnergies est française, son marché historique principal est donc Paris (.PA) alors que Shell est d'origine anglo-néerlandaise, son marché historique est donc à Amsterdam (.AS). Une entreprise choisit où elle veut être cotée.<br>
-    Une entreprise n'a pas un prix mondial par magie. La côte d'une entreprise est le résultat de la dernière transaction conclue entre deux personnes. Mais si le prix de Total est différent à Paris et à New York, disons 49€ à Paris et 51€ à New York, des arbitragistes acheteraient des actions à Paris pour les revendere instantanément à New York, rééquilibrant le prix vers 50€. C'est ce qui fixe le prix des entreprises.
+    Une entreprise n'a pas un prix mondial par magie. La côte d'une entreprise est le résultat de la dernière transaction conclue entre deux personnes. Mais si le prix de Total est différent à Paris et à New York, disons 49€ à Paris et 51€ à New York, des arbitragistes acheteraient des actions à Paris pour les revendre instantanément à New York, rééquilibrant le prix vers 50€. C'est ce qui fixe le prix des entreprises.
   </p>
 
-  <p style="margin-bottom: 6px; margin-top: 14px;"><strong>2. Pourquoi les bourses traditionnelles ferment-elles la nuit à l'ère d'Internet ?</strong></p>
-  <p style="margin-top: 0; color: #334155; line-height: 1.55;">
+  <p class="faq-question faq-question--next"><strong>2. Pourquoi les bourses traditionnelles ferment-elles la nuit à l'ère d'Internet ?</strong></p>
+  <p class="explanation explanation--flush">
     La bourse traditionnelle ferme pour concentrer tout le monde au même endroit au même moment. Si le marché restait ouvert à 3h du matin, il n'y aurait presque personne et le moindre ordre d'achat ferait bondir ou chuter le cours de 10% n'importe comment par manque de participants.
   </p>
 
-  <p style="margin-bottom: 6px; margin-top: 14px;"><strong>3. À quoi correspondent les cours « ajustés » ?</strong></p>
-  <p style="margin-top: 0; margin-bottom: 0; color: #334155; line-height: 1.55;">
-    Supposons que vous achetiez une action d'entreprise à 100€. Le lendemain, l'entreprise verse 5€ à ses actionnaires. Mécaniquement, l'action ne vaut plus que 95€. Sur le cours de la bourse *brut*, il y a un saut de 100€ à 95€, ce qui pourrait être interprétée par des robots tarders comme le début d'une chute de l'entreprise. Mais en réalite, l'entreprise vaut toujours 100€. Le **cours ajusté** règle ce problème pour effacer cette fausse perte de 5€.<br>
+  <p class="faq-question faq-question--next"><strong>3. À quoi correspondent les cours « ajustés » ?</strong></p>
+  <p class="explanation explanation--flush explanation--last">
+    Supposons que vous achetiez une action d'entreprise à 100€. Le lendemain, l'entreprise verse 5€ à ses actionnaires. Mécaniquement, l'action ne vaut plus que 95€. Sur le cours de la bourse *brut*, il y a un saut de 100€ à 95€, ce qui pourrait être interprété par des robots traders comme le début d'une chute de l'entreprise. Mais en réalité, l'entreprise vaut toujours 100€. Le **cours ajusté** règle ce problème pour effacer cette fausse perte de 5€.<br>
      Idem si une entreprise subdivise ses actions : si une entreprise qui possède 10 actions à 1000€ décide de passer à 100 actions, elles ne vont valoir plus que 100€ chacune mais l'entreprise vaut toujours autant. 
   </p>
 </div>
@@ -243,7 +242,7 @@ plt.show()
 
 ![](images/arb-stat-eng-1.png)
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ## 2. Modélisation et calcul du spread
 
@@ -256,10 +255,10 @@ Si TotalEnergies vaut 60 € et Shell 40 €, un écart naïf serait de $60 - 40
 $$P_{\text{TTe}, t} = \alpha + \beta P_{\text{Shell}, t} + \varepsilon_t$$ 
 
 Où :
-<ul style="margin: 8px 0 14px 1.5rem; padding: 0; list-style-type: disc; line-height: 0.1;">
-  <li style="margin-bottom: 4px;">$\beta$ désigne le *hedge ratio* : pour chaque action TotalEnergies achetée, il faut vendre $\beta$ actions Shell pour rester neutre au risque</li>
-  <li style="margin-bottom: 4px;">$\alpha$ représente une constante d'ajustement</li>
-  <li style="margin-bottom: 4px;">$\varepsilon_t$ notre *spread* au temps $t$</li>
+<ul class="content-list">
+  <li class="content-list__item">$\beta$ désigne le *hedge ratio* : pour chaque action TotalEnergies achetée, il faut vendre $\beta$ actions Shell pour rester neutre au risque</li>
+  <li class="content-list__item">$\alpha$ représente une constante d'ajustement</li>
+  <li class="content-list__item">$\varepsilon_t$ notre *spread* au temps $t$</li>
 </ul>
 
 ### Notion de cointégration
@@ -275,7 +274,7 @@ $$\varepsilon_t = P_{\text{TTE}, t} - (\alpha + \beta P_{\text{SHEL}, t}) \qquad
 
 On va trouver $\alpha, \beta$ qui minimisent $\sum \varepsilon_t^2$. En posant $S(\alpha, \beta) = \sum_t \varepsilon_t^2$ ainsi que $y_t = P_{\text{TTE}, t}$ et $x_t = P_{\text{SHEL}, t}$, on veut minimiser
 $$S(\alpha, \beta) = \sum_{t=1}^N (y_t - (\alpha + \beta x_t))^2$$
-Comme $S$ est une fonction quadraitque, son minimum se trouve là où ses deux dérivées partielles s'annulent 
+Comme $S$ est une fonction quadratique, son minimum se trouve là où ses deux dérivées partielles s'annulent
 $$\frac{\partial S}{\partial \alpha} = 0 \quad \text{et} \quad \frac{\partial S}{\partial \beta} = 0$$
 Or
 $$\frac{\partial S}{\partial \alpha} = \sum_{t=1}^N -2\big(y_t - \alpha - \beta x_t\big) = 0$$
@@ -287,18 +286,18 @@ et on remplace $\alpha$ par son expression
 $$\sum_{t=1}^N x_t \Big( (y_t - \bar{y}) - \beta (x_t - \bar{x}) \Big) = 0$$
 Or la moyenne de $y_t-\bar y$ est nulle (idem pour $x_t-\bar x$), donc 
 $$\bar{x} \sum_{t=1}^N (y_t - \bar{y}) = 0 \quad \text{ et } \quad  \bar{x} \sum_{t=1}^N (x_t - \bar{x})$$
-ce qui se réécrt
+ce qui se réécrit
 $$\sum_{t=1}^N (x_t - \bar{x})(y_t - \bar{y}) - \beta \sum_{t=1}^N (x_t - \bar{x})^2 = 0 \quad \Longleftrightarrow \quad \boxed{\beta = \frac{\operatorname{Cov}(x, y)}{\operatorname{Var}(x)}}$$
 
 ### Détecter les anomalies
 
 On vient de voir comment déterminer $\alpha, \beta$, c'est-à-dire comment calculer le spread $\varepsilon_t$. À partir de là, on peut calculer le **Z-score**
 $$Z_t = \frac{\varepsilon_t - \mu_{\varepsilon_t}}{\sigma_{\varepsilon_t}}$$
-et si $\varepsilon_t$ suit un régime stationnaire, $Z_t$ suit une loi normale $\mathcal{N}(0, 1)$. Conrètement, $Z_t$ est environ $95,4$% du temps entre $-2$ et $2$. <br>
+et si $\varepsilon_t$ suit un régime stationnaire, $Z_t$ suit une loi normale $\mathcal{N}(0, 1)$. Concrètement, $Z_t$ est environ $95,4$% du temps entre $-2$ et $2$. <br>
 Dès lors, si $\abs{Z_t} \gt 2$, c'est qu'il y a une anomalie, et que c'est le moment d'utiliser notre stratégie. Plus précisément :
-<ul style="margin: 8px 0 14px 1.5rem; padding: 0; list-style-type: disc; line-height: 0.1;">
-  <li style="margin-bottom: 4px;">Si $Z_t \gt 2$, le spread est très grand, et Total coûte « trop cher ». On short Total. </li>
-  <li style="margin-bottom: 4px;">Si $Z_t \lt 2$, c'est l'inverse : on short Shell.</li>
+<ul class="content-list">
+  <li class="content-list__item">Si $Z_t \gt 2$, le spread est très grand, et Total coûte « trop cher ». On short Total. </li>
+  <li class="content-list__item">Si $Z_t \lt 2$, c'est l'inverse : on short Shell.</li>
 </ul>
 
 ### Implémentation
@@ -432,50 +431,50 @@ On peut afficher les résultats de notre stratégie :
 
 On voit clairement que la stratégie finit dans le négatif, mais analysons la plus en détail.
 
-<div style="overflow-x: auto; margin: 24px 0;">
-  <table style="width: 100%; border-collapse: collapse; font-family: inherit; font-size: 0.95rem; text-align: left; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+<div class="table-scroll">
+  <table class="data-table">
     <thead>
-      <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #1e293b;">
-        <th style="padding: 12px 16px; font-weight: 700;">Métrique</th>
-        <th style="padding: 12px 16px; font-weight: 700;">Description</th>
-        <th style="padding: 12px 16px; font-weight: 700; text-align: right;">Valeur</th>
+      <tr class="table-heading">
+        <th class="table-cell table-cell--heading">Métrique</th>
+        <th class="table-cell table-cell--heading">Description</th>
+        <th class="table-cell table-cell--right">Valeur</th>
       </tr>
     </thead>
-    <tbody style="color: #334155;">
-      <tr style="border-bottom: 1px solid #e2e8f0;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Période active</td>
-        <td style="padding: 12px 16px;">Durée effective testée (base 252 j/an). <br>Les premiers jours sont exclus comme on en a besoin pour calculer $\beta$.</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">4.6 ans</td>
+    <tbody class="text-muted">
+      <tr class="table-row">
+        <td class="table-cell table-cell--label">Période active</td>
+        <td class="table-cell">Durée effective testée (base 252 j/an). <br>Les premiers jours sont exclus comme on en a besoin pour calculer $\beta$.</td>
+        <td class="metric">4.6 ans</td>
       </tr>
-      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Rendement total net</td>
-        <td style="padding: 12px 16px;">Gain cumulé une fois les frais de transaction retirés (ici, 5 bps = 0.05%). <br>$R = \frac{V_T}{V_0} - 1$ avec $V_T, V_0$ les valeurs finales et initiales du portefeuille.</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">-35.68%</td>
+      <tr class="table-row table-row--shaded">
+        <td class="table-cell table-cell--label">Rendement total net</td>
+        <td class="table-cell">Gain cumulé une fois les frais de transaction retirés (ici, 5 bps = 0.05%). <br>$R = \frac{V_T}{V_0} - 1$ avec $V_T, V_0$ les valeurs finales et initiales du portefeuille.</td>
+        <td class="metric">-35.68%</td>
       </tr>
-      <tr style="border-bottom: 1px solid #e2e8f0;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Rendement annualisé</td>
-        <td style="padding: 12px 16px;">Taux composé annuel équivalent (*Compound Annual Growth Rate*).<br> CAGR = $(1+R)^{1/n_{\text{years}}} - 1$</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">-9.14%</td>
+      <tr class="table-row">
+        <td class="table-cell table-cell--label">Rendement annualisé</td>
+        <td class="table-cell">Taux composé annuel équivalent (*Compound Annual Growth Rate*).<br> CAGR = $(1+R)^{1/n_{\text{years}}} - 1$</td>
+        <td class="metric">-9.14%</td>
       </tr>
-      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Volatilité annualisée $\sigma_{\text{anuelle}}</td>
-        <td style="padding: 12px 16px;">Mesure l'instabilité et la dispersion des rendements de la stratégie.</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">8.56%</td>
+      <tr class="table-row table-row--shaded">
+        <td class="table-cell table-cell--label">Volatilité annualisée $\sigma_{\text{anuelle}}</td>
+        <td class="table-cell">Mesure l'instabilité et la dispersion des rendements de la stratégie.</td>
+        <td class="metric">8.56%</td>
       </tr>
-      <tr style="border-bottom: 1px solid #e2e8f0;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Sharpe Ratio</td>
-        <td style="padding: 12px 16px;">BLABLA <br> $S=\frac{\mathbb E(R)-R_f}{\sigma_{\text{anuelle}}}$ avec $R_f$ le rendement d'un portefeuille sans risque.<br> $S<0$ : l'investissement perd de l'argent, $0\lt S \lt 1$ : l'investissement est moins rentable qu'un placement sans risque et $S>1$ l'investissement vaut les risques pris</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">-1.10</td>
+      <tr class="table-row">
+        <td class="table-cell table-cell--label">Sharpe Ratio</td>
+        <td class="table-cell">BLABLA <br> $S=\frac{\mathbb E(R)-R_f}{\sigma_{\text{anuelle}}}$ avec $R_f$ le rendement d'un portefeuille sans risque.<br> $S<0$ : l'investissement perd de l'argent, $0\lt S \lt 1$ : l'investissement est moins rentable qu'un placement sans risque et $S>1$ l'investissement vaut les risques pris</td>
+        <td class="metric">-1.10</td>
       </tr>
-      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Maximum Drawdown (MDD)</td>
-        <td style="padding: 12px 16px;">Perte maximale qu'un investisseur aurait pu subir s'il était entré puis sorti au pire moment possible (rentré au sommet historique pour sortir au creux le plus bas).<br>$\text{MDD} = \min_{t} \left( \frac{V_t - \max_{s \le t} V_s}{\max_{s \le t} V_s} \right)$</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">-39.87%</td>
+      <tr class="table-row table-row--shaded">
+        <td class="table-cell table-cell--label">Maximum Drawdown (MDD)</td>
+        <td class="table-cell">Perte maximale qu'un investisseur aurait pu subir s'il était entré puis sorti au pire moment possible (rentré au sommet historique pour sortir au creux le plus bas).<br>$\text{MDD} = \min_{t} \left( \frac{V_t - \max_{s \le t} V_s}{\max_{s \le t} V_s} \right)$</td>
+        <td class="metric">-39.87%</td>
       </tr>
       <tr>
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Taux de jours gagnants</td>
-        <td style="padding: 12px 16px;">Pourcentage de jours où le rendement a été strictement positif, calculé uniquement sur les jours où une position est ouverte.</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">45.59%</td>
+        <td class="table-cell table-cell--label">Taux de jours gagnants</td>
+        <td class="table-cell">Pourcentage de jours où le rendement a été strictement positif, calculé uniquement sur les jours où une position est ouverte.</td>
+        <td class="metric">45.59%</td>
       </tr>
     </tbody>
   </table>
@@ -485,28 +484,28 @@ On remarque qu'on obtient de très mauvais résultats. Une raison à cela est qu
 
 On peut refaire la même étude avec par exemple Mastercard et Visa, qui suivent exactement le même modèle économique. On a alors de bien meilleurs résultats :
 
-<div style="overflow-x: auto; margin: 24px 0;">
-  <table style="width: 100%; border-collapse: collapse; font-family: inherit; font-size: 0.95rem; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+<div class="table-scroll">
+  <table class="data-table data-table--metrics">
     <thead>
-      <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #1e293b;">
-        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Période active</th>
-        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Rendement net</th>
-        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Rendement ann. (CAGR)</th>
-        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Volatilité ann.</th>
-        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Sharpe Ratio</th>
-        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Max Drawdown</th>
-        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Taux jours gagnants</th>
+      <tr class="table-heading">
+        <th class="table-cell table-cell--center">Période active</th>
+        <th class="table-cell table-cell--center">Rendement net</th>
+        <th class="table-cell table-cell--center">Rendement ann. (CAGR)</th>
+        <th class="table-cell table-cell--center">Volatilité ann.</th>
+        <th class="table-cell table-cell--center">Sharpe Ratio</th>
+        <th class="table-cell table-cell--center">Max Drawdown</th>
+        <th class="table-cell table-cell--center">Taux jours gagnants</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">4,3 ans</td>
-        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #16a34a; white-space: nowrap;">+6,96 %</td>
-        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #16a34a; white-space: nowrap;">+1,59 %</td>
-        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">5,19 %</td>
-        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">0,34</td>
-        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #dc2626; white-space: nowrap;">-6,31 %</td>
-        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">52,47 %</td>
+        <td class="metric metric--center">4,3 ans</td>
+        <td class="metric metric--center metric--positive">+6,96 %</td>
+        <td class="metric metric--center metric--positive">+1,59 %</td>
+        <td class="metric metric--center">5,19 %</td>
+        <td class="metric metric--center">0,34</td>
+        <td class="metric metric--center metric--negative">-6,31 %</td>
+        <td class="metric metric--center">52,47 %</td>
       </tr>
     </tbody>
   </table>
@@ -524,8 +523,6 @@ en: {
   In this project, we develop an engine that evaluates whether a strategy *truly* generates profit, and apply it to a **Pairs Trading** strategy.`,
   links: [['Source Code', 'https://github.com/AntoineTHEOBALDROSA/Statistical-Arbitrage-Engine']],
   body: String.raw`
-
-  <div style="margin-top: -5.5rem;"></div>
 
 ## Project Outline
 
@@ -545,32 +542,32 @@ However, temporary liquidity shocks can disrupt this equilibrium: for example, i
 
 The foundational premise of Pairs Trading is mean reversion: this divergence in relative valuation is transitory and will eventually close.
 
-<div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-left: 5px solid #0284c7; padding: 18px 22px; margin: 22px 0; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); font-family: inherit;">
-  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
-    <strong style="color: #0369a1; font-size: 1.05rem;">Execution: Once a statistically significant spread emerges</strong>
+<div class="steps-panel">
+  <div class="steps-heading">
+    <strong class="steps-title">Execution: Once a statistically significant spread emerges</strong>
   </div>
 
-  <div style="display: flex; flex-direction: column; gap: 1px;">
+  <div class="steps-list">
     <!-- Step 1 -->
-    <div style="display: flex; align-items: flex-start; gap: 8px;">
-      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">1</span>
-      <div style="color: #334155; line-height: 1.55;">
+    <div class="step">
+      <span class="step-number">1</span>
+      <div class="explanation">
         <strong>Short Selling:</strong> Borrow shares of the overvalued company ($A$) and sell them immediately at the prevailing elevated market price.
       </div>
     </div>
 
     <!-- Step 2 -->
-    <div style="display: flex; align-items: flex-start; gap: 12px;">
-      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">2</span>
-      <div style="color: #334155; line-height: 1.55;">
+    <div class="step step--wide">
+      <span class="step-number">2</span>
+      <div class="explanation">
         Using the cash proceeds generated, simultaneously buy shares of the undervalued company ($B$).
       </div>
     </div>
 
     <!-- Step 3 -->
-    <div style="display: flex; align-items: flex-start; gap: 12px;">
-      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">3</span>
-      <div style="color: #334155; line-height: 1.55;">
+    <div class="step step--wide">
+      <span class="step-number">3</span>
+      <div class="explanation">
         Once the spread reverts to its historical mean, sell shares of $B$, buy back shares of $A$ to return them to the lender, and pocket the net spread difference.
       </div>
     </div>
@@ -579,7 +576,7 @@ The foundational premise of Pairs Trading is mean reversion: this divergence in 
 
 The primary advantage of this approach is being *market-neutral*: performance does not depend on whether the overall oil market trends upward or downward, but exclusively on spread convergence.
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ### Implementation
 
@@ -599,25 +596,25 @@ prices = data["Close"].dropna()
 ~~~
 **Note:** The \`.dropna()\` call filters out exchange-specific holidays (for example, when the Amsterdam stock exchange is open while Paris is closed).
 
-<div style="background-color: #f8fafc; border-left: 5px solid #2563eb; padding: 18px 20px; margin: 22px 0; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); font-family: inherit;">
-  <h3 style="margin-top: 0; margin-bottom: 14px; color: #1e40af; font-size: 1.15rem; display: flex; align-items: center; gap: 8px;">
+<div class="faq">
+  <h3 class="faq-heading">
     <span>Frequently Asked Questions: Financial Markets</span>
   </h3>
 
-  <p style="margin-bottom: 6px;"><strong>1. What is Euronext? Why is TotalEnergies listed in Paris and Shell in Amsterdam?</strong></p>
-  <p style="margin-top: 0; color: #334155; line-height: 1.55;">
+  <p class="faq-question"><strong>1. What is Euronext? Why is TotalEnergies listed in Paris and Shell in Amsterdam?</strong></p>
+  <p class="explanation explanation--flush">
     A stock exchange functions much like a centralized marketplace where buyers and sellers trade ownership shares of companies. Euronext is the private operating company managing securities markets across several European financial centers.<br>
     TotalEnergies is a French corporation, making Paris (.PA) its primary historical venue, whereas Shell has Anglo-Dutch roots, making Amsterdam (.AS) its primary European home market. Companies deliberately choose their primary listing locations.<br>
     Asset prices do not exist uniformly across the world by default; a quoted price is merely the outcome of the most recent transaction agreed upon by two market participants. If Total shares traded at €49 in Paris and €51 in New York, arbitrageurs would immediately buy in Paris and sell in New York, collapsing the disparity back toward an equilibrium price of €50. This continuous arbitrage mechanism establishes consistent cross-market pricing.
   </p>
 
-  <p style="margin-bottom: 6px; margin-top: 14px;"><strong>2. Why do traditional exchanges close at night in the Internet era?</strong></p>
-  <p style="margin-top: 0; color: #334155; line-height: 1.55;">
+  <p class="faq-question faq-question--next"><strong>2. Why do traditional exchanges close at night in the Internet era?</strong></p>
+  <p class="explanation explanation--flush">
     Traditional exchanges enforce defined operating hours to concentrate liquidity in one place at the same time. If trading remained continuous at 3 AM, order books would be extremely thin, and even a modest market order could swing the asset price by 10% simply due to lack of participating counter-parties.
   </p>
 
-  <p style="margin-bottom: 6px; margin-top: 14px;"><strong>3. What are "adjusted" prices?</strong></p>
-  <p style="margin-top: 0; margin-bottom: 0; color: #334155; line-height: 1.55;">
+  <p class="faq-question faq-question--next"><strong>3. What are "adjusted" prices?</strong></p>
+  <p class="explanation explanation--flush explanation--last">
     Suppose you buy a share of stock for €100. The following day, the company distributes a €5 cash dividend to shareholders. Mechanically, the underlying share value adjusts down to €95. On a raw price chart, this appears as an abrupt jump from €100 to €95, which quantitative algorithms could mistake for a sudden drop in company fundamentals. In reality, total shareholder wealth is unchanged (€95 share + €5 cash). The **adjusted price** series smooths this artificial gap to remove the false loss.<br>
     The same principle applies to stock splits: if a firm with 10 shares trading at €1,000 splits 10-for-1 into 100 shares, each share is priced at €100, while the enterprise's aggregate equity value remains identical.
   </p>
@@ -645,7 +642,7 @@ plt.show()
 
 ![](images/arb-stat-eng-1.png)
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ## 2. Modeling and Spread Calculation
 
@@ -658,10 +655,10 @@ Since both companies operate in identical economic sectors, we model their price
 $$P_{\text{TTE}, t} = \alpha + \beta P_{\text{Shell}, t} + \varepsilon_t$$ 
 
 Where:
-<ul style="margin: 8px 0 14px 1.5rem; padding: 0; list-style-type: disc; line-height: 0.1;">
-  <li style="margin-bottom: 4px;">$\beta$ denotes the *hedge ratio*: for each share of TotalEnergies purchased, we must short $\beta$ shares of Shell to maintain market neutrality.</li>
-  <li style="margin-bottom: 4px;">$\alpha$ represents an adjustment constant (intercept).</li>
-  <li style="margin-bottom: 4px;">$\varepsilon_t$ is the residual *spread* at time $t$.</li>
+<ul class="content-list">
+  <li class="content-list__item">$\beta$ denotes the *hedge ratio*: for each share of TotalEnergies purchased, we must short $\beta$ shares of Shell to maintain market neutrality.</li>
+  <li class="content-list__item">$\alpha$ represents an adjustment constant (intercept).</li>
+  <li class="content-list__item">$\varepsilon_t$ is the residual *spread* at time $t$.</li>
 </ul>
 
 ### Cointegration
@@ -696,9 +693,9 @@ Now that we can estimate $\alpha$ and $\beta$ and compute the spread $\varepsilo
 $$Z_t = \frac{\varepsilon_t - \mu_{\varepsilon_t}}{\sigma_{\varepsilon_t}}$$
 If $\varepsilon_t$ is stationary, $Z_t$ approximately follows a standard normal distribution $\mathcal{N}(0, 1)$. In practice, $Z_t$ resides within $[-2, 2]$ roughly $95.4\%$ of the time.<br>
 Consequently, when $|Z_t| > 2$, a statistical anomaly is identified, signaling a trading opportunity:
-<ul style="margin: 8px 0 14px 1.5rem; padding: 0; list-style-type: disc; line-height: 0.1;">
-  <li style="margin-bottom: 4px;">If $Z_t > 2$, the spread is elevated and Total is relatively overvalued: short Total, long Shell.</li>
-  <li style="margin-bottom: 4px;">If $Z_t < -2$, the reverse applies: short Shell, long Total.</li>
+<ul class="content-list">
+  <li class="content-list__item">If $Z_t > 2$, the spread is elevated and Total is relatively overvalued: short Total, long Shell.</li>
+  <li class="content-list__item">If $Z_t < -2$, the reverse applies: short Shell, long Total.</li>
 </ul>
 
 ### Implementation
@@ -839,50 +836,50 @@ We visualize the resulting portfolio equity curve:
 
 The strategy visibly concludes in negative territory, but let us systematically examine the underlying risk and performance metrics:
 
-<div style="overflow-x: auto; margin: 24px 0;">
-  <table style="width: 100%; border-collapse: collapse; font-family: inherit; font-size: 0.95rem; text-align: left; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+<div class="table-scroll">
+  <table class="data-table">
     <thead>
-      <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #1e293b;">
-        <th style="padding: 12px 16px; font-weight: 700;">Metric</th>
-        <th style="padding: 12px 16px; font-weight: 700;">Description</th>
-        <th style="padding: 12px 16px; font-weight: 700; text-align: right;">Value</th>
+      <tr class="table-heading">
+        <th class="table-cell table-cell--heading">Metric</th>
+        <th class="table-cell table-cell--heading">Description</th>
+        <th class="table-cell table-cell--right">Value</th>
       </tr>
     </thead>
-    <tbody style="color: #334155;">
-      <tr style="border-bottom: 1px solid #e2e8f0;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Active Period</td>
-        <td style="padding: 12px 16px;">Effective duration analyzed (252 trading days/year basis).<br>Initial warm-up days are excluded as they are required to calibrate $\beta$.</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">4.6 years</td>
+    <tbody class="text-muted">
+      <tr class="table-row">
+        <td class="table-cell table-cell--label">Active Period</td>
+        <td class="table-cell">Effective duration analyzed (252 trading days/year basis).<br>Initial warm-up days are excluded as they are required to calibrate $\beta$.</td>
+        <td class="metric">4.6 years</td>
       </tr>
-      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Total Net Return</td>
-        <td style="padding: 12px 16px;">Cumulative return after subtracting transaction fees (5 bps = 0.05%).<br>$R = \frac{V_T}{V_0} - 1$, where $V_T, V_0$ denote final and initial portfolio equity.</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">-35.68%</td>
+      <tr class="table-row table-row--shaded">
+        <td class="table-cell table-cell--label">Total Net Return</td>
+        <td class="table-cell">Cumulative return after subtracting transaction fees (5 bps = 0.05%).<br>$R = \frac{V_T}{V_0} - 1$, where $V_T, V_0$ denote final and initial portfolio equity.</td>
+        <td class="metric">-35.68%</td>
       </tr>
-      <tr style="border-bottom: 1px solid #e2e8f0;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Annualized Return</td>
-        <td style="padding: 12px 16px;">Compound Annual Growth Rate (CAGR).<br> CAGR = $(1+R)^{1/n_{\text{years}}} - 1$</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">-9.14%</td>
+      <tr class="table-row">
+        <td class="table-cell table-cell--label">Annualized Return</td>
+        <td class="table-cell">Compound Annual Growth Rate (CAGR).<br> CAGR = $(1+R)^{1/n_{\text{years}}} - 1$</td>
+        <td class="metric">-9.14%</td>
       </tr>
-      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Annualized Volatility $\sigma_{\text{annual}}$</td>
-        <td style="padding: 12px 16px;">Measures return dispersion and variance across the strategy lifespan.</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">8.56%</td>
+      <tr class="table-row table-row--shaded">
+        <td class="table-cell table-cell--label">Annualized Volatility $\sigma_{\text{annual}}$</td>
+        <td class="table-cell">Measures return dispersion and variance across the strategy lifespan.</td>
+        <td class="metric">8.56%</td>
       </tr>
-      <tr style="border-bottom: 1px solid #e2e8f0;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Sharpe Ratio</td>
-        <td style="padding: 12px 16px;">Risk-adjusted excess return metric.<br> $S=\frac{\mathbb E(R)-R_f}{\sigma_{\text{annual}}}$, where $R_f$ is the risk-free rate.<br> $S < 0$: negative excess return; $0 \lt S \lt 1$: strategy underperforms risk-free benchmarks; $S > 1$: excess return adequately compensates for risk.</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">-1.10</td>
+      <tr class="table-row">
+        <td class="table-cell table-cell--label">Sharpe Ratio</td>
+        <td class="table-cell">Risk-adjusted excess return metric.<br> $S=\frac{\mathbb E(R)-R_f}{\sigma_{\text{annual}}}$, where $R_f$ is the risk-free rate.<br> $S < 0$: negative excess return; $0 \lt S \lt 1$: strategy underperforms risk-free benchmarks; $S > 1$: excess return adequately compensates for risk.</td>
+        <td class="metric">-1.10</td>
       </tr>
-      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Maximum Drawdown (MDD)</td>
-        <td style="padding: 12px 16px;">Maximum peak-to-trough decline experienced had capital been committed at the worst historical peak and closed at the lowest trough.<br>$\text{MDD} = \min_{t} \left( \frac{V_t - \max_{s \le t} V_s}{\max_{s \le t} V_s} \right)$</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">-39.87%</td>
+      <tr class="table-row table-row--shaded">
+        <td class="table-cell table-cell--label">Maximum Drawdown (MDD)</td>
+        <td class="table-cell">Maximum peak-to-trough decline experienced had capital been committed at the worst historical peak and closed at the lowest trough.<br>$\text{MDD} = \min_{t} \left( \frac{V_t - \max_{s \le t} V_s}{\max_{s \le t} V_s} \right)$</td>
+        <td class="metric">-39.87%</td>
       </tr>
       <tr>
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Win Rate (Days)</td>
-        <td style="padding: 12px 16px;">Percentage of trading days with strictly positive returns, evaluated only on days with open positions.</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">45.59%</td>
+        <td class="table-cell table-cell--label">Win Rate (Days)</td>
+        <td class="table-cell">Percentage of trading days with strictly positive returns, evaluated only on days with open positions.</td>
+        <td class="metric">45.59%</td>
       </tr>
     </tbody>
   </table>
@@ -892,28 +889,28 @@ The results are distinctly underwhelming. A major macroeconomic driver is that T
 
 Replicating this framework on equities sharing virtually identical revenue mechanics—such as Mastercard and Visa—reveals a markedly improved performance profile:
 
-<div style="overflow-x: auto; margin: 24px 0;">
-  <table style="width: 100%; border-collapse: collapse; font-family: inherit; font-size: 0.95rem; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+<div class="table-scroll">
+  <table class="data-table data-table--metrics">
     <thead>
-      <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #1e293b;">
-        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Active Period</th>
-        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Net Return</th>
-        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Ann. Return (CAGR)</th>
-        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Ann. Volatility</th>
-        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Sharpe Ratio</th>
-        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Max Drawdown</th>
-        <th style="padding: 12px 14px; font-weight: 700; text-align: center; white-space: nowrap;">Win Rate (Days)</th>
+      <tr class="table-heading">
+        <th class="table-cell table-cell--center">Active Period</th>
+        <th class="table-cell table-cell--center">Net Return</th>
+        <th class="table-cell table-cell--center">Ann. Return (CAGR)</th>
+        <th class="table-cell table-cell--center">Ann. Volatility</th>
+        <th class="table-cell table-cell--center">Sharpe Ratio</th>
+        <th class="table-cell table-cell--center">Max Drawdown</th>
+        <th class="table-cell table-cell--center">Win Rate (Days)</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">4.3 years</td>
-        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #16a34a; white-space: nowrap;">+6.96%</td>
-        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #16a34a; white-space: nowrap;">+1.59%</td>
-        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">5.19%</td>
-        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">0.34</td>
-        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #dc2626; white-space: nowrap;">-6.31%</td>
-        <td style="padding: 14px 14px; text-align: center; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">52.47%</td>
+        <td class="metric metric--center">4.3 years</td>
+        <td class="metric metric--center metric--positive">+6.96%</td>
+        <td class="metric metric--center metric--positive">+1.59%</td>
+        <td class="metric metric--center">5.19%</td>
+        <td class="metric metric--center">0.34</td>
+        <td class="metric metric--center metric--negative">-6.31%</td>
+        <td class="metric metric--center">52.47%</td>
       </tr>
     </tbody>
   </table>
@@ -928,15 +925,14 @@ Even in this scenario, the Sharpe ratio remains well below $1$, suggesting that 
   fr:{title:String.raw`Comment faire un TIPE en moins de 5Mo ?`,role:'Projet TIPE',status:'Terminé',
   blurb:String.raw`Comment faire tenir une présentation avec plein de photos en 5 Mo ? Exploration d'une approche stochastique de vectorisation d'images.`,
   lead:String.raw`Nous sommes tenus de rendre un TIPE (projet de fin de prépa) de moins 5 Mo. Comment compresser un TIPE contenant plein d'images pour le faire passer sous la barre des 5 Mo ? <br><br>
-  Face à cette contrainte, le réflexe consiste à compresser les images en JPEG. Mais on peut faire plus amusant. Une image vectorielle (comme un fichier SVG) présente l'avantage d'avoir un poids totalement décorrélé de sa résolution d'affichage tout étant net à n'importe quel niveau de zoom.<br><br>
+  Face à cette contrainte, le réflexe consiste à compresser les images en JPEG. Mais on peut faire plus amusant. Une image vectorielle (comme un fichier SVG) présente l'avantage d'avoir un poids totalement décorrélé de sa résolution d'affichage tout en étant net à n'importe quel niveau de zoom.<br><br>
   L'objectif de ce projet a été de concevoir et d'implémenter en C un **algorithme génératif stochastique** capable de reconstruire n'importe quelle image à partir d'une superposition de formes géométriques élémentaires (cercles, polygones). Au final, on arrive à réduire le poids des fichiers jusqu'à un facteur 70.`,
   links:[['Code source & Slides','https://github.com/AntoineTHEOBALDROSA/Image-Vectorialisation']],
   body:String.raw`
-  <div style="margin-top: -5.5rem;"></div>
 
-<div style="display: flex; gap: 16px; justify-content: center; align-items: center; margin: 24px 0;">
-  <img src="images/vect-1.png" alt="Description 1" style="width: 35%; max-width: 350px; height: auto; border-radius: 6px;" />
-  <img src="images/vect-1bis.png" alt="Description 2" style="width: 35%; max-width: 350px; height: auto; border-radius: 6px;" />
+<div class="image-pair">
+  <img src="images/vect-1.png" alt="Exemple de portrait reconstruit par vectorisation" class="image-pair__image" />
+  <img src="images/vect-1bis.png" alt="Exemple d’illustration reconstruite par vectorisation" class="image-pair__image" />
 </div>
 
 ## Plan du projet
@@ -946,7 +942,7 @@ Even in this scenario, the Sharpe ratio remains well below $1$, suggesting that 
 3. **Implémentation en C & multi-threading**
 4. **Compression du fichier généré et analyse des performances**
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ## 1. La contrainte des 5 Mo et vectorialisation
 
@@ -955,41 +951,41 @@ La plateforme de dépôt des concours d'entrée aux grandes écoles impose une l
 Le but va être de compresser des images en les vectorialisant, puis d'implémenter l'algorithme avec le module LaTeX TikZ qui permet de tracer des figures véctorialisées dans un document LaTeX.
 
 
-<div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-left: 5px solid #0284c7; padding: 18px 22px; margin: 22px 0; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); font-family: inherit;">
-  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
-    <strong style="color: #0369a1; font-size: 1.05rem;">Principe de l'algorithme</strong>
+<div class="steps-panel">
+  <div class="steps-heading">
+    <strong class="steps-title">Principe de l'algorithme</strong>
   </div>
 
-  <div style="display: flex; flex-direction: column; gap: 10px;">
+  <div class="steps-list steps-list--spaced">
     <!-- Étape 1 -->
-    <div style="display: flex; align-items: flex-start; gap: 10px;">
-      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">1</span>
-      <div style="color: #334155; line-height: 1.55;">
+    <div class="step step--medium">
+      <span class="step-number">1</span>
+      <div class="explanation">
         <strong>Initialisation :</strong> On part d'une image vierge $I$ de mêmes dimensions que l'image cible
       </div>
     </div>
 
     <!-- Étape 2 -->
-    <div style="display: flex; align-items: flex-start; gap: 10px;">
-      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">2</span>
-      <div style="color: #334155; line-height: 1.55;">
+    <div class="step step--medium">
+      <span class="step-number">2</span>
+      <div class="explanation">
         On génère aléatoirement  $N_{\text{it}}$ formes aléatoires (positions, tailles aléatoires). Pour la couleur, on leur attribue la couleur moyenne de la zone sous-jacente de l'image cible.
       </div>
     </div>
 
     <!-- Étape 3 -->
-    <div style="display: flex; align-items: flex-start; gap: 10px;">
-      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">3</span>
-      <div style="color: #334155; line-height: 1.55;">
+    <div class="step step--medium">
+      <span class="step-number">3</span>
+      <div class="explanation">
         <strong>Mutation et Sélection :</strong> On retient les $N_{\text{selected}}$ meilleures formes réduisant le plus l'écart avec l'image cible, puis on génère des variantes sur plusieurs générations successives. Après plus générations, on garde la meilleure forme trouvée sur l'ensemble des générations et on la dessine sur l'image $I$.
       </div>
     </div>
 
     <!-- Étape 4 -->
-    <div style="display: flex; align-items: flex-start; gap: 10px;">
-      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">4</span>
-      <div style="color: #334155; line-height: 1.55;">
-        On réitère ce proccessus de séléction $N_{\text{shape}} \approx 2000 \text{ à } 8000$ fois.
+    <div class="step step--medium">
+      <span class="step-number">4</span>
+      <div class="explanation">
+        On réitère ce processus de sélection $N_{\text{shape}} \approx 2000 \text{ à } 8000$ fois.
       </div>
     </div>
   </div>
@@ -999,32 +995,32 @@ Le but va être de compresser des images en les vectorialisant, puis d'implémen
 
 On commence par générer $N_{\text{it}} = 10$ formes puis on garde les $N_{\text{selected}}=2$ meilleures, ici les deux de la première colonne (bords rouges).
 
-<img src="images/vect-2.png" alt="Description" style="display: block; margin: 24px auto; max-width: 65%; height: auto; border-radius: 6px;" />
+<img src="images/vect-2.png" alt="Première génération de formes candidates" class="content-image" />
 
-A partir de ces deux formes, on regenère des variations de chacune d'entre elles. C'est la deuxième génération. 
+À partir de ces deux formes, on régénère des variations de chacune d'entre elles. C'est la deuxième génération.
 
-<img src="images/vect-3.png" alt="Description" style="display: block; margin: 24px auto; max-width: 65%; height: auto; border-radius: 6px;" />
+<img src="images/vect-3.png" alt="Deuxième génération de formes candidates" class="content-image" />
 
 On va garder la meilleure, disons que c'est celle-ci :
 
-<img src="images/vect-4.png" alt="Description" style="display: block; margin: 24px auto; max-width: 12%; height: auto; border-radius: 6px;" />
+<img src="images/vect-4.png" alt="Meilleure forme sélectionnée" class="content-image content-image--tiny" />
 
 On place alors cette forme sur le canvas blanc $I$ puis on recommence avec ce nouveau canvas :
 
-<img src="images/vect-5.png" alt="Description" style="display: block; margin: 24px auto; max-width: 65%; height: auto; border-radius: 6px;" />
+<img src="images/vect-5.png" alt="Reconstruction d’une image par superposition de formes" class="content-image" />
 
 Après $N=6000$ itérations, voilà le résultat : 
 
-<img src="images/vect-6.png" alt="Description" style="display: block; margin: 24px auto; max-width: 30%; height: auto; border-radius: 6px;" />
+<img src="images/vect-6.png" alt="Image reconstruite après 6 000 itérations" class="content-image content-image--small" />
 
-<div style="background-color: #f8fafc; border-left: 5px solid #2563eb; padding: 0px 20px; margin: 22px 0; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); font-family: inherit;">
-  <p style="margin-bottom: 6px; margin-top: 14px;"><strong>Cercles ou polygones ?</strong></p>
-  <p style="margin-top: 0; margin-bottom: 0; color: #334155; line-height: 1.55;">
-    Le cercle a l'avantage de n'avoir que $3$ paramètres ($x, y, r$), alors qu'un triangle ou en général un polygône à $n$ côtés a $2n$ paramètres. De plus, pour avoir fait des essais, si on autorise les triangles l'algorithme décide de les aplatir un maximum pour conrètement traçer des lignes..
+<div class="faq faq--compact">
+  <p class="faq-question faq-question--next"><strong>Cercles ou polygones ?</strong></p>
+  <p class="explanation explanation--flush explanation--last">
+    Le cercle a l'avantage de n'avoir que $3$ paramètres ($x, y, r$), alors qu'un triangle ou en général un polygone à $n$ côtés a $2n$ paramètres. De plus, pour avoir fait des essais, si on autorise les triangles l'algorithme décide de les aplatir un maximum pour concrètement tracer des lignes..
   </p>
 </div>
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ## 2. Algorithme évolutif
 
@@ -1048,7 +1044,7 @@ $$\bar{C} = \frac{1}{|\Omega_{\mathcal{S}}|} \sum_{p \in \Omega_{\mathcal{S}}} T
 
 Cette heuristique évite d'introduire un nouveau paramètre « couleur » à deviner pour l'algorithme.
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ## 3. Implémentation en C & multi-threading
 
@@ -1111,11 +1107,11 @@ Grâce à cette parallélisation sur processeur multi-cœurs (8 à 10 threads), 
 
 ### Analyse de l'algorithme
 
-Si on regrade la taille des rayons que décide de traçer l'algorithme au cours du temps, on voit qu'ils décroissent rapidement : l'algorithme a compris qu'après avoir commencé à dessiner, ce n'était pas une bonne idée de placer un énorme cercle car cela risque d'effacer tout le dessin produit jusqu'alors.
+Si on regarde la taille des rayons que décide de tracer l'algorithme au cours du temps, on voit qu'ils décroissent rapidement : l'algorithme a compris qu'après avoir commencé à dessiner, ce n'était pas une bonne idée de placer un énorme cercle car cela risque d'effacer tout le dessin produit jusqu'alors.
 
-<img src="images/vect-7.png" alt="Description" style="display: block; margin: 24px auto; max-width: 50%; height: auto; border-radius: 6px;" />
+<img src="images/vect-7.png" alt="Évolution des rayons des cercles au fil des itérations" class="content-image content-image--medium" />
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ## 4. Compression du fichier généré et analyse des performances
 
@@ -1132,40 +1128,40 @@ L'idée est qu'on peut compresser ce document, car les informations sont redonda
 
 Sur une image test de référence haute résolution issue de la présentation :
 
-<div style="overflow-x: auto; margin: 24px 0;">
-  <table style="width: 100%; border-collapse: collapse; font-family: inherit; font-size: 0.95rem; text-align: left; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+<div class="table-scroll">
+  <table class="data-table">
     <thead>
-      <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #1e293b;">
-        <th style="padding: 12px 16px; font-weight: 700;">Format / Méthode</th>
-        <th style="padding: 12px 16px; font-weight: 700;">Description</th>
-        <th style="padding: 12px 16px; font-weight: 700; text-align: right;">Poids</th>
-        <th style="padding: 12px 16px; font-weight: 700; text-align: right;">Ratio vs PNG</th>
+      <tr class="table-heading">
+        <th class="table-cell table-cell--heading">Format / Méthode</th>
+        <th class="table-cell table-cell--heading">Description</th>
+        <th class="table-cell table-cell--right">Poids</th>
+        <th class="table-cell table-cell--right">Ratio vs PNG</th>
       </tr>
     </thead>
-    <tbody style="color: #334155;">
-      <tr style="border-bottom: 1px solid #e2e8f0;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Image originale (PNG)</td>
-        <td style="padding: 12px 16px;">Image de référence</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">4 389 ko</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">1,0x</td>
+    <tbody class="text-muted">
+      <tr class="table-row">
+        <td class="table-cell table-cell--label">Image originale (PNG)</td>
+        <td class="table-cell">Image de référence</td>
+        <td class="metric">4 389 ko</td>
+        <td class="metric">1,0x</td>
       </tr>
-      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">JPEG standard</td>
-        <td style="padding: 12px 16px;">Compression avec perte</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">473 ko</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">9,3x</td>
+      <tr class="table-row table-row--shaded">
+        <td class="table-cell table-cell--label">JPEG standard</td>
+        <td class="table-cell">Compression avec perte</td>
+        <td class="metric">473 ko</td>
+        <td class="metric">9,3x</td>
       </tr>
-      <tr style="border-bottom: 1px solid #e2e8f0;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Fichier SVG brut</td>
-        <td style="padding: 12px 16px;">Fichier XML content les $6000$ cercles.</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">279 ko</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">15,7x</td>
+      <tr class="table-row">
+        <td class="table-cell table-cell--label">Fichier SVG brut</td>
+        <td class="table-cell">Fichier XML content les $6000$ cercles.</td>
+        <td class="metric">279 ko</td>
+        <td class="metric">15,7x</td>
       </tr>
-      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Vectoriel compressé (4-bits)</td>
-        <td style="padding: 12px 16px;">Fichier XML compressé.</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #16a34a; white-space: nowrap;">63 ko</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #16a34a; white-space: nowrap;">69,7x</td>
+      <tr class="table-row table-row--shaded">
+        <td class="table-cell table-cell--label">Vectoriel compressé (4-bits)</td>
+        <td class="table-cell">Fichier XML compressé.</td>
+        <td class="metric metric--positive">63 ko</td>
+        <td class="metric metric--positive">69,7x</td>
       </tr>
     </tbody>
   </table>
@@ -1173,22 +1169,22 @@ Sur une image test de référence haute résolution issue de la présentation :
 
 Le fichier final compressé est **69,7 fois plus léger** que le PNG d'origine et **7,5 fois plus compact qu'un JPEG**, tout en conservant une image exploitable dans une présentation!
 
-<div style="overflow-x: auto; margin: 24px 0;">
-  <table style="width: 100%; border-collapse: collapse; font-family: inherit; font-size: 0.95rem; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+<div class="table-scroll">
+  <table class="data-table data-table--metrics">
     <thead>
-      <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #1e293b;">
-        <th style="padding: 12px 14px; font-weight: 700; text-align: left;">Inconvénients</th>
-        <th style="padding: 12px 14px; font-weight: 700; text-align: left;">Avantages</th>
+      <tr class="table-heading">
+        <th class="table-cell table-cell--left">Inconvénients</th>
+        <th class="table-cell table-cell--left">Avantages</th>
       </tr>
     </thead>
-    <tbody style="color: #334155;">
-      <tr style="border-bottom: 1px solid #e2e8f0;">
-        <td style="padding: 12px 14px; vertical-align: top;">
+    <tbody class="text-muted">
+      <tr class="table-row">
+        <td class="table-cell table-cell--top">
           • Temps de génération élevé (~20 min sur CPU multi-cœurs).<br>
           • Dégradation esthétique sur les textures ultra-détaillées ou le texte fin.<br>
           • Inadapté pour des logos simples (un triangle parfait SVG pèse 0,2 ko vs 27 ko reconstitué par mon algorithme).
         </td>
-        <td style="padding: 12px 14px; vertical-align: top;">
+        <td class="table-cell table-cell--top">
           • <strong>Taux de compression exceptionnel</strong> (x$70$).<br>
           • Image nette quel que soit le niveau de zoom.<br>
           • <strong>Rendu artistique :</strong> effet d'aquarelle ou de mosaïque très expressif.<br>
@@ -1208,11 +1204,10 @@ Le fichier final compressé est **69,7 fois plus léger** que le PNG d'origine e
   The goal of this project was to design and implement in C a **stochastic generative algorithm** capable of reconstructing any image from a superposition of elementary geometric shapes (circles, polygons). In the end, we achieved file size reductions by up to a factor of 70.`,
   links: [['Source Code & Slides', 'https://github.com/AntoineTHEOBALDROSA/Image-Vectorialisation']],
   body: String.raw`
-  <div style="margin-top: -5.5rem;"></div>
 
-<div style="display: flex; gap: 16px; justify-content: center; align-items: center; margin: 24px 0;">
-  <img src="images/vect-1.png" alt="Description 1" style="width: 35%; max-width: 350px; height: auto; border-radius: 6px;" />
-  <img src="images/vect-1bis.png" alt="Description 2" style="width: 35%; max-width: 350px; height: auto; border-radius: 6px;" />
+<div class="image-pair">
+  <img src="images/vect-1.png" alt="Example of a portrait reconstructed by vectorisation" class="image-pair__image" />
+  <img src="images/vect-1bis.png" alt="Example of an illustration reconstructed by vectorisation" class="image-pair__image" />
 </div>
 
 ## Project Outline
@@ -1222,7 +1217,7 @@ Le fichier final compressé est **69,7 fois plus léger** que le PNG d'origine e
 3. **C Implementation & Multi-threading**
 4. **Compression of the Generated File & Performance Analysis**
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ## 1. The 5 MB Constraint and Vectorization
 
@@ -1230,40 +1225,40 @@ The submission platform for the competitive entrance exams to the French Grandes
 
 The objective is to compress images by vectorizing them, then integrate the algorithm using the LaTeX TikZ package, which renders vectorized figures natively within a LaTeX document.
 
-<div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-left: 5px solid #0284c7; padding: 18px 22px; margin: 22px 0; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); font-family: inherit;">
-  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
-    <strong style="color: #0369a1; font-size: 1.05rem;">Algorithm Overview</strong>
+<div class="steps-panel">
+  <div class="steps-heading">
+    <strong class="steps-title">Algorithm Overview</strong>
   </div>
 
-  <div style="display: flex; flex-direction: column; gap: 10px;">
+  <div class="steps-list steps-list--spaced">
     <!-- Step 1 -->
-    <div style="display: flex; align-items: flex-start; gap: 10px;">
-      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">1</span>
-      <div style="color: #334155; line-height: 1.55;">
+    <div class="step step--medium">
+      <span class="step-number">1</span>
+      <div class="explanation">
         <strong>Initialization:</strong> Start with a blank canvas $I$ sharing the same dimensions as the target image.
       </div>
     </div>
 
     <!-- Step 2 -->
-    <div style="display: flex; align-items: flex-start; gap: 10px;">
-      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">2</span>
-      <div style="color: #334155; line-height: 1.55;">
+    <div class="step step--medium">
+      <span class="step-number">2</span>
+      <div class="explanation">
         Randomly generate $N_{\text{it}}$ candidate shapes (random positions and sizes). For color, assign each the mean color of the underlying area in the target image.
       </div>
     </div>
 
     <!-- Step 3 -->
-    <div style="display: flex; align-items: flex-start; gap: 10px;">
-      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">3</span>
-      <div style="color: #334155; line-height: 1.55;">
+    <div class="step step--medium">
+      <span class="step-number">3</span>
+      <div class="explanation">
         <strong>Mutation and Selection:</strong> Retain the $N_{\text{selected}}$ best-performing shapes that minimize the difference with the target image the most, then generate variations across successive generations. After several generations, keep the best shape found overall and render it onto canvas $I$.
       </div>
     </div>
 
     <!-- Step 4 -->
-    <div style="display: flex; align-items: flex-start; gap: 10px;">
-      <span style="background: #e0f2fe; color: #0369a1; font-weight: 700; font-size: 0.85rem; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">4</span>
-      <div style="color: #334155; line-height: 1.55;">
+    <div class="step step--medium">
+      <span class="step-number">4</span>
+      <div class="explanation">
         Repeat this selection process $N_{\text{shape}} \approx 2000 \text{ to } 8000$ times.
       </div>
     </div>
@@ -1274,32 +1269,32 @@ The objective is to compress images by vectorizing them, then integrate the algo
 
 We begin by generating $N_{\text{it}} = 10$ shapes and keep the $N_{\text{selected}} = 2$ best candidates—here, the two in the first column (red borders).
 
-<img src="images/vect-2.png" alt="Description" style="display: block; margin: 24px auto; max-width: 65%; height: auto; border-radius: 6px;" />
+<img src="images/vect-2.png" alt="First generation of candidate shapes" class="content-image" />
 
 From these two shapes, we generate variations of each. This represents the second generation.
 
-<img src="images/vect-3.png" alt="Description" style="display: block; margin: 24px auto; max-width: 65%; height: auto; border-radius: 6px;" />
+<img src="images/vect-3.png" alt="Second generation of candidate shapes" class="content-image" />
 
 We select the best candidate—suppose it is this one:
 
-<img src="images/vect-4.png" alt="Description" style="display: block; margin: 24px auto; max-width: 12%; height: auto; border-radius: 6px;" />
+<img src="images/vect-4.png" alt="Best selected shape" class="content-image content-image--tiny" />
 
 We then place this shape onto the white canvas $I$ and repeat the process on this updated canvas:
 
-<img src="images/vect-5.png" alt="Description" style="display: block; margin: 24px auto; max-width: 65%; height: auto; border-radius: 6px;" />
+<img src="images/vect-5.png" alt="Image reconstruction by layering shapes" class="content-image" />
 
 After $N = 6000$ iterations, here is the outcome:
 
-<img src="images/vect-6.png" alt="Description" style="display: block; margin: 24px auto; max-width: 30%; height: auto; border-radius: 6px;" />
+<img src="images/vect-6.png" alt="Image reconstructed after 6,000 iterations" class="content-image content-image--small" />
 
-<div style="background-color: #f8fafc; border-left: 5px solid #2563eb; padding: 0px 20px; margin: 22px 0; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); font-family: inherit;">
-  <p style="margin-bottom: 6px; margin-top: 14px;"><strong>Circles or Polygons?</strong></p>
-  <p style="margin-top: 0; margin-bottom: 0; color: #334155; line-height: 1.55;">
+<div class="faq faq--compact">
+  <p class="faq-question faq-question--next"><strong>Circles or Polygons?</strong></p>
+  <p class="explanation explanation--flush explanation--last">
     Circles have the distinct advantage of requiring only $3$ parameters ($x, y, r$), whereas a triangle—or generally an $n$-sided polygon—requires $2n$ parameters. Additionally, practical tests showed that when triangles were allowed, the algorithm systematically flattened them as much as possible to effectively draw straight lines.
   </p>
 </div>
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ## 2. Evolutionary Algorithm
 
@@ -1323,7 +1318,7 @@ $$\bar{C} = \frac{1}{|\Omega_{\mathcal{S}}|} \sum_{p \in \Omega_{\mathcal{S}}} T
 
 This heuristic eliminates the need for the algorithm to search for an extra "color" parameter.
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ## 3. C Implementation & Multi-threading
 
@@ -1388,9 +1383,9 @@ Leveraging this multi-core parallelization (8 to 10 threads), the average proces
 
 Plotting the radius sizes chosen by the algorithm over time reveals a sharp decrease: the algorithm quickly "realizes" that once the base composition is established, adding large circles risks obliterating fine details drawn in earlier iterations.
 
-<img src="images/vect-7.png" alt="Description" style="display: block; margin: 24px auto; max-width: 50%; height: auto; border-radius: 6px;" />
+<img src="images/vect-7.png" alt="Evolution of circle radii over the iterations" class="content-image content-image--medium" />
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ## 4. Compression of the Generated File & Performance Analysis
 
@@ -1407,40 +1402,40 @@ Because the structural tags are repetitive, we can substantially compress this d
 
 Evaluated on a high-resolution benchmark image from the presentation:
 
-<div style="overflow-x: auto; margin: 24px 0;">
-  <table style="width: 100%; border-collapse: collapse; font-family: inherit; font-size: 0.95rem; text-align: left; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+<div class="table-scroll">
+  <table class="data-table">
     <thead>
-      <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #1e293b;">
-        <th style="padding: 12px 16px; font-weight: 700;">Format / Method</th>
-        <th style="padding: 12px 16px; font-weight: 700;">Description</th>
-        <th style="padding: 12px 16px; font-weight: 700; text-align: right;">Size</th>
-        <th style="padding: 12px 16px; font-weight: 700; text-align: right;">Ratio vs PNG</th>
+      <tr class="table-heading">
+        <th class="table-cell table-cell--heading">Format / Method</th>
+        <th class="table-cell table-cell--heading">Description</th>
+        <th class="table-cell table-cell--right">Size</th>
+        <th class="table-cell table-cell--right">Ratio vs PNG</th>
       </tr>
     </thead>
-    <tbody style="color: #334155;">
-      <tr style="border-bottom: 1px solid #e2e8f0;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Original image (PNG)</td>
-        <td style="padding: 12px 16px;">Reference image</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">4,389 kB</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">1.0x</td>
+    <tbody class="text-muted">
+      <tr class="table-row">
+        <td class="table-cell table-cell--label">Original image (PNG)</td>
+        <td class="table-cell">Reference image</td>
+        <td class="metric">4,389 kB</td>
+        <td class="metric">1.0x</td>
       </tr>
-      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Standard JPEG</td>
-        <td style="padding: 12px 16px;">Lossy compression</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">473 kB</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">9.3x</td>
+      <tr class="table-row table-row--shaded">
+        <td class="table-cell table-cell--label">Standard JPEG</td>
+        <td class="table-cell">Lossy compression</td>
+        <td class="metric">473 kB</td>
+        <td class="metric">9.3x</td>
       </tr>
-      <tr style="border-bottom: 1px solid #e2e8f0;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Raw SVG file</td>
-        <td style="padding: 12px 16px;">XML file containing the $6000$ circles.</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">279 kB</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #0284c7; white-space: nowrap;">15.7x</td>
+      <tr class="table-row">
+        <td class="table-cell table-cell--label">Raw SVG file</td>
+        <td class="table-cell">XML file containing the $6000$ circles.</td>
+        <td class="metric">279 kB</td>
+        <td class="metric">15.7x</td>
       </tr>
-      <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
-        <td style="padding: 12px 16px; font-weight: 600; color: #0f172a;">Compressed vector (4-bit)</td>
-        <td style="padding: 12px 16px;">Compressed XML file.</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #16a34a; white-space: nowrap;">63 kB</td>
-        <td style="padding: 12px 16px; text-align: right; font-family: monospace; font-weight: 700; color: #16a34a; white-space: nowrap;">69.7x</td>
+      <tr class="table-row table-row--shaded">
+        <td class="table-cell table-cell--label">Compressed vector (4-bit)</td>
+        <td class="table-cell">Compressed XML file.</td>
+        <td class="metric metric--positive">63 kB</td>
+        <td class="metric metric--positive">69.7x</td>
       </tr>
     </tbody>
   </table>
@@ -1448,22 +1443,22 @@ Evaluated on a high-resolution benchmark image from the presentation:
 
 The final compressed file is **69.7 times lighter** than the original PNG and **7.5 times more compact than JPEG**, while producing an image fully suitable for slide presentations!
 
-<div style="overflow-x: auto; margin: 24px 0;">
-  <table style="width: 100%; border-collapse: collapse; font-family: inherit; font-size: 0.95rem; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+<div class="table-scroll">
+  <table class="data-table data-table--metrics">
     <thead>
-      <tr style="background-color: #f1f5f9; border-bottom: 2px solid #cbd5e1; color: #1e293b;">
-        <th style="padding: 12px 14px; font-weight: 700; text-align: left;">Drawbacks</th>
-        <th style="padding: 12px 14px; font-weight: 700; text-align: left;">Advantages</th>
+      <tr class="table-heading">
+        <th class="table-cell table-cell--left">Drawbacks</th>
+        <th class="table-cell table-cell--left">Advantages</th>
       </tr>
     </thead>
-    <tbody style="color: #334155;">
-      <tr style="border-bottom: 1px solid #e2e8f0;">
-        <td style="padding: 12px 14px; vertical-align: top;">
+    <tbody class="text-muted">
+      <tr class="table-row">
+        <td class="table-cell table-cell--top">
           • High processing time (~20 min on multi-core CPU).<br>
           • Visual degradation on fine text or ultra-detailed textures.<br>
           • Inefficient for basic vector artwork (a clean native SVG triangle is ~0.2 kB vs ~27 kB when reconstructed by this algorithm).
         </td>
-        <td style="padding: 12px 14px; vertical-align: top;">
+        <td class="table-cell table-cell--top">
           • <strong>Outstanding compression ratio</strong> (up to 70x).<br>
           • Infinite resolution and sharpness at any zoom level.<br>
           • <strong>Distinct artistic style:</strong> creates an expressive watercolor or mosaic effect.<br>
@@ -1493,20 +1488,20 @@ Dans tout l'article, $n$ désigne un entier impair supérieur ou égal à $3$ do
 
 Le test de **Miller-Rabin** permet de tester la primalité de nombres. Il repose sur deux résultats simples mais fondamentaux :
 
-<div style="background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; padding: 14px 18px; margin: 18px 0; border-radius: 4px;">
-  <strong style="color: #1d4ed8; font-size: 1.05em;">1. Le petit théorème de Fermat</strong><br/>
+<div class="theorem">
+  <strong class="theorem-title">1. Le petit théorème de Fermat</strong><br/>
   Si $p$ est premier et si $\operatorname{pgcd}(a, p) = 1$, alors :
   $$a^{p-1} \equiv 1 \pmod p$$
 </div>
 
-<div style="background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; padding: 14px 18px; margin: 18px 0; border-radius: 4px;">
-  <strong style="color: #1d4ed8; font-size: 1.05em;">2. Unicité des racines carrées de l'unité</strong><br/>
+<div class="theorem">
+  <strong class="theorem-title">2. Unicité des racines carrées de l'unité</strong><br/>
   Dans le corps fini $\mathbb{Z}/p\mathbb{Z}$ (avec $p$ premier), l'équation $x^2 \equiv 1 \pmod p$ admet exactement deux solutions :
   $$x \equiv 1 \pmod p \quad \text{ou} \quad x \equiv -1 \pmod p$$
 </div>
 *Preuve : $x^2 - 1 \equiv 0 \iff (x-1)(x+1) \equiv 0 \pmod p$. Comme $\mathbb{Z}/p\mathbb{Z}$ est un corps donc intègre, un des deux facteurs est nécessairement nul.* 
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ## L'idée de l'algorithme
 
@@ -1533,7 +1528,7 @@ Autrement dit, si $n$ est premier, la suite renversée $(x_s, x_{s-1}, \dots, x_
 Si en choisissant un $a$ on trouve une telle suite, $n$ est **probablement premier**. Sinon, si la suite a une forme différente, alors $n$ est **composé**.<br>
 Si 
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ## Exemple $n=561$ :
 
@@ -1545,70 +1540,70 @@ On choisit $a=2$.
 2. **Calcul du premier terme $x_0 = a^d \pmod n$ :**
    $$x_0 \equiv 2^{35} \equiv 263 \pmod{561} \quad (\not\equiv 1 \text{ et } \not\equiv -1)$$
 3. <strong>Élévations au carré successives ($r < 4$) :</strong>
-<ul style="margin: 8px 0 14px 1.5rem; padding: 0; list-style-type: disc;">
-  <li style="margin-bottom: 4px;"><strong>$r = 1$ :</strong> $x_1 \equiv (x_0)^2 \equiv 263^2 \equiv 166 \pmod{561} \quad (\not\equiv -1)$</li>
-  <li style="margin-bottom: 4px;"><strong>$r = 2$ :</strong> $x_2 \equiv (x_1)^2 \equiv 166^2 \equiv 67 \pmod{561} \quad (\not\equiv -1)$</li>
-  <li style="margin-bottom: 4px;"><strong>$r = 3$ :</strong> $x_3 \equiv (x_2)^2 \equiv 67^2 \equiv 1 \pmod{561} \quad (\not\equiv -1)$</li>
+<ul class="content-list">
+  <li class="content-list__item"><strong>$r = 1$ :</strong> $x_1 \equiv (x_0)^2 \equiv 263^2 \equiv 166 \pmod{561} \quad (\not\equiv -1)$</li>
+  <li class="content-list__item"><strong>$r = 2$ :</strong> $x_2 \equiv (x_1)^2 \equiv 166^2 \equiv 67 \pmod{561} \quad (\not\equiv -1)$</li>
+  <li class="content-list__item"><strong>$r = 3$ :</strong> $x_3 \equiv (x_2)^2 \equiv 67^2 \equiv 1 \pmod{561} \quad (\not\equiv -1)$</li>
 </ul>
 4. **Bilan :**<br>
    On a atteint $1$ sans jamais être passé par $-1$.<br>
    Le nombre $x_2 = 67$ est une racine carrée non triviale de $1$ modulo $561$ ($67 \not\equiv \pm 1$ mais $67^2 \equiv 1$).<br>
   $\implies$ **$561$ est composé**. 
 
-<div style="background: rgba(16, 185, 129, 0.06); border-left: 4px solid #10b981; padding: 12px 16px; margin: 14px 0; border-radius: 4px;">
+<div class="theorem theorem--success">
   <strong>Bonus factorisation :</strong> Dès qu'une racine non triviale $x$ de $1$ est trouvée, $\operatorname{pgcd}(x - 1, n)$ fournit un facteur strict de $n$. Ici :
   $$\operatorname{pgcd}(67 - 1, 561) = \operatorname{pgcd}(66, 561) = 33 = 3 \times 11$$
 </div>
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ## Comment rendre le test déterministe ?
 
 En pratique, pour des entiers bornés (par exemple des entiers sur 32 bits ou 64 bits), il n'est pas nécessaire de choisir des $a$ aléatoires. Tester un ensemble fini de $a$ suffit à garantir la primalité de façon déterministe.
 
-<div style="overflow-x: auto; margin: 18px 0;">
-  <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95em;">
+<div class="table-scroll table-scroll--compact">
+  <table class="data-table data-table--plain">
     <thead>
-      <tr style="background: rgba(0, 0, 0, 0.05); border-bottom: 2px solid #cbd5e1;">
-        <th style="padding: 10px 14px;">Domaine de $n$</th>
-        <th style="padding: 10px 14px;">Bases $a$ suffisantes</th>
-        <th style="padding: 10px 14px;">Complexité</th>
+      <tr class="table-heading table-heading--plain">
+        <th class="table-cell table-cell--small">Domaine de $n$</th>
+        <th class="table-cell table-cell--small">Bases $a$ suffisantes</th>
+        <th class="table-cell table-cell--small">Complexité</th>
       </tr>
     </thead>
     <tbody>
-      <tr style="border-bottom: 1px solid #e2e8f0;">
-        <td style="padding: 10px 14px;">$n < 2^{32} \approx 4{,}29 \times 10^9$</td>
-        <td style="padding: 10px 14px;"><code>{2, 7, 61}</code></td>
-        <td style="padding: 10px 14px;">3 tours</td>
+      <tr class="table-row">
+        <td class="table-cell table-cell--small">$n < 2^{32} \approx 4{,}29 \times 10^9$</td>
+        <td class="table-cell table-cell--small"><code>{2, 7, 61}</code></td>
+        <td class="table-cell table-cell--small">3 tours</td>
       </tr>
-      <tr style="border-bottom: 1px solid #e2e8f0;">
-        <td style="padding: 10px 14px;">$n < 2^{64} \approx 1{,}84 \times 10^{19}$</td>
-        <td style="padding: 10px 14px;"><code>{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37}</code></td>
-        <td style="padding: 10px 14px;">12 tours</td>
+      <tr class="table-row">
+        <td class="table-cell table-cell--small">$n < 2^{64} \approx 1{,}84 \times 10^{19}$</td>
+        <td class="table-cell table-cell--small"><code>{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37}</code></td>
+        <td class="table-cell table-cell--small">12 tours</td>
       </tr>
       <tr>
-        <td style="padding: 10px 14px;">$n$ arbitraire (sous <strong>GRH</strong>)</td>
-        <td style="padding: 10px 14px;">Tous les premiers $a \le 2(\ln n)^2$</td>
-        <td style="padding: 10px 14px;">$\mathcal{O}(\log^4 n)$</td>
+        <td class="table-cell table-cell--small">$n$ arbitraire (sous <strong>GRH</strong>)</td>
+        <td class="table-cell table-cell--small">Tous les premiers $a \le 2(\ln n)^2$</td>
+        <td class="table-cell table-cell--small">$\mathcal{O}(\log^4 n)$</td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<div style="background: rgba(168, 85, 247, 0.06); border-left: 4px solid #a855f7; padding: 14px 18px; margin: 18px 0; border-radius: 4px;">
-  <strong style="color: #7e22ce; font-size: 1.05em;">Le théorème de Miller (1976) :</strong><br/>
+<div class="theorem theorem--purple">
+  <strong class="theorem-title theorem-title--purple">Le théorème de Miller (1976) :</strong><br/>
   Si l'**Hypothèse de Riemann Généralisée (GRH)** est vraie, le test devient déterministe en temps polynomial pour tout entier $n$ en testant les bases :
   $$a \leq2(\ln n)^2$$
 </div>
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ## Pourquoi l'algorithme est fiable ?
 
 Lorsque $n$ dépasse par exemple $2^{64}$, notamment en cryptographie, tester toutes les bases n'est plus envisageable. On utilise alors le test sous sa forme probabiliste. Le test repose alors sur ce résultat :
 
-<div style="background: rgba(168, 85, 247, 0.06); border-left: 4px solid #a855f7; padding: 14px 18px; margin: 18px 0; border-radius: 4px;">
-  <strong style="color: #7e22ce; font-size: 1.05em;">Théorème de Monier-Rabin (1980) :</strong><br/>
+<div class="theorem theorem--purple">
+  <strong class="theorem-title theorem-title--purple">Théorème de Monier-Rabin (1980) :</strong><br/>
   Si $n$ est un entier composé impair, le sous-ensemble des bases $a \in (\mathbb{Z}/n\mathbb{Z})^\times$ pour lesquelles $n$ passe avec succès le test de Miller-Rabin (appelées <em>faux témoins</em>) est de cardinal au plus :
   $$|\text{Faux témoins}| \le \frac{1}{4}\varphi(n) < \frac{n}{4}$$
 </div>
@@ -1629,20 +1624,20 @@ Throughout this article, $n$ denotes an odd integer greater than or equal to $3$
 
 The **Miller-Rabin** test is used to determine whether a given number is prime. It is built on two simple yet fundamental mathematical results:
 
-<div style="background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; padding: 14px 18px; margin: 18px 0; border-radius: 4px;">
-  <strong style="color: #1d4ed8; font-size: 1.05em;">1. Fermat's Little Theorem</strong><br/>
+<div class="theorem">
+  <strong class="theorem-title">1. Fermat's Little Theorem</strong><br/>
   If $p$ is prime and $\gcd(a, p) = 1$, then:
   $$a^{p-1} \equiv 1 \pmod p$$
 </div>
 
-<div style="background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; padding: 14px 18px; margin: 18px 0; border-radius: 4px;">
-  <strong style="color: #1d4ed8; font-size: 1.05em;">2. Uniqueness of the Square Roots of Unity</strong><br/>
+<div class="theorem">
+  <strong class="theorem-title">2. Uniqueness of the Square Roots of Unity</strong><br/>
   In the finite field $\mathbb{Z}/p\mathbb{Z}$ (where $p$ is prime), the equation $x^2 \equiv 1 \pmod p$ has exactly two solutions:
   $$x \equiv 1 \pmod p \quad \text{or} \quad x \equiv -1 \pmod p$$
 </div>
 *Proof: $x^2 - 1 \equiv 0 \iff (x-1)(x+1) \equiv 0 \pmod p$. Because $\mathbb{Z}/p\mathbb{Z}$ is a field (and thus an integral domain), at least one factor must be zero.* 
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ## The Core Idea
 
@@ -1668,7 +1663,7 @@ In other words, if $n$ is prime, the reversed sequence $(x_s, x_{s-1}, \dots, x_
 
 If a chosen base $a$ generates such a sequence, $n$ is **probably prime**. If the sequence takes any other form, $n$ is definitely **composite**.
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ## Example: $n = 561$
 
@@ -1680,70 +1675,70 @@ Choose $a = 2$.
 2. **Compute the base term $x_0 = a^d \pmod n$:**
    $$x_0 \equiv 2^{35} \equiv 263 \pmod{561} \quad (\not\equiv 1 \text{ and } \not\equiv -1)$$
 3. <strong>Successive squarings ($r < 4$):</strong>
-<ul style="margin: 8px 0 14px 1.5rem; padding: 0; list-style-type: disc;">
-  <li style="margin-bottom: 4px;"><strong>$r = 1$:</strong> $x_1 \equiv (x_0)^2 \equiv 263^2 \equiv 166 \pmod{561} \quad (\not\equiv -1)$</li>
-  <li style="margin-bottom: 4px;"><strong>$r = 2$:</strong> $x_2 \equiv (x_1)^2 \equiv 166^2 \equiv 67 \pmod{561} \quad (\not\equiv -1)$</li>
-  <li style="margin-bottom: 4px;"><strong>$r = 3$:</strong> $x_3 \equiv (x_2)^2 \equiv 67^2 \equiv 1 \pmod{561} \quad (\not\equiv -1)$</li>
+<ul class="content-list">
+  <li class="content-list__item"><strong>$r = 1$:</strong> $x_1 \equiv (x_0)^2 \equiv 263^2 \equiv 166 \pmod{561} \quad (\not\equiv -1)$</li>
+  <li class="content-list__item"><strong>$r = 2$:</strong> $x_2 \equiv (x_1)^2 \equiv 166^2 \equiv 67 \pmod{561} \quad (\not\equiv -1)$</li>
+  <li class="content-list__item"><strong>$r = 3$:</strong> $x_3 \equiv (x_2)^2 \equiv 67^2 \equiv 1 \pmod{561} \quad (\not\equiv -1)$</li>
 </ul>
 4. **Outcome:**<br>
    The sequence reached $1$ without ever encountering $-1$.<br>
    The value $x_2 = 67$ is therefore a non-trivial square root of $1$ modulo $561$ ($67 \not\equiv \pm 1$ yet $67^2 \equiv 1$).<br>
   $\implies$ **$561$ is composite**. 
 
-<div style="background: rgba(160, 185, 129, 0.06); border-left: 4px solid #10b981; padding: 12px 16px; margin: 14px 0; border-radius: 4px;">
+<div class="theorem theorem--success">
   <strong>Factorization bonus:</strong> Whenever a non-trivial square root of $1$ (call it $x$) is uncovered, $\gcd(x - 1, n)$ produces a non-trivial factor of $n$. Here:
   $$\gcd(67 - 1, 561) = \gcd(66, 561) = 33 = 3 \times 11$$
 </div>
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ## Making the Test Deterministic
 
 In practice, for bounded integers (such as standard 32-bit or 64-bit integers), picking bases $a$ at random is unnecessary. Checking a small, fixed set of bases is enough to guarantee primality deterministically.
 
-<div style="overflow-x: auto; margin: 18px 0;">
-  <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95em;">
+<div class="table-scroll table-scroll--compact">
+  <table class="data-table data-table--plain">
     <thead>
-      <tr style="background: rgba(0, 0, 0, 0.05); border-bottom: 2px solid #cbd5e1;">
-        <th style="padding: 10px 14px;">Range of $n$</th>
-        <th style="padding: 10px 14px;">Sufficient bases $a$</th>
-        <th style="padding: 10px 14px;">Complexity</th>
+      <tr class="table-heading table-heading--plain">
+        <th class="table-cell table-cell--small">Range of $n$</th>
+        <th class="table-cell table-cell--small">Sufficient bases $a$</th>
+        <th class="table-cell table-cell--small">Complexity</th>
       </tr>
     </thead>
     <tbody>
-      <tr style="border-bottom: 1px solid #e2e8f0;">
-        <td style="padding: 10px 14px;">$n < 2^{32} \approx 4.29 \times 10^9$</td>
-        <td style="padding: 10px 14px;"><code>{2, 7, 61}</code></td>
-        <td style="padding: 10px 14px;">3 rounds</td>
+      <tr class="table-row">
+        <td class="table-cell table-cell--small">$n < 2^{32} \approx 4.29 \times 10^9$</td>
+        <td class="table-cell table-cell--small"><code>{2, 7, 61}</code></td>
+        <td class="table-cell table-cell--small">3 rounds</td>
       </tr>
-      <tr style="border-bottom: 1px solid #e2e8f0;">
-        <td style="padding: 10px 14px;">$n < 2^{64} \approx 1.84 \times 10^{19}$</td>
-        <td style="padding: 10px 14px;"><code>{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37}</code></td>
-        <td style="padding: 10px 14px;">12 rounds</td>
+      <tr class="table-row">
+        <td class="table-cell table-cell--small">$n < 2^{64} \approx 1.84 \times 10^{19}$</td>
+        <td class="table-cell table-cell--small"><code>{2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37}</code></td>
+        <td class="table-cell table-cell--small">12 rounds</td>
       </tr>
       <tr>
-        <td style="padding: 10px 14px;">Arbitrary $n$ (under the <strong>GRH</strong>)</td>
-        <td style="padding: 10px 14px;">All prime bases $a \le 2(\ln n)^2$</td>
-        <td style="padding: 10px 14px;">$\mathcal{O}(\log^4 n)$</td>
+        <td class="table-cell table-cell--small">Arbitrary $n$ (under the <strong>GRH</strong>)</td>
+        <td class="table-cell table-cell--small">All prime bases $a \le 2(\ln n)^2$</td>
+        <td class="table-cell table-cell--small">$\mathcal{O}(\log^4 n)$</td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<div style="background: rgba(168, 85, 247, 0.06); border-left: 4px solid #a855f7; padding: 14px 18px; margin: 18px 0; border-radius: 4px;">
-  <strong style="color: #7e22ce; font-size: 1.05em;">Miller's Theorem (1976):</strong><br/>
+<div class="theorem theorem--purple">
+  <strong class="theorem-title theorem-title--purple">Miller's Theorem (1976):</strong><br/>
   If the **Generalized Riemann Hypothesis (GRH)** holds, the algorithm becomes polynomial-time deterministic for every integer $n$ simply by testing all bases:
   $$a \le 2(\ln n)^2$$
 </div>
 
-<hr style="border: none; border-top: 1px solid #cbd5e1; margin: 2.5rem 0; width: 100%;" />
+<hr class="content-rule" />
 
 ## Why Is the Algorithm Reliable?
 
 When $n$ exceeds $2^{64}$—such as in cryptography—evaluating a deterministic set of bases is no longer practical. We instead run the test probabilistically, relying on the following bound:
 
-<div style="background: rgba(168, 85, 247, 0.06); border-left: 4px solid #a855f7; padding: 14px 18px; margin: 18px 0; border-radius: 4px;">
-  <strong style="color: #7e22ce; font-size: 1.05em;">Monier-Rabin Theorem (1980):</strong><br/>
+<div class="theorem theorem--purple">
+  <strong class="theorem-title theorem-title--purple">Monier-Rabin Theorem (1980):</strong><br/>
   If $n$ is an odd composite integer, the set of bases $a \in (\mathbb{Z}/n\mathbb{Z})^\times$ for which $n$ passes the Miller-Rabin test (referred to as <em>false witnesses</em> or <em>liars</em>) satisfies:
   $$|\text{False witnesses}| \le \frac{1}{4}\varphi(n) < \frac{n}{4}$$
 </div>
@@ -1767,7 +1762,7 @@ En 1918, Hardy et Ramanujan ont montré que
 $$p(n)\sim \frac{1}{4n\sqrt3}\text{exp}\left(\pi\sqrt{\frac{2n}{3}}\right)$$
 Mais comment calculer efficacement la valeur exacte de $p(n)$ ? Un calcule par force brute serait beaucoup trop long. On se propose de démontrer
 
-<div style="background: rgba(239, 68, 68, 0.06); border-left: 4px solid #ef4444; padding: 2px 0px; margin: 18px 0; border-radius: 4px;">
+<div class="theorem theorem--warning">
   $$\begin{equation*}
   \begin{split}
   p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + \cdots \\
@@ -1781,7 +1776,7 @@ Mais comment calculer efficacement la valeur exacte de $p(n)$ ? Un calcule par f
 
 Pour $\lvert x \rvert\lt 1$, on pose 
 $$f(x)=\prod_{n\geq 1}\frac{1}{1-x^n} = \prod_{n\geq 1}\sum_{i\geq 0}x^{ni} = \prod_{n\geq 1}(1+ x^n + x^{2n} + \cdots)$$
-Essayons de trouver le coefficient devant $x^k$ pour $k\geq 1$ : quand on développe le produit, on choisit dans chaque facteur $(1+ x^n + x^{2n} + \cdots)$ un $x^{i\cdot n}$ ; on l'interpète comme « je choisis $i$ fois le nombre $n$ ». Ainsi on choisit un certain nombre de fois le nombre $1$, un certain nombre de fois le nombre $2$, $\ldots$ Au final le coefficient devant $x^k$ est le nombre de manière de choisir $(i_1, i_2, \ldots)$ telle que :
+Essayons de trouver le coefficient devant $x^k$ pour $k\geq 1$ : quand on développe le produit, on choisit dans chaque facteur $(1+ x^n + x^{2n} + \cdots)$ un $x^{i\cdot n}$ ; on l'interprète comme « je choisis $i$ fois le nombre $n$ ». Ainsi on choisit un certain nombre de fois le nombre $1$, un certain nombre de fois le nombre $2$, $\ldots$ Au final le coefficient devant $x^k$ est le nombre de manières de choisir $(i_1, i_2, \ldots)$ telle que :
 $$i_1\cdot 1 + i_2 \cdot 2 + i_3 \cdot 3 + \cdots = k$$
 Ce nombre de manière, c'est exactement $p(k)$. D'où
 $$\boxed{f(x) = \prod_{n\geq 1}\frac{1}{1-x^n} =  1 + \sum_{n\geq 1} p(n)x^n}$$ 
@@ -1790,8 +1785,8 @@ $$\boxed{f(x) = \prod_{n\geq 1}\frac{1}{1-x^n} =  1 + \sum_{n\geq 1} p(n)x^n}$$
 
 On va démontrer le :
 
-<div style="background: rgba(59, 130, 246, 0.05); border-left: 4px solid #3b82f6; padding: 4px 4px; margin: 18px 0; border-radius: 4px;">
-  <strong style="color: #1d4ed8; font-size: 1.05em;">Théorème des nombres pentagonaux</strong><br/>
+<div class="theorem theorem--compact">
+  <strong class="theorem-title">Théorème des nombres pentagonaux</strong><br/>
   $$\prod_{n\geq 1}(1-x^n)=1 + \sum_{k\geq 1} (-1)^k\left(x^{k(3k-1)/2} + x^{k(3k+1)/2}\right)$$
 </div>
  $\underline{\text{Preuve :}}$ On va faire une première constatation : regardons le produit suivant, très légèrement différent :
@@ -1831,7 +1826,7 @@ $$
 \end{array}
 $$
 Comme bouger une des deux lignes décrémente de $1$ la taille de l'autre:
-<ul style="margin-top: 4px; margin-left: 6px; line-height: 1;">
+<ul class="content-list content-list--compact">
   <li>pour bouger la ligne ligne rouge en dessous de la bleue et obtenir un nombre strictement plus petit, il faut $a-1 \gt b$ </li>
   <li>pour bouger la ligne ligne bleue à côté de la rouge et ne pas avoir de points flottant, il faut  il faut $b-1 \geq a$ </li>
 </ul> 
@@ -1874,7 +1869,7 @@ et d'après le théorème des nombres pentagonaux,
 $$ \par{1 + \sum_{n\geq 1} p(n)x^n}\par{1 + \sum_{n\geq 1} (-1)^n\par{x^{n(3n-1)/2} + x^{n(3n+1)/2}}}  = 1$$
 $$ \par{1 + p_1x + p_2x^2 + p_3x^3 + \cdots}\par{1-x-x^2 + x^5 + x^7 - x^{12} + \cdots}  = 1$$
 Comme le coefficient devant $x^n$ est nul, on obtient bien
-<div style="background: rgba(239, 68, 68, 0.06); border-left: 4px solid #ef4444; padding: 2px 0px; margin: 18px 0; border-radius: 4px;">
+<div class="theorem theorem--warning">
   $$\begin{equation*}
   \begin{split}
   p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + \cdots \\
@@ -1894,7 +1889,7 @@ $$p(n)\sim \frac{1}{4n\sqrt3}\text{exp}\left(\pi\sqrt{\frac{2n}{3}}\right)$$
 But how can we efficiently compute the exact value of $p(n)$? A brute-force computation would take far too long. We propose to prove
 
 
-<div style="border-left:3px solid #888; padding-left:12px; margin:12px 0;">
+<div class="content-note">
 
 
 $$\begin{equation*}
@@ -1926,7 +1921,7 @@ $$\boxed{f(x) = \prod_{n\geq 1}\frac{1}{1-x^n} =  1 + \sum_{n\geq 1} p(n)x^n}$$
 We will prove the pentagonal number theorem, a theorem due to Euler:
 
 
-<div style="border-left:3px solid #888; padding-left:12px; margin:12px 0;">
+<div class="content-note">
 
 
 $$\prod_{n\geq 1}(1-x^n)=1 + \sum_{k\geq 1} (-1)^k\left(x^{k(3k-1)/2} + x^{k(3k+1)/2}\right)$$
@@ -1973,7 +1968,7 @@ $$
 \end{array}
 $$
 Since moving one of the two rows decreases the size of the other by $1$:
-<ul style="margin-top: 4px; margin-left: 6px; line-height: 1;">
+<ul class="content-list content-list--compact">
   <li>to move the red row below the blue one and obtain a strictly smaller number, we need $a-1 \gt b$ </li>
   <li>to move the blue row next to the red one without any floating dots, we need $b-1 \geq a$ </li>
 </ul> 
@@ -2031,7 +2026,7 @@ p(n) & = p(n-1) + p(n-2) - p(n-5) - p(n-7) + p(n-12) + \cdots \\
  fr:{title:String.raw`Comment fixer le prix d'une option ?`,
   blurb:String.raw`Comment les banques vous vendent des *options* sans jouer à la lotterie ?`,
   body:String.raw`
-<p style="text-align: justify;">
+<p class="text-justify">
 **1. Introduction**<br>
   Imaginons la situation suivante : vous êtes boulanger, et un client vient vous voir pour prévoir une énorme commande de $1000$ croissants. Mais ce client est prévoyant : il ne veut ses croissants que dans un an. Comme vous ne pouvez pas faire les croissants aujourd'hui, vous devrez acheter les matières premières (par exemple la farine) dans un an. Mais peut-être que d'ici là le prix de la farine aura bien augmenté. Et votre client veut un devis maintenant!<br>
   Dans ce cas, vous allez voir la banque et elle vous propose une assurance : elle vous promet de vous vendre de la farine à 1€ le kg, peu importe le prix du marché dans un an, même si la farine vaudra 10€ le kg.<br>
@@ -2065,7 +2060,7 @@ On va voir comment construire un portefeuille (un mélange d'actions et d'argent
 **3. Le modèle binomial à un pas**
 
 Aujourd'hui, l'action vaut $S$ et à la date $\Delta t$, elle ne peut prendre que deux valeurs : 
-<ul style="margin-top: 4px; margin-left: 6px; line-height: 1;">
+<ul class="content-list content-list--compact">
   <li>$S\cdot u$ dans le scénario où elle monte
   <li>$S\cdot d$ dans le scénario où elle descend
 </ul> 
@@ -2086,9 +2081,9 @@ Le coût $C$ de l'option est finalement
 $$\boxed{C=\Delta \cdot S + \Gamma}$$
 On remarquera qu'à **aucun moment** on n'a fait intervenir les probabilité pour l'action de monter ou de descendre! Le prix ne dépend pas de ces probabilités.
 
-**4. Ce que fait la banque en pratique**<p style="text-align: justify;">
+**4. Ce que fait la banque en pratique**<p class="text-justify">
 Concrètement, ce que fait la banque (le vendeur de l'option) :
-<ul style="margin-top: 4px; margin-left: 6px; line-height: 1;">
+<ul class="content-list content-list--compact">
   <li> le client achète une option call au prix $C$; la banque reçoit donc $C$
   <li> la banque emprunte $-\Gamma$ (si $\Gamma\lt 0$)  
   <li> la banque achète $\Delta$ actions grâce à $C - \Gamma$ (car $\Delta\cdot S = C - \Gamma$)
@@ -2115,7 +2110,7 @@ ce qui signifie qu'en calculant les payoff $C_u, C_d$ ainsi que $q$ on peut remo
 en:{title:String.raw`How do you price an option?`,
   blurb:String.raw`How do banks sell you *options* without playing the lottery?`,
   body:String.raw`
-<p style="text-align: justify;">
+<p class="text-justify">
 **1. Introduction**<br>
   Imagine the following situation: you are a baker, and a customer comes to you to place a huge order for $1000$ croissants. But this customer is cautious: they only want their croissants in a year. Since you can't make the croissants today, you'll need to buy the raw materials (flour, say) a year from now. But maybe by then the price of flour will have gone up a lot. And your customer wants a quote now!<br>
   In that case, you go to the bank and it offers you an insurance: it promises to sell you flour at €1 per kg, no matter what the market price is in a year, even if flour is worth €10 per kg by then.<br>
@@ -2158,7 +2153,7 @@ We're going to see how to build a portfolio (a mix of stock and money at the ban
 
 
 Today, the stock is worth $S$ and at time $\Delta t$, it can only take two values: 
-<ul style="margin-top: 4px; margin-left: 6px; line-height: 1;">
+<ul class="content-list content-list--compact">
   <li>$S\cdot u$ in the scenario where it goes up
   <li>$S\cdot d$ in the scenario where it goes down
 </ul> 
@@ -2180,9 +2175,9 @@ $$\boxed{C=\Delta \cdot S + \Gamma}$$
 Notice that **at no point** did we bring in the probabilities of the stock going up or down! The price doesn't depend on these probabilities.
 
 
-**4. What the bank does in practice**<p style="text-align: justify;">
+**4. What the bank does in practice**<p class="text-justify">
 Concretely, here's what the bank (the option seller) does:
-<ul style="margin-top: 4px; margin-left: 6px; line-height: 1;">
+<ul class="content-list content-list--compact">
   <li> the customer buys a call option at price $C$; the bank therefore receives $C$
   <li> the bank borrows $-\Gamma$ (if $\Gamma\lt 0$)  
   <li> the bank buys $\Delta$ shares using $C - \Gamma$ (since $\Delta\cdot S = C - \Gamma$)
@@ -2495,47 +2490,5 @@ Assume $n\geq 2$, so that $2^{n+1}\geq 8$. Since $p=k2^{n+1}+1$, then $8 \mid p-
 $$p = k2^{n+2} + 1$$
 For $n=5$, one must test $p=128k + 1$, so excluding composite $p$, it suffices to test $p=257$ and $p=641$ only! 
 `}},
-
-{id:'P-999  ',slug:'test',date:'0000-00-00',level:1,tags:[],
- fr:{title:'None',
-  blurb:String.raw`None`,
-  statement:String.raw`
-
-1. Le point de départ : $p(n)$ comme intégrale
-
-$$\boxed{p(n)=\frac{1}{2i\pi}\int_{c-i\pi}^{c+i\pi} f(e^{-t})e^{nt}dt}\qquad (\star)$$
-
-<div class="callout">
-
-<b>Rappel (Mellin).</b> Pour $\mathrm{Re}\,s>0$, $\displaystyle\Gamma(s)=\int_0^{\infty}e^{-y}y^{s-1}\,dy$, et la formule d'inversion donne, pour $c>0$ et $y>0$ :
-$$e^{-y}=\frac{1}{2i\pi}\int_{(c)}\Gamma(s)\,y^{-s}\,ds$$
-
-</div>
-
-$$\par{\sum} \qquad \norm{\sum} \qquad \abs{\sum}$$
-
-<ul style="margin-top: 4px; margin-left: 6px; line-height: 1;">
-  <li>pour bouger la ligne ligne rouge en dessous de la bleue et obtenir un nombre strictement plus petit, il faut $a-1 \gt b$ </li>
-  <li>pour bouger la ligne ligne bleue à côté de la rouge et ne pas avoir de points flottant, il faut  il faut $b-1 \geq a$ </li>
-</ul> 
-
-~~~
-pour i de 0 à n-1 :
-    pour j de 0 à n-3 :
-        si t[j] > t[j+2] :
-            échanger t[j] et t[j+2]
-~~~
-
-![FFT](images/fft.png)
-
-
-`,
-  hint:String.raw` None
-`,
-  solution:String.raw`None
-`},
- en:{title:'None',
-  blurb:'None'}
-},
 
 ]};

@@ -1,7 +1,7 @@
 /* =========================================================
    app.js — routeur, i18n, moteur Markdown + LaTeX (KaTeX)
-   Aucune dépendance à part KaTeX (rendu des maths) et Lucide (icônes),
-   tous deux chargés depuis index.html.
+   KaTeX (maths), TikZJax (figures), Lucide (icônes) et Highlight.js (code)
+   sont chargés depuis index.html.
    ========================================================= */
 (function(){
 'use strict';
@@ -22,30 +22,30 @@ fr:{
      problem:n=>n+(n>1?' problèmes':' problème'),category:n=>n+(n>1?' catégories':' catégorie')},
   readTime:n=>n+' min de lecture',
   home:{recent:'Ajouté récemment',kinds:{article:'Article',problem:'Problème',project:'Projet'},
-    edu:'Formation',skills:'Compétences',elsewhere:'Ailleurs',ongoing:'en cours',
+    edu:'Formation',skills:'Compétences',elsewhere:'Ailleurs',
     doors:[
-      'Les projets que j’ai réalisé, que ce soit pour les cours, parce que les outils n’existaient pas.. ou simplement par curiosité. Parce qu’on apprend par la pratique!',
-      'Des articles que j’écris sur ce que je trouve fascinant. Ils sont rangés par domaine : mathématiques, informatique et physique.',
-      'Une compilation des plus beaux exercices que j’ai rencontré. Venez vous casser la tête sur des exercices pas toujours faciles!']},
-  projects:{h1:'Projets',lead:'Vous trouverez ici une liste des projets que j’ai réalisé. Ces projets ont parfois été menés pour les cours, mais plus souvent ils l’ont été pour répondre à des besoins personnels. Vous trouverez pour la plupart des projets la motivation du projet, les fonctionnalités du produit final, les problèmes rencontrés et ce que j’ai appris lors de sa conception.<br><br>Comme la plupart des projets sont en libre accès sur mon Github, amusez-vous à les installer et à jouer avec!',
+      'Les projets que j’ai réalisés, que ce soit pour les cours, parce que les outils n’existaient pas… ou simplement par curiosité. Parce qu’on apprend par la pratique !',
+      'Des articles que j’écris sur ce que je trouve fascinant. Ils sont rangés par domaine : mathématiques, informatique, finance et physique.',
+      'Une compilation des plus beaux exercices que j’ai rencontrés. Venez vous casser la tête sur des exercices pas toujours faciles !']},
+  projects:{h1:'Projets',lead:'Vous trouverez ici une liste des projets que j’ai réalisés. Ces projets ont parfois été menés pour les cours, mais plus souvent ils l’ont été pour répondre à des besoins personnels. Vous trouverez pour la plupart des projets la motivation du projet, les fonctionnalités du produit final, les problèmes rencontrés et ce que j’ai appris lors de sa conception.<br><br>Comme la plupart des projets sont en libre accès sur mon GitHub, amusez-vous à les installer et à jouer avec !',
     sheet:'Fiche technique',links:'Liens',stack:'Techniques',prev:'Projet précédent',next:'Projet suivant'},
   articles:{h1:'Articles',lead:n=>'“Study hard what interests you the most in the most undisciplined, irreverent and original manner possible.” Feynman<br><br>Il y a actuellement '+n+' articles : bonne lecture !',
     allCats:'Toutes les catégories',prev:'Article précédent',next:'Article suivant'},
-  problems:{h1:'Problèmes',lead:'Vous trouverez ici un recueil de problèmes et d’exercices, parmi les plus élégants et surprenants que j’ai rencontré au cours de ma scolarité et de mes lectures personnelles.<br><br>Chacun vient avec un indice, puis une solution détaillée. Mais prenez le temps de chercher une solution, une piste tout du moins, pour que le problème vous soit utile et que vous en perceviez l’élégance. Mais surtout, prenez du plaisir à réfléchir à ces jolis problèmes... en somme, amusez-vous.',
+  problems:{h1:'Problèmes',lead:'Vous trouverez ici un recueil de problèmes et d’exercices, parmi les plus élégants et surprenants que j’ai rencontrés au cours de ma scolarité et de mes lectures personnelles.<br><br>Chacun vient avec un indice, puis une solution détaillée. Mais prenez le temps de chercher une solution, une piste tout du moins, pour que le problème vous soit utile et que vous en perceviez l’élégance. Mais surtout, prenez du plaisir à réfléchir à ces jolis problèmes… en somme, amusez-vous.',
     domain:'Domaine',theme:'Thème',search:'Rechercher un mot, un thème, un identifiant…',clear:'Effacer la recherche',
     results:(n,t)=>n+(n>1?' problèmes':' problème')+' sur '+t,none:'aucun résultat',reset:'Réinitialiser',
     empty:'Aucun problème ne correspond. Les filtres se cumulent : un problème doit porter <em>tous</em> les tags sélectionnés.',
     showAll:'Tout afficher',hint:'Indice',solution:'Solution complète',written:'rédigé le',
     difficulty:n=>'Difficulté '+n+' sur 3',all:'Tous les problèmes',prev:'Précédent',next:'Suivant'},
   contact:{h1:'Contact',
-    lead:'Je suis à la recherche d\'un stage en Machine Learning et Fiance quantitative de trois mois entre juin 2027 et septembre 2027.',
+    lead:'Je suis à la recherche d\'un stage de trois mois en machine learning et finance quantitative entre juin 2027 et septembre 2027.',
     p:['N\'hésitez pas à me contacter pour toute question.'],
     copy:'Copier l’adresse',copied:'Copié',copyFail:'Copie impossible',
     elsewhere:'Ailleurs',recent:'Projets récents',avail:'Disponibilité',
     rows:[['Stage','À partir de juin 2027'],['Sujets','Intelligence Artificielle, Finance Quantitative'],['Lieu','France ou à l’étranger']]},
   nf:{eyebrow:'Erreur 404',h1:'Cette page n’existe pas',
-    lead:'Le lien est peut-être ancien, ou l’adresse comporte une faute. Les quatre sections du site sont accessibles depuis le menu.'},
-  foot:{about:'Antoine THEOBALD--ROSA — Paris.',updated:'Dernière mise à jour : septembre 2026.'},
+    lead:'Le lien est peut-être ancien, ou l’adresse comporte une faute. Les sections du site sont accessibles depuis le menu.'},
+  foot:{about:'Antoine THEOBALD--ROSA — Paris.',updated:'Dernière mise à jour : octobre 2026.'},
   pending:null,
   langLabel:'Passer en anglais'
 },
@@ -57,17 +57,17 @@ en:{
      problem:n=>n+' problem'+(n>1?'s':''),category:n=>n+' categor'+(n>1?'ies':'y')},
   readTime:n=>n+' min read',
   home:{recent:'Recently added',kinds:{article:'Article',problem:'Problem',project:'Project'},
-    edu:'Education',skills:'Skills',elsewhere:'Elsewhere',ongoing:'in progress',
+    edu:'Education',skills:'Skills',elsewhere:'Elsewhere',
     doors: [
       "The projects I have worked on, whether for coursework, because the tools did not exist yet, or simply out of curiosity. Because the best way to learn is by doing!",
-      "Articles I write about what I find fascinating. They are organized by field: mathematics, computer science, and physics.",
+      "Articles I write about what I find fascinating. They are organized by field: mathematics, computer science, finance, and physics.",
       "A collection of the finest problems I have come across. Come challenge yourself with exercises that are not always easy!"
     ]},
   projects:{h1:'Projects',lead:'Here you will find a list of the projects I have worked on. These projects were sometimes carried out for coursework, but more often they were undertaken to address needs I had. For most projects, you will find the motivation behind the project, the features of the final product, the challenges encountered, and what I learned during its development.<br><br>As most projects are freely available on my GitHub, feel free to install them and play around with them!',
     sheet:'Tech sheet',links:'Links',stack:'Stack',prev:'Previous project',next:'Next project'},
   articles:{h1:'Articles',lead:n=>'“Study hard what interests you the most in the most undisciplined, irreverent and original manner possible.” Feynman<br><br>There are currently '+n+' articles: happy reading!',
     allCats:'All categories',prev:'Previous article',next:'Next article'},
-  problems:{h1:'Problems',lead:'Here you will find a collection of problems and exercises, among the most elegant and surprising I have encountered during my studies and personal reading.<br><br>Each comes with a hint, followed by a detailed solution. But take the time to search for a solution, or at least a starting point, so that the problem becomes useful to you, so that you can appreciate its elegance at the very least. Most importantly, take pleasure in thinking through these beautiful problems... in short, have fun.F',
+  problems:{h1:'Problems',lead:'Here you will find a collection of problems and exercises, among the most elegant and surprising I have encountered during my studies and personal reading.<br><br>Each comes with a hint, followed by a detailed solution. But take the time to search for a solution, or at least a starting point, so that the problem becomes useful to you, so that you can appreciate its elegance at the very least. Most importantly, take pleasure in thinking through these beautiful problems… have fun!',
     domain:'Field',theme:'Topic',search:'Search a word, a topic, an identifier…',clear:'Clear search',
     results:(n,t)=>n+' of '+t+' problem'+(t>1?'s':''),none:'no result',reset:'Reset',
     empty:'No problem matches. Filters combine: a problem must carry <em>all</em> selected tags.',
@@ -80,15 +80,17 @@ en:{
     elsewhere:'Elsewhere',recent:'Recent projects',avail:'Availability',
     rows:[['Internship','From June 2027'],['Topics','Artificial Intelligence, Finance'],['Location','Anywhere']]},
   nf:{eyebrow:'Error 404',h1:'This page does not exist',
-    lead:'The link may be old, or the address has a typo. All four sections are reachable from the menu.'},
-  foot:{about:'Antoine THEOBALD--ROSA — Paris.',updated:'Last updated: september 2026.'},
+    lead:'The link may be old, or the address has a typo. All sections are reachable from the menu.'},
+  foot:{about:'Antoine THEOBALD--ROSA — Paris.',updated:'Last updated: October 2026.'},
   pending:'Pas encore traduit / Not translated yet: the text below is in French.',
   langLabel:'Switch to French'
 }};
 
 let LANG = (function(){
-  const saved = localStorage.getItem('lang');
-  if(saved === 'fr' || saved === 'en') return saved;
+  try{
+    const saved = localStorage.getItem('lang');
+    if(saved === 'fr' || saved === 'en') return saved;
+  }catch(e){ /* Le choix reste utilisable sans stockage navigateur. */ }
   return (navigator.language || 'fr').toLowerCase().startsWith('en') ? 'en' : 'fr';
 })();
 const T = () => UI[LANG];
@@ -167,7 +169,7 @@ function md(src){
     let libs = '';
     body = body.replace(/^\s*%libs[ \t]+([^\n]*)\n/, (_, l) => { libs = l.trim(); return ''; });
     TIKZ.push({ code: body.replace(/\s+$/, ''), cap: cap.trim(), libs: libs });
-    return '' + (TIKZ.length - 1) + '';
+    return '\n\n\u0003' + (TIKZ.length - 1) + '\u0003\n\n';
   });
   const code = [];
   s = s.replace(/(?:```|~~~)[ \t]*([a-zA-Z0-9_-]*)[ \t]*\n([\s\S]*?)(?:```|~~~)/g, (_, lang, c) => {
@@ -177,7 +179,7 @@ function md(src){
 
   const blocks = s.split(/\n{2,}/).map(b => b.trim()).filter(Boolean).map(b => {
     let mm;
-    if((mm = b.match(/^(\d+)$/))){
+    if((mm = b.match(/^\u0003(\d+)\u0003$/))){
       const t = TIKZ[+mm[1]];
       return '<figure class="tikz"><div class="tikz__slot" data-tikz="' + mm[1] + '"></div>' +
         (t.cap ? '<figcaption>' + inline(t.cap) + '</figcaption>' : '') + '</figure>';
@@ -321,7 +323,7 @@ const notice = () => T().pending
 function pager(prev, next){
   if(!prev && !next) return '';
   const cell = (x, align) => x
-    ? '<a href="'+x[2]+'" style="text-align:'+align+'"><span class="eyebrow">'+x[0]+'</span><strong>'+inline(x[1])+'</strong></a>'
+    ? '<a href="'+x[2]+'" class="pager__'+align+'"><span class="eyebrow">'+x[0]+'</span><strong>'+inline(x[1])+'</strong></a>'
     : '<span></span>';
   return '<nav class="pager" aria-label="' + (LANG==='fr'?'Pages voisines':'Adjacent pages') + '">' +
     cell(prev,'left') + cell(next,'right') + '</nav>';
@@ -332,12 +334,12 @@ function pager(prev, next){
    ========================================================= */
 function viewHome(){
   const p = S.profile, u = T();
-  const a0 = S.articles[0], pb0 = S.problems[0], pj = S.projects.find(x => x.slug === 'recherche') || S.projects[0];
+  const a0 = [...S.articles].sort((a,b) => b.date.localeCompare(a.date))[0], pb0 = S.problems[0], pj = S.projects[0];
   const rec = [
-    [u.home.kinds.article, pick(a0).title, '#/articles/'+a0.cat+'/'+a0.slug, fmtDate(a0.date)],
-    [u.home.kinds.problem, pick(pb0).title, '#/problemes/'+pb0.slug, pb0.id],
-    [u.home.kinds.project, pick(pj).title, '#/projets/'+pj.slug, u.home.ongoing]
-  ];
+    a0 && [u.home.kinds.article, pick(a0).title, '#/articles/'+a0.cat+'/'+a0.slug, fmtDate(a0.date)],
+    pb0 && [u.home.kinds.problem, pick(pb0).title, '#/problemes/'+pb0.slug, pb0.id],
+    pj && [u.home.kinds.project, pick(pj).title, '#/projets/'+pj.slug, pick(pj).status]
+  ].filter(Boolean);
   const doors = [
     ['01', u.nav.projects, '#/projets', u.home.doors[0], u.n.project(S.projects.length)],
     ['02', u.nav.articles, '#/articles', u.home.doors[1], u.n.article(S.articles.length)],
@@ -366,7 +368,7 @@ function viewHome(){
       '<a class="door" href="'+d[2]+'"><span class="door__n">'+d[0]+'</span><h2>'+d[1]+'</h2>' +
       '<p>'+d[3]+'</p><span class="door__go">'+d[4]+' &nbsp;→</span></a>').join('') + '</div>' +
 
-    '<section style="margin-bottom:var(--s9)"><h2 class="eyebrow" style="margin-bottom:var(--s4)">' + u.home.recent + '</h2>' +
+    '<section class="recent"><h2 class="eyebrow recent__heading">' + u.home.recent + '</h2>' +
       '<div class="linklist">' + rec.map(r =>
         '<a href="'+r[2]+'"><span class="kind">'+r[0]+'</span><b>'+inline(r[1])+'</b><span>'+r[3]+'</span></a>').join('') +
       '</div></section></div>';
@@ -396,7 +398,7 @@ function viewProject(slug){
 
   // 2. Bouton GitHub stylisé pour s'aligner parfaitement avec les badges (chips)
   const githubBtn = codeLink
-    ? '<a class="btn btn--a" href="' + codeLink[1] + '" target="_blank" rel="noopener" style="padding:2px 9px; min-height:24px; font-size:.68rem; gap:6px; border-radius:2px; text-transform:uppercase;">' +
+    ? '<a class="btn btn--a btn--compact" href="' + codeLink[1] + '" target="_blank" rel="noopener">' +
         '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>' +
         inline(codeLink[0]) +
       '</a>'
@@ -417,14 +419,14 @@ function viewProject(slug){
       '<h1>' + inline(c.title) + '</h1>' +
       '<p class="lead">' + inline(c.lead) + '</p>' +
       // Les tags et le bouton Code source sont côte à côte sur la même ligne
-      '<div class="chips" style="margin-top:var(--s4); align-items:center;">' +
+      '<div class="chips project__links">' +
         tagsHtml +
         githubBtn +
       '</div>' +
     '</header>' +
     '<div class="detail">' + (isPending(p,'body') ? notice() : '') +
-      '<article class="prose" style="margin-top:var(--s6)">' + md(c.body) + '</article>' +
-      '<div style="margin-top:var(--s7)"><a class="btn" href="#/projets">← ' + u.h1 + '</a></div>' +
+      '<article class="prose project__body">' + md(c.body) + '</article>' +
+      '<div class="project__back"><a class="btn" href="#/projets">← ' + u.h1 + '</a></div>' +
     '</div>' +
     pager(prev && [u.prev, pick(prev).title, '#/projets/' + prev.slug], next && [u.next, pick(next).title, '#/projets/' + next.slug]) +
     '</div>';
@@ -450,7 +452,7 @@ function viewCategory(id){
         '<div class="row__meta"><span class="year">'+fmtDate(a.date)+'</span><span class="tag">'+T().readTime(a.read)+'</span></div>' +
         '<h2>'+inline(c.title)+'</h2><p>'+inline(c.blurb)+'</p></div></a>';
     }).join('') + '</div>' +
-    '<div style="margin-bottom:var(--s9)"><a class="btn" href="#/articles">← '+T().articles.allCats+'</a></div></div>';
+    '<div class="category__back"><a class="btn" href="#/articles">← '+T().articles.allCats+'</a></div></div>';
 }
 
 function viewArticle(catId, slug){
@@ -560,10 +562,10 @@ function viewContact(){
   return '<div class="wrap view">' + crumbs([[T().crumbHome,'#/'],[T().nav.contact]]) +
     '<header class="pagehead"><h1>'+u.h1+'</h1><p class="lead">'+u.lead+'</p></header>' +
     '<div class="contact"><div class="prose">' + u.p.map(x => '<p>'+inline(x)+'</p>').join('') +
-      '<p class="btnrow" style="margin-top:var(--s6)">' +
+      '<p class="btnrow contact__actions">' +
         '<a class="btn btn--a" href="mailto:'+p.email+'"><i data-lucide="mail"></i>'+p.email+'</a>' +
-        '<button class="btn" id="copy" type="button"><i data-lucide="copy"></i><span>'+u.copy+'</span></button></p></div>' +
-    '<aside class="detail__rail" style="border-left:1px solid var(--rule);padding-left:var(--s5)">' +
+        '<button class="btn" id="copy" type="button"><span class="copy__icon" aria-hidden="true"><i data-lucide="copy"></i></span><span class="copy__label" role="status" aria-live="polite">'+u.copy+'</span></button></p></div>' +
+    '<aside class="detail__rail contact__rail">' +
       '<section><h2>'+u.elsewhere+'</h2><div class="linklist">' +
         '<a href="https://github.com/AntoineTHEOBALDROSA" target="_blank" rel="noopener">GitHub<span aria-hidden="true">↗</span></a>' +
         '<a href="https://www.linkedin.com/in/antoine-theobald-rosa-696087381/" target="_blank" rel="noopener">LinkedIn<span aria-hidden="true">↗</span></a>' +
@@ -575,12 +577,28 @@ function viewContact(){
 function bindContact(){
   const b = document.getElementById('copy');
   if(!b) return;
+  let resetTimer;
   b.addEventListener('click', async () => {
-    const span = b.querySelector('span'), ico = b.querySelector('i'), old = span.textContent;
-    try{ await navigator.clipboard.writeText(S.profile.email); span.textContent = T().contact.copied; }
-    catch(e){ span.textContent = T().contact.copyFail; }
-    ico.setAttribute('data-lucide','check'); icons();
-    setTimeout(() => { span.textContent = old; b.querySelector('i').setAttribute('data-lucide','copy'); icons(); }, 1900);
+    const label = b.querySelector('.copy__label'), holder = b.querySelector('.copy__icon');
+    const u = T().contact;
+    const setIcon = name => {
+      holder.innerHTML = '<i data-lucide="'+name+'"></i>';
+      icons();
+    };
+    clearTimeout(resetTimer);
+    b.disabled = true;
+    let copied = false;
+    try{ await navigator.clipboard.writeText(S.profile.email); copied = true; }
+    catch(e){ /* Afficher l’échec sans interrompre l’interface. */ }
+    b.disabled = false;
+    if(!b.isConnected) return;
+    label.textContent = copied ? u.copied : u.copyFail;
+    setIcon(copied ? 'check' : 'x');
+    resetTimer = setTimeout(() => {
+      if(!b.isConnected) return;
+      label.textContent = u.copy;
+      setIcon('copy');
+    }, 1900);
   });
 }
 
@@ -588,7 +606,7 @@ function viewNotFound(){
   const u = T().nf;
   return '<div class="wrap view"><header class="pagehead"><p class="eyebrow">'+u.eyebrow+'</p>' +
     '<h1>'+u.h1+'</h1><p class="lead">'+u.lead+'</p></header>' +
-    '<div class="btnrow" style="margin-bottom:var(--s9)">' +
+    '<div class="btnrow notfound__actions">' +
       '<a class="btn btn--a" href="#/">'+T().nav.home+'</a>' +
       '<a class="btn" href="#/projets">'+T().nav.projects+'</a>' +
       '<a class="btn" href="#/articles">'+T().nav.articles+'</a>' +
